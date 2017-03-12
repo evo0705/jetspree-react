@@ -11,7 +11,7 @@ class App extends Component {
 		super(props)
 		this.state = {
 		  requests: "",
-		  name: "",
+		  name: "cake",
 		  category: 1,
 		  categories: []
 		};
@@ -74,7 +74,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
 		<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
-		<label></label><Select name="form-field-name" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.selectChange} />
+		{/*<label>Category</label><Select name="form-field-name" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.selectChange} />*/}
 		<input type="button" onClick={() => this.buttonClick(100)} value="Get 100 records" />
 		<input type="button" onClick={() => this.buttonClick(1000)} value="Get 1000 records!" />
 		<input type="button" onClick={() => this.buttonClick(5000)} value="Get 5000 records!!" />
