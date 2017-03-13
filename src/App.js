@@ -10,14 +10,17 @@ class App extends Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-		  requests: "",
-		  name: "cake",
-		  category: 1,
+		  requests: '',
+		  name: 'cake',
+		  category: 'snacks',
+		  country: 'my',
+		  countries: [],
 		  categories: []
 		};
 		this.buttonClick = this.buttonClick.bind(this);
 		this.inputChange = this.inputChange.bind(this);
-		this.selectChange = this.selectChange.bind(this);
+		this.changeCategory = this.changeCategory.bind(this);
+		this.changeCountry = this.changeCountry.bind(this);
 	}
 	
 	loadData(pagesize){
@@ -33,21 +36,28 @@ class App extends Component {
 	
 	initData(){
 		var scope = this;
-		Axios.get('http://jetspree02.cloudapp.net/api/selections')
-		.then(function (response) {
+		Axios.all([
+			Axios.get('https://jetspree-node-test.herokuapp.com/api/countries'),
+			Axios.get('https://jetspree-node-test.herokuapp.com/api/categories/sub')
+		])
+		.then(Axios.spread(function (response1, response2) {
 			scope.setState({
-				categories: response.data.categories.map(function(obj){ 
-					return { label: obj.name, value: obj.id } 
-				}) 
+				countries: response1.data.map(function(obj){ 
+					return { label: obj.name, value: obj._id } 
+				}),
+				categories: response2.data.map(function(obj){
+					return { label: obj.name, value: obj._id } 
+				})
 			});
-		})
+
+		}))
 		.catch(function (error) {
 			console.log(error);
 		});
 	}
 
   componentDidMount() {
-    //this.initData();
+    this.initData();
   }
   
   buttonClick(pagesize){
@@ -59,8 +69,12 @@ class App extends Component {
     this.setState({name: event.target.value});
   }
   
-  selectChange(val) {
+  changeCategory(val) {console.log(val);
 	this.setState({category: val.value});
+  }
+  
+  changeCountry(val) {
+	this.setState({country: val.value});
   }
   
   render() {
@@ -74,10 +88,10 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
 		<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
-		{/*<label>Category</label><Select name="form-field-name" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.selectChange} />*/}
+		<label>Country</label><Select name="form-country" searchable={false} clearable={false} value={this.state.country} options={this.state.countries} onChange={this.changeCountry} />
+		<label>Category</label><Select name="form-category" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.changeCategory} />
 		<input type="button" onClick={() => this.buttonClick(100)} value="Get 100 records" />
 		<input type="button" onClick={() => this.buttonClick(1000)} value="Get 1000 records!" />
-		<input type="button" onClick={() => this.buttonClick(5000)} value="Get 5000 records!!" />
 		<pre>{this.state.requests}</pre>
       </div>
     );
