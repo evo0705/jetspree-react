@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 import Select from 'react-select';
 import '../node_modules/react-select/dist/react-select.min.css';
 import { loadCountries, loadSubCategories } from './data/common.js';
+import { loadRequests } from './data/requests.js';
 
 class App extends Component {
 
@@ -25,13 +25,14 @@ class App extends Component {
 	}
 	
 	loadData(pagesize){
-		var scope = this;
-		Axios.get('https://jetspree-node-test.herokuapp.com/api/requests?name=' + scope.state.name + '&category=' + scope.state.category + '&pagesize=' + pagesize)
-		.then(function (response) {
-			scope.setState({requests: JSON.stringify(response.data)});
-		})
-		.catch(function (error) {
-			console.log(error);
+		var scope = this;		
+		let param = {
+			name: scope.state.name,
+			category: scope.state.category,
+			pagesize: pagesize
+		};
+		loadRequests(param).then((data) => {
+			scope.setState({requests: JSON.stringify(data)});
 		});
 	}
 	
@@ -52,24 +53,6 @@ class App extends Component {
 				})
 			});
 		});
-		/*Axios.all([
-			Axios.get('https://jetspree-node-test.herokuapp.com/api/countries'),
-			Axios.get('https://jetspree-node-test.herokuapp.com/api/categories/sub')
-		])
-		.then(Axios.spread(function (response1, response2) {
-			scope.setState({
-				countries: response1.data.map(function(obj){ 
-					return { label: obj.name, value: obj._id } 
-				}),
-				categories: response2.data.map(function(obj){
-					return { label: obj.name, value: obj._id } 
-				})
-			});
-
-		}))
-		.catch(function (error) {
-			console.log(error);
-		});*/
 	}
 
   componentDidMount() {
@@ -85,7 +68,7 @@ class App extends Component {
     this.setState({name: event.target.value});
   }
   
-  changeCategory(val) {console.log(val);
+  changeCategory(val) {
 	this.setState({category: val.value});
   }
   
