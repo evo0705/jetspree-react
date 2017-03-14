@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export function loadCountries() {
-	return Axios.get('https://jetspree-node-test.herokuapp.com/api/countries')
+	return Axios.get('https://jetspree-node-test.herokuapp.com/countries')
 		.then( (response) => response.data )
 		.catch(function (error) {
 			console.log(error);
@@ -9,7 +9,7 @@ export function loadCountries() {
 }
 
 export function loadSubCategories() {
-	return Axios.get('https://jetspree-node-test.herokuapp.com/api/categories/sub')
+	return Axios.get('https://jetspree-node-test.herokuapp.com/categories/sub')
 		.then( (response) => response.data )
 		.catch(function (error) {
 			console.log(error);

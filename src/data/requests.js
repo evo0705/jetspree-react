@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 export function loadRequests(param) {
 
-	let api = 'https://jetspree-node-test.herokuapp.com/api/requests?' + QueryString.stringify(param);
+	let api = 'https://jetspree-node-test.herokuapp.com/requests?' + QueryString.stringify(param);
 
 	return Axios.get(api)
 		.then( (response) => response.data )
