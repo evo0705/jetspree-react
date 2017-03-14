@@ -1,9 +1,17 @@
+import Axios from "axios";
+
 export function loadCountries() {
-	return fetch("https://jetspree-node-test.herokuapp.com/api/countries")
-      .then( (response) => response.json() );
+	return Axios.get('https://jetspree-node-test.herokuapp.com/api/countries')
+		.then( (response) => response.data )
+		.catch(function (error) {
+			console.log(error);
+		});
 }
 
 export function loadSubCategories() {
-	return fetch("https://jetspree-node-test.herokuapp.com/api/categories/sub")
-      .then( (response) => response.json() );
+	return Axios.get('https://jetspree-node-test.herokuapp.com/api/categories/sub')
+		.then( (response) => response.data )
+		.catch(function (error) {
+			console.log(error);
+		});
 }
