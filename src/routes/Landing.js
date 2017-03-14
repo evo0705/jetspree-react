@@ -12,14 +12,12 @@ class Landing extends React.Component {
 		  requests: '',
 		  name: 'cake',
 		  category: 'snacks',
-		  country: 'my',
 		  countries: [],
 		  categories: []
 		};
 		this.buttonClick = this.buttonClick.bind(this);
 		this.inputChange = this.inputChange.bind(this);
 		this.changeCategory = this.changeCategory.bind(this);
-		this.changeCountry = this.changeCountry.bind(this);
 	}
 	
 	loadData(pagesize){
@@ -36,14 +34,6 @@ class Landing extends React.Component {
 	
 	initData(){
 		var scope = this;
-		
-		loadCountries().then((data) => { 
-			scope.setState({
-				countries: data.map(function(obj){ 
-					return { label: obj.name, value: obj._id } 
-				})
-			});
-		});
 		loadSubCategories().then((data) => { 
 			scope.setState({
 				categories: data.map(function(obj){
@@ -69,16 +59,11 @@ class Landing extends React.Component {
 	changeCategory(val) {
 		this.setState({category: val.value});
 	}
-	  
-	changeCountry(val) {
-		this.setState({country: val.value});
-	}
 	
 	render(){
 		return(
 			<div>			
 				<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
-				<label>Country</label><Select name="form-country" searchable={false} clearable={false} value={this.state.country} options={this.state.countries} onChange={this.changeCountry} />
 				<label>Category</label><Select name="form-category" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.changeCategory} />
 				<input type="button" onClick={() => this.buttonClick(100)} value="Get 100 records" />
 				<input type="button" onClick={() => this.buttonClick(1000)} value="Get 1000 records!" />
