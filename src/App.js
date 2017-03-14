@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import Select from 'react-select';
 import '../node_modules/react-select/dist/react-select.min.css';
+import { loadCountries, loadSubCategories } from './data/common.js';
 
 class App extends Component {
 
@@ -36,7 +37,22 @@ class App extends Component {
 	
 	initData(){
 		var scope = this;
-		Axios.all([
+		
+		loadCountries().then((data) => { 
+			scope.setState({
+				countries: data.map(function(obj){ 
+					return { label: obj.name, value: obj._id } 
+				})
+			});
+		});
+		loadSubCategories().then((data) => { 
+			scope.setState({
+				categories: data.map(function(obj){
+					return { label: obj.name, value: obj._id } 
+				})
+			});
+		});
+		/*Axios.all([
 			Axios.get('https://jetspree-node-test.herokuapp.com/api/countries'),
 			Axios.get('https://jetspree-node-test.herokuapp.com/api/categories/sub')
 		])
@@ -53,7 +69,7 @@ class App extends Component {
 		}))
 		.catch(function (error) {
 			console.log(error);
-		});
+		});*/
 	}
 
   componentDidMount() {
