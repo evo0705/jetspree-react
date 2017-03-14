@@ -3,8 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 import Select from 'react-select';
 import '../node_modules/react-select/dist/react-select.min.css';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import { loadCountries, loadSubCategories } from './data/common.js';
 import { loadRequests } from './data/requests.js';
+
+import BrowseCountries from './routes/requests/Countries.js';
 
 class App extends Component {
 
@@ -76,23 +80,31 @@ class App extends Component {
 	this.setState({country: val.value});
   }
   
+  
+  
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React123</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-		<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
-		<label>Country</label><Select name="form-country" searchable={false} clearable={false} value={this.state.country} options={this.state.countries} onChange={this.changeCountry} />
-		<label>Category</label><Select name="form-category" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.changeCategory} />
-		<input type="button" onClick={() => this.buttonClick(100)} value="Get 100 records" />
-		<input type="button" onClick={() => this.buttonClick(1000)} value="Get 1000 records!" />
-		<pre>{this.state.requests}</pre>
-      </div>
+		<Router>
+		  <div className="App">
+			<div className="App-header">
+			  <img src={logo} className="App-logo" alt="logo" />
+			  <h2>Welcome to React123</h2>
+			</div>
+			
+			<Link to="/countries">Browse by Countries</Link>
+			<Route path="/countries" component={BrowseCountries}/>
+			
+			<p className="App-intro">
+			  To get started, edit <code>src/App.js</code> and save to reload.
+			</p>
+			<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
+			<label>Country</label><Select name="form-country" searchable={false} clearable={false} value={this.state.country} options={this.state.countries} onChange={this.changeCountry} />
+			<label>Category</label><Select name="form-category" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.changeCategory} />
+			<input type="button" onClick={() => this.buttonClick(100)} value="Get 100 records" />
+			<input type="button" onClick={() => this.buttonClick(1000)} value="Get 1000 records!" />
+			<pre>{this.state.requests}</pre>
+		  </div>
+		</Router>
     );
   }
 }
