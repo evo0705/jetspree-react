@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Select from 'react-select';
-import { loadCountries, loadSubCategories } from '../data/common.js';
+import { loadSubCategories, loadItems } from '../data/common.js';
 import { loadRequests } from '../data/requests.js';
 //import withStyles from '../../node_modules/react-with-styles/lib/withStyles.js';
 import './Landing.css';
@@ -17,11 +17,13 @@ class Landing extends React.Component {
 		  name: 'cake',
 		  category: 'snacks',
 		  countries: [],
-		  categories: []
+		  categories: [],
+		  items: []
 		};
 		this.buttonClick = this.buttonClick.bind(this);
 		this.inputChange = this.inputChange.bind(this);
 		this.changeCategory = this.changeCategory.bind(this);
+		this.renderItems = this.renderItems.bind(this);
 	}
 	
 	loadData(pagesize){
@@ -45,7 +47,33 @@ class Landing extends React.Component {
 				})
 			});
 		});
+
+		loadItems().then((data) => { 
+			scope.setState({
+				items: data
+			});
+		});
 	}
+
+	renderItems() {
+		if(this.state.items.Items)
+		return this.state.items.Items.map((obj, i) => {
+			return (
+					<div className="colMd2 col" key={obj.Item.Id}>
+						<div className="bgWhite">
+							<div className="imgWrap"><img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="phone" /></div>
+							<div className="productInfo"><h4>{obj.Item.Name}</h4>
+								<div className="mgBottom">{obj.Item.CurrencyCode}{obj.Item.OfferPrice}</div>
+								<RaisedButton label="Buy" primary={true} className="pullRight"/>
+							</div>
+						</div>
+					</div>
+			)
+		});
+	}
+
+
+
 
 	componentDidMount() {
 		this.initData();
@@ -65,31 +93,66 @@ class Landing extends React.Component {
 	}
 	
 	render(){
+
+
+	
+
 		return(
+
 			<div className="Landing-page">	
 			<div id="banner" className="grad-blue">
 				<div className="container banner">
 				<div className="table fullheight staycenter">
-				
-				<div className="bannerimg"><img src="https://d3nj7353mvgauu.cloudfront.net/media/categories/iphone-77-plus-40-b1ac.png" alt="phone" /></div>
-				<div className="banner-text taleft table-cell vamiddle full">
-					<h1>Ask Traveller buy the world for you</h1>
-			<p>Use Jetspree to shop overseas products. A trusted traveler can bring them to you anywhere in the world using our international p2p delivery platform.</p>
-			<div className="askuser">Please tell us who you are</div>
-			    <RaisedButton label="I am Shopper" secondary={true} className="btn-shopper"/>
-			    <RaisedButton label="I am Traveller" primary={true} className="btn-traveller"/>
+				<div className="bannerimg"><img src="http://www.freeiconspng.com/uploads/white-iphone-6-png-image-22.png" alt="phone" width="350" />
+				<div className="phoneShadow"></div>
 				</div>
+				<div className="banner-text table-cell vamiddle full">
+					<h1>Welcome to Jetspree.</h1>
+					<p>Use Jetspree to shop overseas products. A trusted traveler can bring them to you anywhere in the world using our international p2p delivery platform.</p>
+					<div className="askuser">Please tell us who you are</div>
+			    		<RaisedButton label="I am Shopper" primary={true} className="btnShopper btnBig" style={{ height: '45px',}}  />
+			    		<RaisedButton label="I am Traveller" secondary={true} className="btnTraveller btnBig" style={{ height: '45px',}} />
+					</div>
 				</div>
-</div>
+			</div>
 			</div>
 
+<div className="bgGrey">
+<div className="container pdWrap">
+<div className="table">
+			<aside className="leftSide">
+				<h3>Top Traveller</h3>
+				<ul className="travelerList">
+				<li><img src="http://www.azquotes.com/public/pictures/authors/c2/8f/c28f12d9202f3ebcef573109c1e4ac48/5486618214676_fan_bingbing.jpg" alt="phone" />Yuho</li>
+				<li><img src="http://asianpopnews.com/wp/wp-content/uploads/2015/08/Fanbingbing.jpg" alt="phone" />Samuel</li>
+				<li><img src="http://www.azquotes.com/public/pictures/authors/c2/8f/c28f12d9202f3ebcef573109c1e4ac48/5486618214676_fan_bingbing.jpg" alt="phone" />Jasinu</li>
+				<li><img src="http://asianpopnews.com/wp/wp-content/uploads/2015/08/Fanbingbing.jpg" alt="phone" />Chen</li>
+				<li><img src="http://asianpopnews.com/wp/wp-content/uploads/2015/08/Fanbingbing.jpg" alt="phone" />Alex</li>
+				</ul>
+			</aside>
 
-				<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
+			<div className="contentWrap table-cell full vatop">
+		
+	<div className="floatWrap mgBottom">
+				<h3 className="pullLeft">Popular Requests</h3>
+				<div className="pullRight"><span>gadge</span><span>Food</span></div></div>
+					<div className="content colWrap productList">
+						{this.renderItems()}
+
+
+
+						<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
 				<label>Category</label><Select name="form-category" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.changeCategory} />
 				<input type="button" onClick={() => this.buttonClick(100)} value="Get 100 records" />
 				<input type="button" onClick={() => this.buttonClick(1000)} value="Get 1000 records!" />
 				<pre>{this.state.requests}</pre>
+				</div>
 			</div>
+</div>
+</div>
+</div>				
+			</div>
+
 		);
 	}
 }

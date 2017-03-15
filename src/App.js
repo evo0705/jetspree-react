@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import getMuiTheme from '../node_modules/material-ui/styles/getMuiTheme';
+//import getMuiTheme from '../node_modules/material-ui/styles/getMuiTheme';
 import MuiThemeProvider from '../node_modules/material-ui/styles/MuiThemeProvider';
 
 import FlatButton from '../node_modules/material-ui/FlatButton';
@@ -28,7 +28,8 @@ class App extends Component {
 			  <img src={logo} className="App-logo" alt="logo" />
 			  <h2>Welcome to React123</h2>
 			</div>*/}
-			<div>
+			<div className="container">
+			<img src={logo} className="App-logo" alt="logo" />
 			  <FlatButton label="Home"  containerElement={<Link to="/"/>} />
 			  <FlatButton label="Countries"  containerElement={<Link to="/countries"/>} />
 	
