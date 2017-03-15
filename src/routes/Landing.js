@@ -3,6 +3,10 @@ import React from 'react';
 import Select from 'react-select';
 import { loadCountries, loadSubCategories } from '../data/common.js';
 import { loadRequests } from '../data/requests.js';
+//import withStyles from '../../node_modules/react-with-styles/lib/withStyles.js';
+import './Landing.css';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 class Landing extends React.Component {
 
@@ -76,7 +80,24 @@ class Landing extends React.Component {
 	
 	render(){
 		return(
-			<div>			
+			<div className="Landing-page">	
+			<div id="banner" className="grad-blue">
+				<div className="container banner">
+				<div className="table fullheight staycenter">
+				
+				<div className="bannerimg"><img src="https://d3nj7353mvgauu.cloudfront.net/media/categories/iphone-77-plus-40-b1ac.png" alt="phone" /></div>
+				<div className="banner-text taleft table-cell vamiddle full">
+					<h1>Ask Traveller buy the world for you</h1>
+			<p>Use Jetspree to shop overseas products. A trusted traveler can bring them to you anywhere in the world using our international p2p delivery platform.</p>
+			<div className="askuser">Please tell us who you are</div>
+			    <RaisedButton label="I am Shopper" secondary={true} className="btn-shopper"/>
+			    <RaisedButton label="I am Traveller" primary={true} className="btn-traveller"/>
+				</div>
+				</div>
+</div>
+			</div>
+
+
 				<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
 				<label>Country</label><Select name="form-country" searchable={false} clearable={false} value={this.state.country} options={this.state.countries} onChange={this.changeCountry} />
 				<label>Category</label><Select name="form-category" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.changeCategory} />
@@ -88,3 +109,5 @@ class Landing extends React.Component {
 	}
 }
 export default Landing;
+
+//export default  withStyles(homeStyle)(Landing);
