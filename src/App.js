@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import injectTapEventPlugin from '../node_modules/react-tap-event-plugin';
 //import getMuiTheme from '../node_modules/material-ui/styles/getMuiTheme';
 import MuiThemeProvider from '../node_modules/material-ui/styles/MuiThemeProvider';
-
 import FlatButton from '../node_modules/material-ui/FlatButton';
-
 import logo from './logo.svg';
 import './App.css';
 import '../node_modules/react-select/dist/react-select.min.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
 import Landing from './routes/Landing.js';
 import BrowseCountries from './routes/requests/Countries.js';
-
-
 
 injectTapEventPlugin();
 

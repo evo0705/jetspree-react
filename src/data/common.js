@@ -20,10 +20,10 @@ export function loadSubCategories() {
 export function loadItems() {
 	return Axios({ method: 'GET', url:'https://www.jetspree.com/api/items?page=1&pagesize=8', 
 	crossDomain: true,
-	  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  }
+		headers: {
+    		'Accept': 'application/json',
+    		'Content-Type': 'application/json'
+  		}
     }) 
 	.then( (response) => response.data )
 	.catch((error) => {  });
