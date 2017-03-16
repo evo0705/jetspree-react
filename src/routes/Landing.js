@@ -61,7 +61,7 @@ class Landing extends React.Component {
 			return (
 					<div className="colMd2 col" key={obj.Item.Id}>
 						<div className="bgWhite">
-							<div className="imgWrap"><img src={'https://jetspree02.cloudapp.net/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="phone" /></div>
+							<div className="imgWrap"><img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="phone" /></div>
 							<div className="productInfo"><h4>{obj.Item.Name}</h4>
 								<div className="mgBottom">{obj.Item.CurrencyCode}{obj.Item.OfferPrice}</div>
 								<RaisedButton label="Buy" primary={true} className="pullRight"/>
