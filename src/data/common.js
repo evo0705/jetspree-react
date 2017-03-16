@@ -18,7 +18,7 @@ export function loadSubCategories() {
 
 
 export function loadItems() {
-	return Axios.get('https://www.jetspree.com/api/items?page=1&pagesize=8')
+	return Axios.get('https://jetspree02.cloudapp.net/api/items?page=1&pagesize=8')
 		.then( (response) => response.data )
 		.catch(function (error) {
 			console.log(error);
