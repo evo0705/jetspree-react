@@ -18,15 +18,9 @@ export function loadSubCategories() {
 
 
 export function loadItems() {
-	return Axios({ method: 'GET', url:'https://jetspree02.cloudapp.net/api/items?page=1&pagesize=8', 
-	crossDomain: true,
-	  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Origin': 'https://hidden-spire-55878.herokuapp.com',
-  }
-    }) 
-	.then( (response) => response.data )
-	.catch((error) => {  });
+	return Axios.get('https://jetspree02.cloudapp.net/api/items?page=1&pagesize=8')
+		.then( (response) => response.data )
+		.catch(function (error) {
+			console.log(error);
+		});
 }
-
