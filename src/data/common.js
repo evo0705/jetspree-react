@@ -1,3 +1,4 @@
+import QueryString from 'querystring';
 import Axios from "axios";
 
 export function loadCountries() {
@@ -17,8 +18,8 @@ export function loadSubCategories() {
 }
 
 
-export function loadItems() {
-	return Axios({ method: 'GET', url:'https://jetspree02.cloudapp.net/api/items?page=1&pagesize=8', 
+export function loadItems(param) {
+	return Axios({ method: 'GET', url:'https://www.jetspree.com/api/items?' + QueryString.stringify(param), 
 	crossDomain: true,
 		headers: {
     		'Accept': 'application/json',
