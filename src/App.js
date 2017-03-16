@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin from '../node_modules/react-tap-event-plugin';
 //import getMuiTheme from '../node_modules/material-ui/styles/getMuiTheme';
 import MuiThemeProvider from '../node_modules/material-ui/styles/MuiThemeProvider';
 
