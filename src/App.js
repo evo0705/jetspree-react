@@ -3,6 +3,7 @@ import injectTapEventPlugin from '../node_modules/react-tap-event-plugin';
 //import getMuiTheme from '../node_modules/material-ui/styles/getMuiTheme';
 import MuiThemeProvider from '../node_modules/material-ui/styles/MuiThemeProvider';
 import FlatButton from '../node_modules/material-ui/FlatButton';
+import Dialog from '../node_modules/material-ui/Dialog';
 import logo from './logo.svg';
 import './App.css';
 import '../node_modules/react-select/dist/react-select.min.css';

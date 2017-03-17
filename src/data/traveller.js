@@ -8,3 +8,11 @@ export function loadTrips(param) {
 			console.log("error: " + error);
 		});
 }
+
+export function loadRecommendations(param) {
+	return Axios.get('https://www.jetspree.com/api/recommendations?' + QueryString.stringify(param))
+		.then( (response) => response.data )
+		.catch(function (error) {
+			console.log("error: " + error);
+		});
+}
