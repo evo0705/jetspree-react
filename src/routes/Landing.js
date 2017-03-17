@@ -13,6 +13,57 @@ import How2 from '../../public/imgs/how2.png';
 import How3 from '../../public/imgs/how3.png';
 import How4 from '../../public/imgs/how4.png';
 
+class Items extends React.Component {
+
+	constructor (props) {
+		super(props)
+		this.state = {
+			items: {},
+		};
+	}
+
+	componentDidMount() {
+		this.initData();
+	}
+
+	initData(){
+
+		let paramItems = {
+			pagesize: 4
+		};
+		loadItems(paramItems).then((data) => {
+			this.setState({items: data});
+		});
+
+	}
+	render() {
+		if(this.state.items.Items) {
+			let itemNodes = this.state.items.Items.map((obj, i) => {
+				return (
+					<div className="colMd6 col" key={obj.Item.Id}>
+					<div className="bgWhite">
+					<div className="imgWrap"><img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="phone" /></div>
+					<div className="productInfo"><h4>{obj.Item.Name}</h4>
+					<div className="mgBottom">{obj.Item.CurrencyCode}{obj.Item.OfferPrice}</div>
+					<RaisedButton label="Buy" primary={true} className="pullRight"/>
+					</div>
+					</div>
+					</div>
+					)
+			});
+
+			return (
+				<div>
+					{itemNodes}
+				</div>
+			)
+		}
+
+		return null
+	}
+}
+
+
 class Recommendations extends React.Component{
 
 	componentDidMount() {
@@ -51,9 +102,12 @@ class Recommendations extends React.Component{
 
 class Trips extends React.Component {
 
-	state = {
-		open: false,
-	};
+	constructor (props) {
+		super(props)
+		this.state = {
+			open: false,
+		};
+	}
 
 	handleOpen = (e) => {
 		this.setState({open: true});
@@ -104,7 +158,7 @@ class Trips extends React.Component {
 
 		if(this.state.trips){
 			var tripNodes = this.state.trips.map((obj, i) => {
-				console.log(obj);
+				console.log("Trips.render()", obj);
 				return (
 					<li key={obj.Id}>
 					<img src={'https://www.jetspree.com/api/image/profile/' + obj.UserProfile.UID + '/' + obj.UserProfile.PicURL + '?width=155&height=155&ratio=false'} alt="{obj.UserProfile.DisplayName}" />
@@ -142,7 +196,6 @@ class Landing extends React.Component {
 		this.buttonClick = this.buttonClick.bind(this);
 		this.inputChange = this.inputChange.bind(this);
 		this.changeCategory = this.changeCategory.bind(this);
-		this.renderItems = this.renderItems.bind(this);
 	}
 	
 	loadData(pagesize){
@@ -156,42 +209,6 @@ class Landing extends React.Component {
 			scope.setState({requests: JSON.stringify(data)});
 		});
 	}
-	
-	initData(){
-
-		let paramItems = {
-			pagesize: 4
-		};
-		loadItems(paramItems).then((data) => {
-			this.setState({items: data});
-		});
-
-	}
-
-
-	componentDidMount() {
-		this.initData();
-	}
-
-	renderItems() {
-		if(this.state.items.Items)
-			return this.state.items.Items.map((obj, i) => {
-				return (
-					<div className="colMd6 col" key={obj.Item.Id}>
-					<div className="bgWhite">
-					<div className="imgWrap"><img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="phone" /></div>
-					<div className="productInfo"><h4>{obj.Item.Name}</h4>
-					<div className="mgBottom">{obj.Item.CurrencyCode}{obj.Item.OfferPrice}</div>
-					<RaisedButton label="Buy" primary={true} className="pullRight"/>
-					</div>
-					</div>
-					</div>
-					)
-			});
-	}
-
-
-
 
 	buttonClick(pagesize){
 		this.setState({requests: ""});
@@ -264,7 +281,7 @@ class Landing extends React.Component {
 			<h3 className="pullLeft">Popular Requests</h3>
 			<div className="pullRight"><span>gadge</span><span>Food</span></div></div>
 			<div className="content colWrap productList">
-			{this.renderItems()}
+			<Items />
 
 
 
