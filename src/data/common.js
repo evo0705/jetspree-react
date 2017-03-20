@@ -1,5 +1,6 @@
 import QueryString from 'querystring';
 import Axios from "axios";
+import ItemsApi from '../../public/api/items.json';
 
 export function loadCountries() {
 	return Axios.get('https://jetspree-node-test.herokuapp.com/countries')

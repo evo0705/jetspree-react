@@ -36,6 +36,7 @@ class Items extends React.Component {
 		});
 
 	}
+
 	render() {
 		if(this.state.items.Items) {
 			let itemNodes = this.state.items.Items.map((obj, i) => {
@@ -53,10 +54,10 @@ class Items extends React.Component {
 			});
 
 			return (
-				<div>
-					{itemNodes}
+				<div className="frontPageItemsList">
+				{itemNodes}
 				</div>
-			)
+				)
 		}
 
 		return null
@@ -65,13 +66,14 @@ class Items extends React.Component {
 
 
 class Recommendations extends React.Component{
-
-	componentDidMount() {
-		this.initData();
+	constructor (props) {
+		super(props)
+		this.state = {
+			recommendations: {},
+		};
 	}
 
 	initData() {
-
 		let paramRecommendations = {
 			pagesize: 5
 		};
@@ -81,8 +83,8 @@ class Recommendations extends React.Component{
 	}
 
 	render() {
-		if(this.state.recommendations.Recommendations)
-			return this.state.recommendations.Recommendations.map((obj, i) => {
+		if(this.state.recommendations.Recommendations) {
+			let recommendationsNodes = this.state.recommendations.Recommendations.map((obj, i) => {
 				return (
 					<div className="colMd6 col" key={obj.Id}>
 					<div className="bgWhite">
@@ -95,29 +97,81 @@ class Recommendations extends React.Component{
 					</div>
 					)
 			});
+
+			return (
+				<div className="homeRecommendations">
+				{recommendationsNodes}
+				</div>
+				)
+		}
+		return null
 	}
 
+	componentDidMount() {
+		this.initData();
+	}
 
 }
 
-class Trips extends React.Component {
 
+class Modal extends React.Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-			open: false,
+			modalOpen: false
 		};
 	}
 
 	handleOpen = (e) => {
-		this.setState({open: true});
-
-		console.log(e)
+		this.setState({modalOpen: true});
 	};
 
 	handleClose = () => {
-		this.setState({open: false});
+		this.setState({modalOpen: false});
 	};
+
+
+componentWillReceiveProps(nextProps){
+	console.log(nextProps)
+this.setState({modalOpen: true});
+}
+
+	render() {
+		const actions = [
+		<RaisedButton label="Cancel" primary={true} onTouchTap={this.handleClose} />,
+		<RaisedButton label="Submit" primary={true} keyboardFocused={true} onTouchTap={this.handleClose} />,
+		];
+
+
+		let value = this.props.value;
+		if (value){
+			console.log(value);
+			return (
+				<Dialog title="Dialog With Actions" actions={actions} modal={false} open={this.state.modalOpen} onRequestClose={this.handleClose} autoScrollBodyContent={true}>
+					<Recommendations />
+				</Dialog>	
+			)
+		}
+	 return null
+
+	}
+}
+
+
+class Trips extends React.Component {
+	constructor (props) {
+		super(props)
+		this.state = {
+			trips: []
+		};
+	}
+
+
+	handleOpen = (e) => {
+		this.walao = e;
+		this.setState({walao: e});
+	};
+
 
 	componentDidMount() {
 		this.initData();
@@ -140,44 +194,39 @@ class Trips extends React.Component {
 		});
 	}	
 
-
 	render() {
 		const actions = [
 		<RaisedButton label="Cancel" primary={true} onTouchTap={this.handleClose} />,
 		<RaisedButton label="Submit" primary={true} keyboardFocused={true} onTouchTap={this.handleClose} />,
 		];
 
-		if(this.state.open){
-			return (
-				<Dialog title="Dialog With Actions" actions={actions} modal={false} open={this.state.open} onRequestClose={this.handleClose} autoScrollBodyContent={true}>
-				<Recommendations />
-				</Dialog>	
-				)
-		}
 
 
 		if(this.state.trips){
 			var tripNodes = this.state.trips.map((obj, i) => {
-				console.log("Trips.render()", obj);
+				//console.log("Trips.render()", obj);
 				return (
 					<li key={obj.Id}>
-					<img src={'https://www.jetspree.com/api/image/profile/' + obj.UserProfile.UID + '/' + obj.UserProfile.PicURL + '?width=155&height=155&ratio=false'} alt="{obj.UserProfile.DisplayName}" />
+					<img onTouchTap={this.handleOpen.bind(this, obj.UserProfile.UID)} src={'https://www.jetspree.com/api/image/profile/' + obj.UserProfile.UID + '/' + obj.UserProfile.PicURL + '?width=155&height=155&ratio=false'} alt="{obj.UserProfile.DisplayName}" />
 					<span className="userName">{obj.UserProfile.DisplayName}</span>
-					<a label="Dialog" onTouchTap={this.handleOpen.bind(this, obj.UserProfile.UID)}>aa</a>				
-					</li>
-					)
+					{this.walao}
+				{/*<a label="Dialog" onTouchTap={this.handleOpen.bind(this, obj.UserProfile.UID)}>aa</a>*/}	
+
+				</li>
+				)
 			});
-
 			return (
-				<div>{tripNodes}</div>
-			)
+				<div>
+				<Modal value={this.walao} />	
+				{tripNodes}
+				</div>
+				)
 		}
-
 		return null;
 	}
 
-
 }
+
 
 
 class Landing extends React.Component {
@@ -189,9 +238,8 @@ class Landing extends React.Component {
 			category: 'snacks',
 			countries: [],
 			categories: [],
-			items: [],
-			trips: [],
-			recommendations: []
+			modalOpen: false,
+
 		};
 		this.buttonClick = this.buttonClick.bind(this);
 		this.inputChange = this.inputChange.bind(this);
@@ -224,6 +272,7 @@ class Landing extends React.Component {
 	}
 	
 	render(){
+
 		return(
 			<div className="Landing-page">	
 			<div id="banner" className="grad-blue">
@@ -232,7 +281,7 @@ class Landing extends React.Component {
 			<div className="bannerimg"><img src="http://www.freeiconspng.com/uploads/white-iphone-6-png-image-22.png" alt="phone" width="350" />
 			<div className="phoneShadow"></div>
 			</div>
-			<div className="banner-text table-cell vaMiddle full">
+			<div className="banner-text tableCell vaMiddle full">
 			<h1>Welcome to Jetspree.</h1>
 			<p>Use Jetspree to shop overseas products. A trusted traveler can bring them to you anywhere in the world using our international p2p delivery platform.</p>
 			<div className="askuser">Please tell us who you are</div>
@@ -275,7 +324,7 @@ class Landing extends React.Component {
 			</ul>
 			</aside>
 
-			<div className="contentWrap table-cell full vatop">
+			<div className="contentWrap tableCell full vatop">
 
 			<div className="floatWrap mgBottom">
 			<h3 className="pullLeft">Popular Requests</h3>

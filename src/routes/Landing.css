@@ -22,7 +22,7 @@ h4{font-weight: 500;}
 .colMd3{width: 25%;}
 
 .table{display: table;}
-.table-cell{display: table-cell;}
+.tableCell{display: table-cell;}
 
 .floatWrap:after{content: '';display: table;clear: both;}
 .pullLeft{float: left;}
