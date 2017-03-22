@@ -1,9 +1,10 @@
 import React from 'react';
 
-//import Select from 'react-select';
+import Select from 'react-select';
 import { loadSubCategories, loadItems } from '../data/common.js';
 import { loadRequests } from '../data/requests.js';
 import { loadTrips, loadRecommendations } from '../data/traveller.js';
+import {IntlProvider, FormattedDate} from 'react-intl';
 //import withStyles from '../../node_modules/react-with-styles/lib/withStyles.js';
 import './Landing.css';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -14,7 +15,6 @@ import How3 from '../../public/imgs/how3.png';
 import How4 from '../../public/imgs/how4.png';
 
 class Items extends React.Component {
-
 	constructor (props) {
 		super(props)
 		this.state = {
@@ -27,14 +27,12 @@ class Items extends React.Component {
 	}
 
 	initData(){
-
 		let paramItems = {
 			pagesize: 4
 		};
 		loadItems(paramItems).then((data) => {
 			this.setState({items: data});
 		});
-
 	}
 
 	render() {
@@ -42,11 +40,11 @@ class Items extends React.Component {
 			let itemNodes = this.state.items.Items.map((obj, i) => {
 				return (
 					<div className="colMd6 col" key={obj.Item.Id}>
-					<div className="bgWhite">
+					<div className="bgWhite relative">
 					<div className="imgWrap"><img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="phone" /></div>
 					<div className="productInfo"><h4>{obj.Item.Name}</h4>
 					<div className="mgBottom">{obj.Item.CurrencyCode}{obj.Item.OfferPrice}</div>
-					<RaisedButton label="Buy" primary={true} className="pullRight"/>
+					<RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
 					</div>
 					</div>
 					</div>
@@ -75,7 +73,8 @@ class Recommendations extends React.Component{
 
 	initData() {
 		let paramRecommendations = {
-			pagesize: 5
+			pagesize: 5,
+			uid: this.props.tripsUserUid
 		};
 		loadRecommendations(paramRecommendations).then((data) => {
 			this.setState({recommendations: data});
@@ -84,14 +83,18 @@ class Recommendations extends React.Component{
 
 	render() {
 		if(this.state.recommendations.Recommendations) {
+			if (this.state.recommendations.Total === 0) {
+				return <div className="taCenter table full fullheight"><div className="tableCell vaMiddle">Traveller din't define items to buy during trips</div></div>
+			}
 			let recommendationsNodes = this.state.recommendations.Recommendations.map((obj, i) => {
 				return (
-					<div className="colMd6 col" key={obj.Id}>
-					<div className="bgWhite">
+					<div className="col list mgBottom40" key={obj.Id}>
+					<div className="table full bgWhite relative">
 					<div className="imgWrap"><img src={'https://www.jetspree.com/images/recommendations/' + obj.Id + '/' + obj.ItemURL} alt="phone" /></div>
-					<div className="productInfo"><h4>{obj.Name}</h4>
-					<div className="mgBottom">{obj.CurrencyCode}{obj.OfferPrice}</div>
-					<RaisedButton label="Buy" primary={true} className="pullRight"/>
+					<div className="productInfo tableCell vatop full"><h4>{obj.Name}</h4>
+					<div>{obj.Description}</div>
+					<div>{obj.CurrencyCode}{obj.Price}</div>
+					<RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
 					</div>
 					</div>
 					</div>
@@ -99,8 +102,8 @@ class Recommendations extends React.Component{
 			});
 
 			return (
-				<div className="homeRecommendations">
-				{recommendationsNodes}
+				<div className="homeRecommendations itemsList bgGrey">
+					{recommendationsNodes}
 				</div>
 				)
 		}
@@ -113,6 +116,22 @@ class Recommendations extends React.Component{
 
 }
 
+const styles = {
+	dialogRoot: {
+		paddingTop: 0
+	},
+	dialogBody: {
+		minHeight: 400,
+		background:"#eee",
+		paddingTop: 40,
+		paddingBottom: 40
+	},
+	dialogTitle: {
+		fontSize: 18,
+		padding:"10px 20px",
+		background:"#eee"
+	}
+};
 
 class Modal extends React.Component {
 	constructor (props) {
@@ -120,40 +139,37 @@ class Modal extends React.Component {
 		this.state = {
 			modalOpen: false
 		};
-	}
 
-	handleOpen = (e) => {
-		this.setState({modalOpen: true});
-	};
+	}
 
 	handleClose = () => {
 		this.setState({modalOpen: false});
 	};
 
-
-componentWillReceiveProps(nextProps){
-	console.log(nextProps)
-this.setState({modalOpen: true});
-}
+	componentWillReceiveProps(nextProps){console.log(nextProps);
+		this.setState({modalOpen: true});	
+		this.tripsUserUid = nextProps.userUID;
+		this.tripsUserName = nextProps.userName;
+		this.tripsUserTripsDate = nextProps.userTripsDate		
+	}
 
 	render() {
-		const actions = [
+		/*const actions = [
 		<RaisedButton label="Cancel" primary={true} onTouchTap={this.handleClose} />,
 		<RaisedButton label="Submit" primary={true} keyboardFocused={true} onTouchTap={this.handleClose} />,
-		];
+		];*/
 
-
-		let value = this.props.value;
-		if (value){
-			console.log(value);
+		let userUID = this.props.userUID;
+		if (userUID){
 			return (
-				<Dialog title="Dialog With Actions" actions={actions} modal={false} open={this.state.modalOpen} onRequestClose={this.handleClose} autoScrollBodyContent={true}>
-					<Recommendations />
+				<Dialog title={this.tripsUserName + " offer help to buy these products:"} /*actions={actions}*/ modal={false} open={this.state.modalOpen} onRequestClose={this.handleClose} autoScrollBodyContent={true}
+				bodyStyle={ styles.dialogBody } style={ styles.dialogRoot } titleStyle={ styles.dialogTitle} repositionOnUpdate={ false }>
+					<div className="mgBottom40">{this.tripsUserTripsDate}</div>
+					<Recommendations tripsUserUid={this.tripsUserUid} />
 				</Dialog>	
-			)
+				)
 		}
-	 return null
-
+		return null
 	}
 }
 
@@ -166,12 +182,13 @@ class Trips extends React.Component {
 		};
 	}
 
-
 	handleOpen = (e) => {
-		this.walao = e;
-		this.setState({walao: e});
+		console.log(e)
+		this.userUid = e.UserProfile.UID;
+		this.userName = e.UserProfile.DisplayName;
+		this.userTripsDate = e.CrtUpdDate;
+		this.setState({userUid: e.UserProfile.UID});
 	};
-
 
 	componentDidMount() {
 		this.initData();
@@ -179,7 +196,7 @@ class Trips extends React.Component {
 
 	initData(){
 		let paramTrips = {
-			pagesize: 5
+			pagesize: 8
 		};
 		loadTrips(paramTrips).then((data) => {
 			var array = data.Trips;
@@ -195,38 +212,27 @@ class Trips extends React.Component {
 	}	
 
 	render() {
-		const actions = [
-		<RaisedButton label="Cancel" primary={true} onTouchTap={this.handleClose} />,
-		<RaisedButton label="Submit" primary={true} keyboardFocused={true} onTouchTap={this.handleClose} />,
-		];
-
-
 
 		if(this.state.trips){
 			var tripNodes = this.state.trips.map((obj, i) => {
 				//console.log("Trips.render()", obj);
 				return (
 					<li key={obj.Id}>
-					<img onTouchTap={this.handleOpen.bind(this, obj.UserProfile.UID)} src={'https://www.jetspree.com/api/image/profile/' + obj.UserProfile.UID + '/' + obj.UserProfile.PicURL + '?width=155&height=155&ratio=false'} alt="{obj.UserProfile.DisplayName}" />
-					<span className="userName">{obj.UserProfile.DisplayName}</span>
-					{this.walao}
-				{/*<a label="Dialog" onTouchTap={this.handleOpen.bind(this, obj.UserProfile.UID)}>aa</a>*/}	
-
-				</li>
+						<img onTouchTap={this.handleOpen.bind(this, obj)} src={'https://www.jetspree.com/api/image/profile/' + obj.UserProfile.UID + '/' + obj.UserProfile.PicURL + '?width=155&height=155&ratio=false'} alt="{obj.UserProfile.DisplayName}" />
+						<span className="userName">{obj.UserProfile.DisplayName}</span>
+					</li>
 				)
 			});
 			return (
 				<div>
-				<Modal value={this.walao} />	
+				<Modal userUID={this.userUid} userName={this.userName} userTripsDate={this.userTripsDate} />	
 				{tripNodes}
 				</div>
 				)
 		}
 		return null;
 	}
-
 }
-
 
 
 class Landing extends React.Component {
@@ -317,7 +323,7 @@ class Landing extends React.Component {
 			<div className="container pdWrap">
 			<div className="table">
 			<aside className="leftSide">
-			<h3>Top Traveller</h3>
+			<h3>Recent Trips<span className="colorGrey small">See what they're going to buy</span></h3>
 			<ul className="travelerList">
 			
 			<Trips />
@@ -326,7 +332,7 @@ class Landing extends React.Component {
 
 			<div className="contentWrap tableCell full vatop">
 
-			<div className="floatWrap mgBottom">
+			<div className="floatWrap mgBottom30">
 			<h3 className="pullLeft">Popular Requests</h3>
 			<div className="pullRight"><span>gadge</span><span>Food</span></div></div>
 			<div className="content colWrap productList">
@@ -334,11 +340,11 @@ class Landing extends React.Component {
 
 
 
-				{/*<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
+				<label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange} /><br />
 				<label>Category</label><Select name="form-category" searchable={false} clearable={false} value={this.state.category} options={this.state.categories} onChange={this.changeCategory} />
 				<input type="button" onClick={() => this.buttonClick(100)} value="Get 100 records" />
 				<input type="button" onClick={() => this.buttonClick(1000)} value="Get 1000 records!" />
-			<pre>{this.state.requests}</pre>*/}
+			<pre>{this.state.requests}</pre>
 
 			</div>
 			</div>
