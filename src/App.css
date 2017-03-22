@@ -1,3 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+
+*{box-sizing: border-box;}
+body{font-size: 14px;overflow-y:auto!important; }
+body,button{font-family: 'Montserrat', sans-serif!important;}
+ul{list-style: none;padding-left: 0}
+p{ line-height: 160%;}
+h1,h2,h3,h4,h5{letter-spacing: 1px;    font-weight: 500;}
+h1{font-size: 2.4em;}
+h3{font-size: 1.2em}
+h4{font-weight: 500;}
+img{max-width: 100%}
+.full{width: 100%}
+.fullheight{height: 100%}
+.container{max-width: 1000px;margin-left: auto;margin-right: auto;}
+.contentWrap{padding-right: 6px;padding-left: 6px;}
+.colWrap{margin-right: -6px;margin-left: -6px;}
+.col{padding-left: 6px;padding-right: 6px;display: inline-block;vertical-align:top;margin-bottom: 10px;}
+.colMd6{width: 50%;}
+.colMd4{width: 33.33%;}
+.colMd3{width: 25%;}
+
+
+.table{display: table;}
+.tableCell{display: table-cell;}
+
+.floatWrap:after{content: '';display: table;clear: both;}
+.pullLeft{float: left;}
+.pullRight{float: right;}
+.vatop{vertical-align: top}
+.vaMiddle{vertical-align: middle;}
+.taCenter{text-align: center;}
+.taleft{text-align: left;}
+.staycenter{margin-right: auto;margin-left: auto;}
+.colorSp{color: #00bcd4}
+.colorGrey{color: #989898;}
+.small{font-size: 0.7em;font-weight: normal;display: block;}
+.grad-blue {background: linear-gradient(to bottom, #3090ff 0%, #519ffb 100%);}
+.bgGrey{background: #eee}
+.bgWhite{background: #fff}
+.pdWrap{padding: 60px 0}
+.mgBottom10{margin-bottom: 10px;}
+.mgBottom30{margin-bottom: 30px}
+.mgBottom40{margin-bottom: 40px}
+.leftSide{width: 240px;}
+
+.relative{position: relative;}
+.abBottomRight{position: absolute;bottom: 20px;right: 20px;}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
