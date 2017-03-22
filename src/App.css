@@ -6,6 +6,7 @@
 body{font-size: 14px;overflow-y:auto!important; }
 body,button{font-family: 'Montserrat', sans-serif!important;}
 ul{list-style: none;padding-left: 0}
+a{text-decoration: none}
 p{ line-height: 160%;}
 h1,h2,h3,h4,h5{letter-spacing: 1px;    font-weight: 500;}
 h1{font-size: 2.4em;}
@@ -18,6 +19,7 @@ img{max-width: 100%}
 .contentWrap{padding-right: 6px;padding-left: 6px;}
 .colWrap{margin-right: -6px;margin-left: -6px;}
 .col{padding-left: 6px;padding-right: 6px;display: inline-block;vertical-align:top;margin-bottom: 10px;}
+.col a{color: inherit;}
 .colMd6{width: 50%;}
 .colMd4{width: 33.33%;}
 .colMd3{width: 25%;}

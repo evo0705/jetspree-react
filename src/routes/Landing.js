@@ -1,10 +1,12 @@
 import React from 'react';
-
+import logo from '../logo.svg';
 import Select from 'react-select';
-import { loadSubCategories, loadItems } from '../data/common.js';
-import { loadRequests } from '../data/requests.js';
+import { BrowserRouter as Route, Link } from 'react-router-dom';
+//import { loadSubCategories } from '../data/common.js';
+import { loadItems, loadRequests } from '../data/requests.js';
 import { loadTrips, loadRecommendations } from '../data/traveller.js';
-import {IntlProvider, FormattedDate} from 'react-intl';
+import {FormattedDate} from 'react-intl';
+import ReactImageFallback from "react-image-fallback";
 //import withStyles from '../../node_modules/react-with-styles/lib/withStyles.js';
 import './Landing.css';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -13,6 +15,8 @@ import How1 from '../../public/imgs/how1.png';
 import How2 from '../../public/imgs/how2.png';
 import How3 from '../../public/imgs/how3.png';
 import How4 from '../../public/imgs/how4.png';
+
+
 
 class Items extends React.Component {
 	constructor (props) {
@@ -30,6 +34,7 @@ class Items extends React.Component {
 		let paramItems = {
 			pagesize: 4
 		};
+
 		loadItems(paramItems).then((data) => {
 			this.setState({items: data});
 		});
@@ -37,25 +42,37 @@ class Items extends React.Component {
 
 	render() {
 		if(this.state.items.Items) {
-			let itemNodes = this.state.items.Items.map((obj, i) => {
-				return (
+			let itemsNodes = this.state.items.Items.map((obj, i) => {
+				return (	
+				
 					<div className="colMd6 col" key={obj.Item.Id}>
+						<Link to={`/item/${obj.Item.Id}`}>
 					<div className="bgWhite relative">
-					<div className="imgWrap"><img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="phone" /></div>
+					<div className="imgWrap">
+						<img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="hould be here" />
+					</div>
 					<div className="productInfo"><h4>{obj.Item.Name}</h4>
 					<div className="mgBottom">{obj.Item.CurrencyCode}{obj.Item.OfferPrice}</div>
 					<RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
 					</div>
 					</div>
+						</Link>
+						
 					</div>
+				 
+
 					)
 			});
 
-			return (
+			return (	
+		
 				<div className="frontPageItemsList">
-				{itemNodes}
-				</div>
-				)
+					
+						{itemsNodes} 
+					
+				</div> 
+			
+			)
 		}
 
 		return null
@@ -90,7 +107,8 @@ class Recommendations extends React.Component{
 				return (
 					<div className="col list mgBottom40" key={obj.Id}>
 					<div className="table full bgWhite relative">
-					<div className="imgWrap"><img src={'https://www.jetspree.com/images/recommendations/' + obj.Id + '/' + obj.ItemURL} alt="phone" /></div>
+					<div className="imgWrap">
+					<img  src={'https://www.jetspree.com/images/recommendations/' + obj.Id + '/' + obj.ItemURL} alt="phone" /></div>
 					<div className="productInfo tableCell vatop full"><h4>{obj.Name}</h4>
 					<div>{obj.Description}</div>
 					<div>{obj.CurrencyCode}{obj.Price}</div>
@@ -123,7 +141,7 @@ const styles = {
 	dialogBody: {
 		minHeight: 400,
 		background:"#eee",
-		paddingTop: 40,
+		paddingTop: 24,
 		paddingBottom: 40
 	},
 	dialogTitle: {
@@ -146,7 +164,7 @@ class Modal extends React.Component {
 		this.setState({modalOpen: false});
 	};
 
-	componentWillReceiveProps(nextProps){console.log(nextProps);
+	componentWillReceiveProps(nextProps){
 		this.setState({modalOpen: true});	
 		this.tripsUserUid = nextProps.userUID;
 		this.tripsUserName = nextProps.userName;
@@ -154,17 +172,19 @@ class Modal extends React.Component {
 	}
 
 	render() {
+		const formatTripsDate = this.tripsUserTripsDate;
 		/*const actions = [
 		<RaisedButton label="Cancel" primary={true} onTouchTap={this.handleClose} />,
 		<RaisedButton label="Submit" primary={true} keyboardFocused={true} onTouchTap={this.handleClose} />,
 		];*/
-
 		let userUID = this.props.userUID;
 		if (userUID){
 			return (
 				<Dialog title={this.tripsUserName + " offer help to buy these products:"} /*actions={actions}*/ modal={false} open={this.state.modalOpen} onRequestClose={this.handleClose} autoScrollBodyContent={true}
 				bodyStyle={ styles.dialogBody } style={ styles.dialogRoot } titleStyle={ styles.dialogTitle} repositionOnUpdate={ false }>
-					<div className="mgBottom40">{this.tripsUserTripsDate}</div>
+					<div className="mgBottom40">
+					 Trips at <FormattedDate value={formatTripsDate} day="numeric" month="long" year="numeric" />
+					</div>
 					<Recommendations tripsUserUid={this.tripsUserUid} />
 				</Dialog>	
 				)
@@ -183,7 +203,6 @@ class Trips extends React.Component {
 	}
 
 	handleOpen = (e) => {
-		console.log(e)
 		this.userUid = e.UserProfile.UID;
 		this.userName = e.UserProfile.DisplayName;
 		this.userTripsDate = e.CrtUpdDate;
@@ -217,8 +236,10 @@ class Trips extends React.Component {
 			var tripNodes = this.state.trips.map((obj, i) => {
 				//console.log("Trips.render()", obj);
 				return (
-					<li key={obj.Id}>
-						<img onTouchTap={this.handleOpen.bind(this, obj)} src={'https://www.jetspree.com/api/image/profile/' + obj.UserProfile.UID + '/' + obj.UserProfile.PicURL + '?width=155&height=155&ratio=false'} alt="{obj.UserProfile.DisplayName}" />
+					<li key={obj.Id} onTouchTap={this.handleOpen.bind(this, obj)}>
+
+					<ReactImageFallback src={'https://www.jetspree.com/api/image/profile/' + obj.UserProfile.UID + '/' + obj.UserProfile.PicURL + '?width=155&height=155&ratio=false'} fallbackImage={logo} initialImage={logo} alt={obj.UserProfile.DisplayName} />
+		
 						<span className="userName">{obj.UserProfile.DisplayName}</span>
 					</li>
 				)
