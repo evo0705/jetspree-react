@@ -11,42 +11,32 @@ class requestView extends React.Component {
 	}
 
 	initData() {
-	
 		let param ={
-		id: this.props.match.params.Id
+			id: this.props.match.params.Id
 		};
 		
 		loadRequest(param).then((data) => {
-			
 			this.setState({item: JSON.stringify(data)});
 		});
 
 	}
 
-
 	componentDidMount(){
 		this.initData();
 	}
 
-
 	render() {
-
-if (this.state.item){
-
-		var wahaha = this.state.item;
-
-
-
-}
+		if (this.state.item){
+			var wahaha = this.state.item;
+		}
 
 		return (
 			<div>
 			{this.props.children}
-				<pre>{wahaha}</pre>	 walao
+			<pre>{wahaha}</pre>	 walao
 			</div>
-		)
-
-}
+			)
+	}
 
 }
 

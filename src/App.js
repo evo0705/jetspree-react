@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Landing from './routes/Landing.js';
 import BrowseCountries from './routes/requests/Countries.js';
 import requestView from './routes/requests/View.js';
+import signUp from './routes/account.js';
 
 injectTapEventPlugin();
 
@@ -29,12 +30,13 @@ class App extends Component {
 			<img src={logo} className="App-logo" alt="logo" />
 			  <FlatButton label="Home"  containerElement={<Link to="/"/>} />
 			  <FlatButton label="Countries"  containerElement={<Link to="/countries"/>} />
+			  			  <FlatButton label="Sign Up"  containerElement={<Link to="/signup"/>} />
 			</div>
 
 			<Route exact path="/" component={Landing}/>
 			<Route path="/countries" component={BrowseCountries}/>
 			<Route path="/item/:Id" component={requestView}/>
-		
+			<Route path="/signup" component={signUp}/>
 		  </div>
 		    </MuiThemeProvider>
 		</Router>
