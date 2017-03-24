@@ -41,11 +41,11 @@ class signUp extends React.Component {
 	}
 
 	submit(data) {
+		var abc = this;
 		Axios.post('https://jetspree-node-test.herokuapp.com/login/signup', {email:data.email, password: data.password})
 		.then(response => {
 			console.log(response)
-			this.handleTouchTap(response);
-			
+			abc.handleTouchTap(response);
 		} )
 		.catch(function (error) {
 			console.log(error);

@@ -57,24 +57,17 @@ class Items extends React.Component {
 					</div>
 					</div>
 						</Link>
-						
 					</div>
-				 
-
 					)
 			});
 
 			return (	
 		
 				<div className="frontPageItemsList">
-					
 						{itemsNodes} 
-					
 				</div> 
-			
 			)
 		}
-
 		return null
 	}
 }
@@ -108,7 +101,7 @@ class Recommendations extends React.Component{
 					<div className="col list mgBottom40" key={obj.Id}>
 					<div className="table full bgWhite relative">
 					<div className="imgWrap">
-					<img  src={'https://www.jetspree.com/images/recommendations/' + obj.Id + '/' + obj.ItemURL} alt="phone" /></div>
+					<img src={'https://www.jetspree.com/images/recommendations/' + obj.Id + '/' + obj.ItemURL} alt="phone" /></div>
 					<div className="productInfo tableCell vatop full"><h4>{obj.Name}</h4>
 					<div>{obj.Description}</div>
 					<div>{obj.CurrencyCode}{obj.Price}</div>
