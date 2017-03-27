@@ -11,8 +11,12 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Landing from './routes/Landing.js';
 import BrowseCountries from './routes/requests/Countries.js';
 import ItemsList from './routes/requests/List.js';
-import SignUp from './routes/SignUp.js';
 import RequestView from './routes/requests/View.js';
+
+import ProductsList from './routes/products/Products.js'
+import SignUp from './routes/SignUp.js';
+import Login from './routes/Login.js';
+
 
 
 injectTapEventPlugin();
@@ -34,18 +38,25 @@ class App extends Component {
 			<div className="container">
 			<img src={logo} className="App-logo" alt="logo" />
 			  <FlatButton label="Home"  containerElement={<Link to="/"/>} />
-			  <FlatButton label="Countries"  containerElement={<Link to="/countries"/>} />
+			  <FlatButton label="Countries"  containerElement={<Link to="/countries"/>} />		
+			  <FlatButton label="Requests"  containerElement={<Link to="/items"/>} />
+			  <FlatButton label="Products"  containerElement={<Link to="/products"/>} />
 			  <FlatButton label="Sign Up"  containerElement={<Link to="/signup"/>} />
-			  <FlatButton label="Items List"  containerElement={<Link to="/items"/>} />
+			  <FlatButton label="Login"  containerElement={<Link to="/login"/>} />
+
 			</div>
 			</div>
 			</div>
 			<Route exact path="/" component={Landing}/>
-			<Route path="/countries" component={BrowseCountries}/>
-		
 			<Route path="/signup" component={SignUp}/>
+			<Route path="/login" component={Login}/>
+			<Route path="/countries" component={BrowseCountries}/>
 			<Route path="/items" component={ItemsList} />
           	<Route exact path='/items/:Id' component={RequestView}/>
+
+			<Route path="/products" component={ProductsList} />
+
+
 
 		  </div>
 		    </MuiThemeProvider>
