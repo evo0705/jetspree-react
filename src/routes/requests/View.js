@@ -3,6 +3,7 @@ import { loadRequest } from '../../data/requests.js';
 import ReactImageFallback from "react-image-fallback";
 import Placeholder from '../../../public/imgs/greyImg.gif';
 import RaisedButton from 'material-ui/RaisedButton';
+import './View.css';
 
 class ItemDetails extends React.Component {
 	constructor(props){
@@ -44,7 +45,7 @@ class ItemDetails extends React.Component {
 			<p>Shop Country: {this.state.Country}</p>
 			</div>
 						<div className="floatWrap">
-				<RaisedButton label="Claim" primary={true} className="pullRight abBottomRight"/>
+				<RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
 			</div>
 			</div>
 

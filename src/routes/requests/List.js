@@ -49,11 +49,23 @@ class Items extends React.Component {
       });
 
       return (  
-
-        <div className="itemsList">
-        {itemsNodes} 
-        </div> 
-        )
+      <div className="itemsListWrap">  
+        <div className="overflowFixBeta">
+          <div className="container">
+            <div className="table">
+              <div className="leftSide">
+                 Category here
+              </div>
+              <div className="contentWrap tableCell full vatop">
+                <div className="content colWrap productList">
+                  {itemsNodes} 
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+      )
     }
     return null
   }
@@ -126,20 +138,20 @@ class ItemsList extends React.Component {
   }
 
   render() {
-  //console.log('location: ' + JSON.stringify(this.props))
+  console.log('location: ' + JSON.stringify(this.props))
   const { location } = this.props
   const isModal = !!(
     location.state && location.state.modal && this.previousLocation !== location // not initial render
   )
 
+
     return (  
-      <div className="itemsListWrap">
+      <div>
         <Switch location={isModal ? this.previousLocation : location}>
           <Route exact path='/items' component={Items} />
-          <Route path='/items/:Id' component={RequestView}/>
         </Switch>
         {isModal ? <div className="modalView"><Route path='/items/:Id' component={Modal} /></div> : null}
-      </div> 
+        </div>
     )
   }
 }

@@ -29,5 +29,5 @@
 .itemsList .imgWrap{width: 165px;}
 
 .productInfo{padding: 20px;min-height: 240px;}
-.productInfo h4{letter-spacing: normal;}
+.productInfo h4{letter-spacing: normal;    word-break: break-word;    max-height: 92px;overflow: hidden;}
         

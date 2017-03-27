@@ -11,7 +11,9 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Landing from './routes/Landing.js';
 import BrowseCountries from './routes/requests/Countries.js';
 import ItemsList from './routes/requests/List.js';
-import signUp from './routes/account.js';
+import SignUp from './routes/SignUp.js';
+import RequestView from './routes/requests/View.js';
+
 
 injectTapEventPlugin();
 
@@ -28,20 +30,22 @@ class App extends Component {
 			  <h2>Welcome to React123</h2>
 			</div>*/}
 			<div className="header">
+			 <div className="overflowFixBeta">
 			<div className="container">
 			<img src={logo} className="App-logo" alt="logo" />
 			  <FlatButton label="Home"  containerElement={<Link to="/"/>} />
 			  <FlatButton label="Countries"  containerElement={<Link to="/countries"/>} />
 			  <FlatButton label="Sign Up"  containerElement={<Link to="/signup"/>} />
-			  <FlatButton label="Sign Up"  containerElement={<Link to="/items"/>} />
+			  <FlatButton label="Items List"  containerElement={<Link to="/items"/>} />
+			</div>
 			</div>
 			</div>
 			<Route exact path="/" component={Landing}/>
 			<Route path="/countries" component={BrowseCountries}/>
 		
-			<Route path="/signup" component={signUp}/>
+			<Route path="/signup" component={SignUp}/>
 			<Route path="/items" component={ItemsList} />
-
+          	<Route exact path='/items/:Id' component={RequestView}/>
 
 		  </div>
 		    </MuiThemeProvider>
