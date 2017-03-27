@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../logo.svg';
 import Select from 'react-select';
-import { BrowserRouter as Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 //import { loadSubCategories } from '../data/common.js';
 import { loadItems, loadRequests } from '../data/requests.js';
 import { loadTrips, loadRecommendations } from '../data/traveller.js';

@@ -2,11 +2,11 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { loadItems } from '../../data/requests.js';
 import RaisedButton from 'material-ui/RaisedButton';
-import RequestView from './View.js';
+import ProductView from './View.js';
 import Dialog from 'material-ui/Dialog';
-import './List.css';
+import '../requests/List.css';
 
-class Items extends React.Component {
+class Products extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -33,7 +33,7 @@ class Items extends React.Component {
       let itemsNodes = this.state.items.Items.map((obj, i) => {
         return (  
           <div className="colMd6 col" key={obj.Item.Id}>
-          <Link to={{pathname: `/items/${obj.Item.Id}`,state: { modal: true }}}>
+          <Link to={{pathname: `/products/${obj.Item.Id}`,state: { modal: true }}}>
             <div className="bgWhite relative">
               <div className="imgWrap">
                 <img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="hould be here" />
@@ -105,7 +105,7 @@ if (match.isExact) {
 
    <Dialog modal={false} open={modalOpen} onRequestClose={back} autoScrollBodyContent={true} className="itemModal"
         bodyStyle={ styles.dialogBody } style={ styles.dialogRoot } titleStyle={ styles.dialogTitle} repositionOnUpdate={ false }>
-    <RequestView modalId={match.params.Id}/>
+    <ProductView modalId={match.params.Id}/>
     {/*<button type='button' onClick={back}>Close</button>*/}
  
     </Dialog>
@@ -113,7 +113,7 @@ if (match.isExact) {
     )
 }
 
-class ItemsList extends React.Component {
+class ProductsList extends React.Component {
 
   // We can pass a location to <Switch/> that will tell it to
   // ignore the router's current location and use the location
@@ -148,9 +148,9 @@ class ItemsList extends React.Component {
     return (  
       <div>
         <Switch location={isModal ? this.previousLocation : location}>
-          <Route exact path='/items' component={Items} />
+          <Route exact path='/products' component={Products} />
         </Switch>
-        {isModal ? <div className="modalView"><Route path='/items/:Id' component={Modal} /></div> : null}
+        {isModal ? <div className="modalView"><Route path='/products/:Id' component={Modal} /></div> : null}
         </div>
     )
   }
@@ -158,4 +158,4 @@ class ItemsList extends React.Component {
 
 
 
-export default ItemsList;
+export default ProductsList;

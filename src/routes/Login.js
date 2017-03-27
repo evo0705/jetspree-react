@@ -27,7 +27,7 @@ const styles = {
 };
 
 
-class SignUp extends React.Component {
+class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -63,11 +63,11 @@ class SignUp extends React.Component {
 
 	submit(data) {
 		var abc = this;
-		Axios.post('https://jetspree-node-test.herokuapp.com/login/signup', {email:data.email, password: data.password})
+		Axios.post('https://jetspree-node-test.herokuapp.com/login/account', {email:data.email, password: data.password})
 		.then(response => {
 			console.log(response)
 			abc.handleTouchTap(response);
-		} )
+		})
 		.catch(function (error) {
 			console.log(error);
 			this.handleTouchTap(error);
@@ -79,7 +79,7 @@ class SignUp extends React.Component {
 	render() {
 		return (
 			<div className="accountForm stayCenter mgTop40">
-			<h1>Sign Up</h1>
+			<h1>Login</h1>
 			<Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
 			<ul>
 			<li>
@@ -94,17 +94,17 @@ class SignUp extends React.Component {
 
 			<div className="floatWrap">
 				<div className="pullRight">
-			<FlatButton type="submit" label="Create my account"  disabled={!this.state.canSubmit} className="bgPri" />
+			<FlatButton type="submit" label="Login"  disabled={!this.state.canSubmit} className="bgPri" />
 			<FlatButton onTouchTap={this.handleTouchTap} label="Snackbar" />
 				</div>
 				</div>
 			</Form>
 			<Snackbar open={this.state.SnackbarOpen} message="Event added to your calendar" autoHideDuration={4000} onRequestClose={this.handleRequestClose} />
-				<div className="mgTop60 taCenter">Already have an account? <Link to="/login">Login</Link></div>
+					<div className="mgTop60 taCenter">Not member yet? <Link to="/signup">Sign Up</Link></div>
 			</div>
 			);
 	}
 }
 
 
-export default SignUp;
+export default Login;
