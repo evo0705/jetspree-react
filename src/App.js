@@ -12,6 +12,8 @@ import Landing from './routes/Landing.js';
 import BrowseCountries from './routes/requests/Countries.js';
 import ItemsList from './routes/requests/List.js';
 import SignUp from './routes/SignUp.js';
+import RequestView from './routes/requests/View.js';
+
 
 injectTapEventPlugin();
 
@@ -28,7 +30,7 @@ class App extends Component {
 			  <h2>Welcome to React123</h2>
 			</div>*/}
 			<div className="header">
-			        <div className="overflowFixBeta">
+			 <div className="overflowFixBeta">
 			<div className="container">
 			<img src={logo} className="App-logo" alt="logo" />
 			  <FlatButton label="Home"  containerElement={<Link to="/"/>} />
@@ -43,7 +45,7 @@ class App extends Component {
 		
 			<Route path="/signup" component={SignUp}/>
 			<Route path="/items" component={ItemsList} />
-
+          	<Route exact path='/items/:Id' component={RequestView}/>
 
 		  </div>
 		    </MuiThemeProvider>

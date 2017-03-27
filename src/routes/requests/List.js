@@ -49,11 +49,23 @@ class Items extends React.Component {
       });
 
       return (  
-
-        <div className="itemsList">
-        {itemsNodes} 
-        </div> 
-        )
+      <div className="itemsListWrap">  
+        <div className="overflowFixBeta">
+          <div className="container">
+            <div className="table">
+              <div className="leftSide">
+                 Category here
+              </div>
+              <div className="contentWrap tableCell full vatop">
+                <div className="content colWrap productList">
+                  {itemsNodes} 
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+      )
     }
     return null
   }
@@ -134,27 +146,12 @@ class ItemsList extends React.Component {
 
 
     return (  
-      <div className="itemsListWrap">  
-            <div className="overflowFixBeta">
-        <div className="container">
-        <div className={"table " + (isModal ? "isModal" : "notModal")}>
-        <div className="leftSide">
-        asdasd
-        </div>
-        <div className="contentWrap tableCell full vatop">
-
-        <div className="content colWrap productList">
+      <div>
         <Switch location={isModal ? this.previousLocation : location}>
           <Route exact path='/items' component={Items} />
-          <Route exact path='/items/:Id' component={RequestView}/>
         </Switch>
         {isModal ? <div className="modalView"><Route path='/items/:Id' component={Modal} /></div> : null}
         </div>
-        </div>
-        </div>
-        </div>
-          </div>
-      </div> 
     )
   }
 }
