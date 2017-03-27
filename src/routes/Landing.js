@@ -296,7 +296,7 @@ class Landing extends React.Component {
 			<div className="Landing-page">	
 			<div id="banner" className="grad-blue">
 			<div className="container banner">
-			<div className="table fullheight staycenter">
+			<div className="table fullheight stayCenter">
 			<div className="bannerimg"><img src="http://www.freeiconspng.com/uploads/white-iphone-6-png-image-22.png" alt="phone" width="350" />
 			<div className="phoneShadow"></div>
 			</div>
@@ -314,16 +314,16 @@ class Landing extends React.Component {
 			<div className="container">
 			<h2>How Jetspree Work?</h2>
 			<div className="colMd3 col"><img src={How1} alt="post your request"/>
-			<div><p className="colorSp">Post your buy request</p><span>Request any item from around the world.</span></div>
+			<div><p className="colorPri">Post your buy request</p><span>Request any item from around the world.</span></div>
 			</div>
 			<div className="colMd3 col"><img src={How2} alt="post your request"/>
-			<div><p className="colorSp">Traveller offer to help</p><span>Accept traveller's offer and deposit money.</span></div>
+			<div><p className="colorPri">Traveller offer to help</p><span>Accept traveller's offer and deposit money.</span></div>
 			</div>
 			<div className="colMd3 col"><img src={How3} alt="post your request"/>
-			<div><p className="colorSp">Traveller delivers item</p><span>100% refund if not fullfilled.</span></div>
+			<div><p className="colorPri">Traveller delivers item</p><span>100% refund if not fullfilled.</span></div>
 			</div>
 			<div className="colMd3 col"><img src={How4} alt="post your request"/>
-			<div><p className="colorSp">Payment release to traveller</p><span>Traveller will be paid after acknowledged by shopper.</span></div>
+			<div><p className="colorPri">Payment release to traveller</p><span>Traveller will be paid after acknowledged by shopper.</span></div>
 			</div>
 			</div>
 			</div>

@@ -1,0 +1,7 @@
+.accountForm {max-width: 500px;background: #fff;    padding: 20px 40px 40px;}
+.accountForm ul{margin-top: 0;margin-bottom: 40px}
+.accountForm li{margin-bottom: 0px;}
+
+.accountForm button{margin-right: 10px!important}
+.accountForm button:last-child{margin-right: 0!important}
+.accountForm input{height: auto!important;margin-top: 40px!important}

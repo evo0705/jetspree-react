@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 
 *{box-sizing: border-box;}
-body{font-size: 14px;overflow-y:auto!important; background: #eee; }
+body{font-size: 14px; background: #eee;overflow-y:scroll;}
 body,button{font-family: 'Montserrat', sans-serif!important;}
 ul{list-style: none;padding-left: 0}
 a{text-decoration: none}
@@ -13,6 +13,9 @@ h1{font-size: 2.4em;}
 h3{font-size: 1.2em}
 h4{font-weight: 500;}
 img{max-width: 100%}
+input{padding: 10px;}
+
+.overflowFixBeta {padding-left: calc(100vw - 100%);}
 
 
 .itemModal ::-webkit-scrollbar-track
@@ -65,19 +68,25 @@ img{max-width: 100%}
 .vaMiddle{vertical-align: middle;}
 .taCenter{text-align: center;}
 .taleft{text-align: left;}
-.staycenter{margin-right: auto;margin-left: auto;}
-.colorSp{color: #00bcd4}
+.stayCenter{margin-right: auto;margin-left: auto;}
+.colorPri{color: #00bcd4}
 .colorGrey{color: #989898;}
 .small{font-size: 0.7em;font-weight: normal;display: block;}
 .grad-blue {background: linear-gradient(to bottom, #3090ff 0%, #519ffb 100%);}
+.bgPri{background: #00bcd4}
 .bgGrey{background: #eee}
 .bgWhite{background: #fff}
+
+button.bgPri{background: #00bcd4!important;color: #fff!important}
+button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: rgba(0, 0, 0, 0.298039)!important;}
+
 .pdWrap{padding: 60px 0}
 .mgBottom10{margin-bottom: 10px;}
 .mgBottom30{margin-bottom: 30px}
 .mgBottom40{margin-bottom: 40px}
 .mgTop20{margin-top: 20px;}
 .mgTop30{margin-top: 30px;}
+.mgTop40{margin-top: 30px;}
 .leftSide{width: 240px;}
 
 .relative{position: relative;}
