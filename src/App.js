@@ -10,10 +10,8 @@ import '../node_modules/react-select/dist/react-select.min.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Landing from './routes/Landing.js';
 import BrowseCountries from './routes/requests/Countries.js';
-import RequestView from './routes/requests/View.js';
-import ModalSwitch from './routes/requests/ViewModal.js';
+import ItemsList from './routes/requests/List.js';
 import signUp from './routes/account.js';
-import ModalRequestView from './routes/requests/View.js';
 
 injectTapEventPlugin();
 
@@ -29,19 +27,20 @@ class App extends Component {
 			  <img src={logo} className="App-logo" alt="logo" />
 			  <h2>Welcome to React123</h2>
 			</div>*/}
+			<div className="header">
 			<div className="container">
 			<img src={logo} className="App-logo" alt="logo" />
 			  <FlatButton label="Home"  containerElement={<Link to="/"/>} />
 			  <FlatButton label="Countries"  containerElement={<Link to="/countries"/>} />
 			  <FlatButton label="Sign Up"  containerElement={<Link to="/signup"/>} />
-			  <FlatButton label="Sign Up"  containerElement={<Link to="/ModalSwitch"/>} />
+			  <FlatButton label="Sign Up"  containerElement={<Link to="/items"/>} />
 			</div>
-
+			</div>
 			<Route exact path="/" component={Landing}/>
 			<Route path="/countries" component={BrowseCountries}/>
-			<Route path="/item/:Id" component={RequestView}/>
+		
 			<Route path="/signup" component={signUp}/>
-			<Route path="/ModalSwitch" component={ModalSwitch} />
+			<Route path="/items" component={ItemsList} />
 
 
 		  </div>
