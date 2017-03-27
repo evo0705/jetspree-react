@@ -18,7 +18,7 @@ import How4 from '../../public/imgs/how4.png';
 
 
 
-class Items extends React.Component {
+class ItemsHome extends React.Component {
 	constructor (props) {
 		super(props)
 		this.state = {
@@ -34,7 +34,6 @@ class Items extends React.Component {
 		let paramItems = {
 			pagesize: 4
 		};
-
 		loadItems(paramItems).then((data) => {
 			this.setState({items: data});
 		});
@@ -46,7 +45,7 @@ class Items extends React.Component {
 				return (	
 				
 					<div className="colMd6 col" key={obj.Item.Id}>
-						<Link to={`/item/${obj.Item.Id}`}>
+						<Link to={`/items/${obj.Item.Id}`}>
 					<div className="bgWhite relative">
 					<div className="imgWrap">
 						<img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL} alt="hould be here" />
@@ -350,7 +349,7 @@ class Landing extends React.Component {
 			<h3 className="pullLeft">Popular Requests</h3>
 			<div className="pullRight"><span>gadge</span><span>Food</span></div></div>
 			<div className="content colWrap productList">
-			<Items />
+			<ItemsHome />
 
 
 

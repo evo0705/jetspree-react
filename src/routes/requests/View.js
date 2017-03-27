@@ -1,20 +1,25 @@
 import React from 'react';
 import { loadRequest } from '../../data/requests.js';
+import ReactImageFallback from "react-image-fallback";
+import Placeholder from '../../../public/imgs/greyImg.gif';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class ItemDetails extends React.Component {
 	constructor(props){
-		console.log(props)
+		//console.log(props)
 		super(props)
 		this.state = {
-			
+			name:'',
+			Description: ''
 		};
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log(nextProps.data.Item)
+		//console.log(nextProps.data.Item)
 		if(this.props !== nextProps){
 			this.setState({
-				name: nextProps.data.Item.Name, id: nextProps.data.Item.Id, price: nextProps.data.Item.OfferPrice, CurrencyCode: nextProps.data.Item.CurrencyCode, 
+				name: nextProps.data.Item.Name, Description: nextProps.data.Item.Description,
+				id: nextProps.data.Item.Id, Price: nextProps.data.Item.OfferPrice, CurrencyCode: nextProps.data.Item.CurrencyCode, 
 				ItemURL: nextProps.data.Item.ItemURL, User: nextProps.data.Item.UserProfile.DisplayName, ShippingMethod: nextProps.data.Item.ShippingMethod.Name,
 				Country: nextProps.data.Item.Country.Name
 			});
@@ -23,14 +28,26 @@ class ItemDetails extends React.Component {
 
 	render() {   	
 		return (
-			<div>
-			<img src={'https://www.jetspree.com/images/requests/' + this.state.id + '/' + this.state.ItemURL} alt={this.state.name} />
+			<div className="itemWrap">
+			<div className="itemImgWrap">
+			<ReactImageFallback src={'https://www.jetspree.com/images/requests/' + this.state.id + '/' + this.state.ItemURL} alt={this.state.name} 
+			fallbackImage={Placeholder} initialImage={Placeholder} />
+			</div>
+			<div className="itemInfo">
 			<h1>{this.state.name}</h1>
-			{this.state.id}
-			<p>{this.state.CurrencyCode} <span>{this.state.price}</span></p>
-			<p>{this.state.User}</p>
-			<p>{this.state.ShippingMethod}</p>
-			<p>{this.state.Country}</p>
+			<p>{this.state.Description}</p>
+			<div className="mgTop30">
+			<p>Id: {this.state.id}</p>
+			<p>Pay: {this.state.CurrencyCode} <span>{this.state.Price}</span></p>
+			<p>Shopper: {this.state.User}</p>
+			<p>Shipping Method: {this.state.ShippingMethod}</p>
+			<p>Shop Country: {this.state.Country}</p>
+			</div>
+						<div className="floatWrap">
+				<RaisedButton label="Claim" primary={true} className="pullRight abBottomRight"/>
+			</div>
+			</div>
+
 			</div>
 			)
 	}
@@ -40,7 +57,7 @@ class ItemDetails extends React.Component {
 
 class RequestView extends React.Component {
 	constructor(props){
-		console.log(props)
+		//console.log(props)
 		super(props)
 		this.state = {
 			item: '',
