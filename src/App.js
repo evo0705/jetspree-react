@@ -19,7 +19,7 @@ import ProductView from './routes/products/View.js';
 import SignUp from './routes/SignUp.js';
 import Login from './routes/Login.js';
 
-
+import { GetUserInfo } from './routes/Login.js';
 
 injectTapEventPlugin();
 
@@ -27,12 +27,15 @@ const yuTheme = getMuiTheme({
 fontFamily: 'inherit',
 });
 
+
 class App extends Component {  
-  
+
+
   render() {
     return (
 		<Router>
 		 <MuiThemeProvider muiTheme={yuTheme}>
+
 		  <div className="App">
 			{/*<div className="App-header">
 			  <img src={logo} className="App-logo" alt="logo" />
@@ -49,12 +52,13 @@ class App extends Component {
 			  <FlatButton label="Sign Up"  containerElement={<Link to="/signup"/>} />
 			  <FlatButton label="Login"  containerElement={<Link to="/login"/>} />
 
+			  	<div><GetUserInfo /></div>
 			</div>
 			</div>
 			</div>
 			<Route exact path="/" component={Landing}/>
 			<Route path="/signup" component={SignUp}/>
-			<Route path="/login" component={Login}/>
+			<Route path="/login" component={Login} />
 			<Route path="/countries" component={BrowseCountries}/>
 			<Route path="/items" component={ItemsList} />
           	<Route exact path='/items/:Id' component={RequestView}/>

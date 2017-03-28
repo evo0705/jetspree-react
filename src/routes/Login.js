@@ -27,6 +27,7 @@ const styles = {
 };
 
 
+
 class SnackbarMsg extends React.Component {
 	constructor( {active} ) {
 	super();
@@ -64,9 +65,7 @@ class Form extends React.Component {
 		this.state = {
 			canSubmit: false,
 			SnackbarOpen: false,
-			username: '',
 			message: '',
-			token:'',
 			checked: initialChecked
 		}
 		this.handleTouchTap = this.handleTouchTap.bind(this);
@@ -98,13 +97,11 @@ class Form extends React.Component {
 				token: localStorage.token
 			};
 			getAuthUser(param).then((data) => {
-				this.setState({userEmail: data.email, userName: data.email});
+				//this.setState({userEmail: data.email, userName: data.email});
+				//this.props.callbackUser({userEmail: data.email, userName: data.email, userId: data.id}); // notify parent
 			})
+		
 		}
-	}
-
-	componentDidMount() {
-		this.getToken();
 	}
 
 	submit(data) {
@@ -112,9 +109,9 @@ class Form extends React.Component {
 		.then(response => {
 			//console.log(response.data.token)
 			if (response.data.token) {
-				this.setState({token: response.data.token});
+				//this.setState({token: response.data.token});
 				localStorage.setItem("token", response.data.token);
-				this.getToken();
+				//this.getToken();
 			}
 			this.handleTouchTap(response);
 		})
@@ -163,18 +160,78 @@ class Login extends React.Component {
       this.setState({ checked: newState })
     }
 
-	render() {console.log("parent output " + this.state.checked)
+
+	render() {console.log(this.state)
 		return (
 			<div className="accountForm stayCenter mgTop40">
 			<h1>Login</h1>
-			<Form initialChecked={this.state.checked} callbackParent={(newState) => this.onChildChanged(newState)} />
+			<GetUserInfo />
+			<Form initialChecked={this.state.checked} callbackParent={(newState) => this.onChildChanged(newState)}  />
 			<SnackbarMsg active={this.state.checked} text="Successsss" />
 			<div className="mgTop60 taCenter">Not member yet? <Link to="/signup">Sign Up</Link></div>
 			</div>
-			);
+		);
 	}
 }
 
+
+
+
+export class GetUserInfo extends React.Component{
+	constructor() {
+	super();
+	this.state = {
+		userName: '',
+		userEmail: '',
+		userId: ''
+	}
+}
+	getToken() {
+		if (localStorage.token){
+			let param = {
+				token: localStorage.token
+			};
+			getAuthUser(param).then((data) => {
+				this.setState({userEmail: data.email, userName: data.email, userId: data.id});
+			})
+		}
+	}	
+
+logout = () => {
+	localStorage.removeItem("token");
+	this.setState({userEmail: '', userName: '', userId: ''})
+}
+
+componentDidMount() {
+	this.getToken()
+}
+
+
+    onUserChanged(userdata) {
+    	console.log(userdata)
+      this.props.callbackParent(userdata);
+
+
+    }
+
+
+	componentWillReceiveProps(nextProps){
+		console.log(nextProps)
+		if (nextProps){
+		this.getToken()
+		};
+	}
+
+
+	render() {console.log('run me');
+		return (
+
+			<div>Hi, {this.state.userName} 
+					<button onClick={this.logout}>loggout</button>
+			</div>
+			)
+	}
+}
 
 
 export default Login;
