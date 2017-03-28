@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { loadItems } from '../../data/requests.js';
 import RaisedButton from 'material-ui/RaisedButton';
 import ProductView from './View.js';
@@ -73,7 +73,8 @@ class Products extends React.Component {
 
 const styles = {
   dialogRoot: {
-    paddingTop: 0
+    paddingTop: 0,
+
   },
   dialogBody: {
     minHeight: 400,

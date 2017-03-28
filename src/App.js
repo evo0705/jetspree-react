@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectTapEventPlugin from '../node_modules/react-tap-event-plugin';
 //import getMuiTheme from '../node_modules/material-ui/styles/getMuiTheme';
 import MuiThemeProvider from '../node_modules/material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import FlatButton from '../node_modules/material-ui/FlatButton';
 
 import logo from './logo.svg';
@@ -13,7 +14,8 @@ import BrowseCountries from './routes/requests/Countries.js';
 import ItemsList from './routes/requests/List.js';
 import RequestView from './routes/requests/View.js';
 
-import ProductsList from './routes/products/Products.js'
+import ProductsList from './routes/products/Products.js';
+import ProductView from './routes/products/View.js';
 import SignUp from './routes/SignUp.js';
 import Login from './routes/Login.js';
 
@@ -21,13 +23,16 @@ import Login from './routes/Login.js';
 
 injectTapEventPlugin();
 
+const yuTheme = getMuiTheme({
+fontFamily: 'inherit',
+});
 
 class App extends Component {  
   
   render() {
     return (
 		<Router>
-		 <MuiThemeProvider>
+		 <MuiThemeProvider muiTheme={yuTheme}>
 		  <div className="App">
 			{/*<div className="App-header">
 			  <img src={logo} className="App-logo" alt="logo" />
@@ -55,7 +60,7 @@ class App extends Component {
           	<Route exact path='/items/:Id' component={RequestView}/>
 
 			<Route path="/products" component={ProductsList} />
-
+          	<Route exact path='/products/:Id' component={ProductView}/>
 
 
 		  </div>

@@ -16,3 +16,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+src/data/850.json
+src/data/852.json
+src/data/items.json
+src/data/recommendation.json
+src/data/trips.json
