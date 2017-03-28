@@ -82,7 +82,9 @@ const styles = {
     paddingTop: 0,
     paddingLeft: 0,
     paddingRight: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
+    fontSize: 'inherit'
+   
   },
   dialogTitle: {
     fontSize: 18,

@@ -39,10 +39,11 @@ class ItemDetails extends React.Component {
 			</div>
 			<div className="itemInfo">
 			<h1><Link to={{pathname: `/products/${this.state.id}`,state: { modal: false }}}>{this.state.name}</Link></h1>
-			<p>{this.state.Description}</p>
-			<div className="mgTop30">
-			<p>Id: {this.state.id}</p>
 			<p className="itemPrice">{this.state.CurrencyCode} <span>{this.state.Price}</span></p>
+			<div className="mgTop30">
+			
+			
+			<p>{this.state.Description}</p>
 			<p>Shop Country: {this.state.Country}</p>
 			</div>
 						<div className="floatWrap">

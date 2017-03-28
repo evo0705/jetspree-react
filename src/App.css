@@ -44,7 +44,7 @@ input{padding: 10px;}
 .taleft{text-align: left;}
 .stayCenter{margin-right: auto;margin-left: auto;}
 .colorPri,a{color: #00bcd4}
-.colorSec,.itemPrice span {color: #ff4081}
+.colorSec,.itemPrice {color: #ff4081}
 .colorGrey{color: #989898;}
 .small{font-size: 0.7em;font-weight: normal;display: block;}
 .grad-blue {background: linear-gradient(to bottom, #3090ff 0%, #519ffb 100%);}
