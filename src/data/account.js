@@ -11,7 +11,7 @@ export function postSignup(data) {
 }
 
 
-export function loadAuthUser(param) {
+export function getAuthUser(param) {
 	return Axios.get('https://jetspree-node-test.herokuapp.com/auth/user?' + QueryString.stringify(param))
 		.then( (response) => response.data )
 		.catch(function (error) {

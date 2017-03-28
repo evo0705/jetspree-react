@@ -8,7 +8,7 @@ import Snackbar from 'material-ui/Snackbar';
 import './SignUp.css';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import FlatButton from 'material-ui/FlatButton';
-import {loadAuthUser} from '../data/account.js';
+import {getAuthUser} from '../data/account.js';
 
 const styles = {
 	textfield: {
@@ -27,34 +27,59 @@ const styles = {
 };
 
 
-class Login extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			canSubmit: false,
-			SnackbarOpen: false,
-			username: null,
-			message: '',
-			token:''
-		};
-		this.handleTouchTap = this.handleTouchTap.bind(this);
-		this.submit = this.submit.bind(this);
-		this.getdata = this.getdata.bind(this);
+class SnackbarMsg extends React.Component {
+	constructor( {active} ) {
+	super();
+	this.state = {
+		SnackbarOpen: active,
+		message: ''
 	}
-
-	handleTouchTap = (req) => {
-		this.setState({
-			SnackbarOpen: true,
-			message: 'Success!'
-		});
-	};
+}
 
 	handleRequestClose = () => {
 		this.setState({
 			SnackbarOpen: false
 		});
-	};
+	}
 
+	componentWillReceiveProps(nextProps){
+		if (nextProps.active){
+			this.setState({SnackbarOpen: true, message: nextProps.text})
+		};
+	}
+
+	render() {
+		return (
+			<div>
+			<Snackbar open={this.state.SnackbarOpen} message={this.state.message} autoHideDuration={4000} onRequestClose={this.handleRequestClose} />
+			</div>
+		)
+	}
+
+}
+
+class Form extends React.Component {
+	constructor( {initialChecked} ){
+		super();
+		this.state = {
+			canSubmit: false,
+			SnackbarOpen: false,
+			username: '',
+			message: '',
+			token:'',
+			checked: initialChecked
+		}
+		this.handleTouchTap = this.handleTouchTap.bind(this);
+		this.getToken = this.getToken.bind(this);
+		this.submit = this.submit.bind(this);
+	}
+
+  handleTouchTap() {
+    // const newState = !this.state.checked; // this is toggle
+    const newState = true;
+    this.setState({ checked: newState }); 
+    this.props.callbackParent(newState); // notify parent
+  }
 
 	enableButton = () => {
 		this.setState({
@@ -67,15 +92,19 @@ class Login extends React.Component {
 		});
 	}
 
+	getToken() {
+		if (localStorage.token){
+			let param = {
+				token: localStorage.token
+			};
+			getAuthUser(param).then((data) => {
+				this.setState({userEmail: data.email, userName: data.email});
+			})
+		}
+	}
 
-	getdata = () => {
-		let param = {
-			token: this.state.token
-		};
-		loadAuthUser(param).then((data) => {
-			this.setState({user: data});
-		})
-
+	componentDidMount() {
+		this.getToken();
 	}
 
 	submit(data) {
@@ -85,7 +114,7 @@ class Login extends React.Component {
 			if (response.data.token) {
 				this.setState({token: response.data.token});
 				localStorage.setItem("token", response.data.token);
-				this.getdata();
+				this.getToken();
 			}
 			this.handleTouchTap(response);
 		})
@@ -95,13 +124,9 @@ class Login extends React.Component {
 		//alert(JSON.stringify(data.email, null, 4));
 	}
 
-
-
-
 	render() {
-		return (
-			<div className="accountForm stayCenter mgTop40">
-			<h1>Login</h1>
+		return(
+			<div>
 			<Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
 			<ul>
 			<li>
@@ -113,38 +138,41 @@ class Login extends React.Component {
 			style={styles.textfield} errorStyle={styles.errorStyle}  floatingLabelFocusStyle={styles.floatingLabelFocusStyle} required />
 			</li>
 			</ul>
-
 			<div className="floatWrap">
 			<div className="pullRight">
 			<FlatButton type="submit" label="Login"  disabled={!this.state.canSubmit} className="bgPri" />
-			<FlatButton onTouchTap={this.handleTouchTap} label="Snackbar" />
+			{/*<FlatButton onTouchTap={this.handleTouchTap} label="Snackbar" />*/}
 			</div>
 			</div>
 			</Formsy.Form>
-			<Snackbar open={this.state.SnackbarOpen} message={this.state.message} autoHideDuration={4000} onRequestClose={this.handleRequestClose} />
+			</div>
+			)
+	}
+}
+
+
+class Login extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			checked: false
+		};
+	}
+
+    onChildChanged(newState) {
+      this.setState({ checked: newState })
+    }
+
+	render() {console.log("parent output " + this.state.checked)
+		return (
+			<div className="accountForm stayCenter mgTop40">
+			<h1>Login</h1>
+			<Form initialChecked={this.state.checked} callbackParent={(newState) => this.onChildChanged(newState)} />
+			<SnackbarMsg active={this.state.checked} text="Successsss" />
 			<div className="mgTop60 taCenter">Not member yet? <Link to="/signup">Sign Up</Link></div>
 			</div>
 			);
 	}
-}
-
-class GetUserAuth extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			token: '',
-		};
-	}
-
-	render () {
-
-
-		return (
-			alert('wwad')
-			)
-
-	}
-	
 }
 
 
