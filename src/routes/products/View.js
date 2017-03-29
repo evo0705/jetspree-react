@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { loadRequest } from '../../data/requests.js';
 import ReactImageFallback from "react-image-fallback";
 import Placeholder from '../../../public/imgs/greyImg.gif';
 import RaisedButton from 'material-ui/RaisedButton';
 import '../requests/View.css';
+import './View.css';
+
 
 class ItemDetails extends React.Component {
 	constructor(props){
@@ -21,7 +24,7 @@ class ItemDetails extends React.Component {
 			this.setState({
 				name: nextProps.data.Item.Name, Description: nextProps.data.Item.Description,
 				id: nextProps.data.Item.Id, Price: nextProps.data.Item.OfferPrice, CurrencyCode: nextProps.data.Item.CurrencyCode, 
-				ItemURL: nextProps.data.Item.ItemURL, User: nextProps.data.Item.UserProfile.DisplayName, ShippingMethod: nextProps.data.Item.ShippingMethod.Name,
+				ItemURL: nextProps.data.Item.ItemURL,
 				Country: nextProps.data.Item.Country.Name
 			});
 		}
@@ -35,13 +38,12 @@ class ItemDetails extends React.Component {
 			fallbackImage={Placeholder} initialImage={Placeholder} />
 			</div>
 			<div className="itemInfo">
-			<h1>{this.state.name}</h1>
-			<p>{this.state.Description}</p>
+			<h1><Link to={{pathname: `/products/${this.state.id}`,state: { modal: false }}}>{this.state.name}</Link></h1>
+			<p className="itemPrice">{this.state.CurrencyCode} <span>{this.state.Price}</span></p>
 			<div className="mgTop30">
-			<p>Id: {this.state.id}</p>
-			<p>Pay: {this.state.CurrencyCode} <span>{this.state.Price}</span></p>
-			<p>Shopper: {this.state.User}</p>
-			<p>Shipping Method: {this.state.ShippingMethod}</p>
+			
+			
+			<p>{this.state.Description}</p>
 			<p>Shop Country: {this.state.Country}</p>
 			</div>
 						<div className="floatWrap">

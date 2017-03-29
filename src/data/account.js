@@ -1,3 +1,4 @@
+import QueryString from 'querystring';
 import Axios from "axios";
 
 export function postSignup(data) {
@@ -10,3 +11,10 @@ export function postSignup(data) {
 }
 
 
+export function getAuthUser(param) {
+	return Axios.get('https://jetspree-node-test.herokuapp.com/auth/user?' + QueryString.stringify(param))
+		.then( (response) => response.data )
+		.catch(function (error) {
+			console.log(error);
+		});
+}
