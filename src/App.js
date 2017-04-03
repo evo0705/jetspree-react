@@ -18,6 +18,7 @@ import ProductsList from './routes/products/Products.js';
 import ProductView from './routes/products/View.js';
 import SignUp from './routes/SignUp.js';
 import Login from './routes/Login.js';
+import Request from './routes/PostRequest';
 
 import { GetUserInfo } from './routes/Login.js';
 
@@ -47,7 +48,7 @@ class App extends Component {
 			<img src={logo} className="App-logo" alt="logo" />
 			  <FlatButton label="Home"  containerElement={<Link to="/"/>} />
 			  <FlatButton label="Countries"  containerElement={<Link to="/countries"/>} />		
-			  <FlatButton label="Requests"  containerElement={<Link to="/items"/>} />
+			  <FlatButton label="Requests"  containerElement={<Link to="/request"/>} />
 			  <FlatButton label="Products"  containerElement={<Link to="/products"/>} />
 			  <FlatButton label="Sign Up"  containerElement={<Link to="/signup"/>} />
 			  <FlatButton label="Login"  containerElement={<Link to="/login"/>} />
@@ -65,7 +66,7 @@ class App extends Component {
 
 			<Route path="/products" component={ProductsList} />
           	<Route exact path='/products/:Id' component={ProductView}/>
-
+			<Route path="/request" component={Request} />
 
 		  </div>
 		    </MuiThemeProvider>
