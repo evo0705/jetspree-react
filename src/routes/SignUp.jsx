@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import {Link} from "react-router-dom";
 //import { postSignup } from '../data/account';
-import { Form } from 'formsy-react';
+import {Form} from "formsy-react";
 //import MyInput from './../components/Input';
 import Axios from "axios";
-import Snackbar from 'material-ui/Snackbar';
-import './SignUp.css';
-import FormsyText from 'formsy-material-ui/lib/FormsyText';
-import FlatButton from 'material-ui/FlatButton';
+import Snackbar from "material-ui/Snackbar";
+import "./SignUp.css";
+import FormsyText from "formsy-material-ui/lib/FormsyText";
+import FlatButton from "material-ui/FlatButton";
 
 
 const styles = {
@@ -54,18 +54,18 @@ class SignUp extends React.Component {
 		this.setState({
 			canSubmit: true
 		});
-	}
+    };
 	disableButton = () => {
 		this.setState({
 			canSubmit: false
 		});
-	}
+    };
 
 	submit(data) {
 		var abc = this;
 		Axios.post('https://jetspree-node-test.herokuapp.com/login/signup', {email:data.email, password: data.password})
 		.then(response => {
-			console.log(response)
+            console.log(response);
 			abc.handleTouchTap(response);
 		} )
 		.catch(function (error) {

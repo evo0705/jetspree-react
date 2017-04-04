@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Form } from 'formsy-react';
+import React from "react";
+import {Form} from "formsy-react";
 import Axios from "axios";
-import Snackbar from 'material-ui/Snackbar';
 import './SignUp.css';
-import FormsyText from 'formsy-material-ui/lib/FormsyText';
-import FlatButton from 'material-ui/FlatButton';
 import DropZone from 'react-dropzone';
 import Modal from 'react-modal';
+import "./SignUp.css";
+import FormsyText from "formsy-material-ui/lib/FormsyText";
+import FlatButton from "material-ui/FlatButton";
+
 
 const styles = {
 	textfield: {
@@ -72,32 +72,24 @@ class postRequest extends React.Component {
 	}
 
 	openModal() {
-		this.setState(
-			{
-				modalIsOpen: true
-			}
-		);
+		this.setState({modalIsOpen: true});
 	}
 
 	closeModal() {
-		this.setState(
-			{
-				modalIsOpen: false
-			}
-		)
+		this.setState({modalIsOpen: false})
 	}
 
 	enableButton = () => {
 		this.setState({
 			canSubmit: true
 		});
-	}
+	};
 
 	disableButton = () => {
 		this.setState({
 			canSubmit: false
 		});
-	}
+    };
 
 	onDrop = (acceptedFiles, rejectedFiles) => {
 		var file = acceptedFiles[0];
