@@ -17,7 +17,7 @@ import RequestView from "./routes/requests/View.jsx";
 import ProductsList from "./routes/products/Products.jsx";
 import ProductView from "./routes/products/View.jsx";
 import SignUp from "./routes/SignUp.jsx";
-import Login, {GetUserInfo} from "./routes/Login.jsx";
+import Login, {GetUserInfo, LoginNavbar} from "./routes/Login.jsx";
 import Request from "./routes/PostRequest";
 import createBrowserHistory from "history/createBrowserHistory";
 
@@ -28,24 +28,6 @@ const yuTheme = getMuiTheme({
 });
 
 const history = createBrowserHistory();
-
-class LoginNavbar extends Component {
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        if (this.props.token === '')
-            return (
-                <span>
-                    <FlatButton label="Sign Up" containerElement={<Link to="/signup"/>}/>
-                    <FlatButton label="Login" containerElement={<Link to="/login"/>}/>
-                </span>
-            );
-        else return false;
-    };
-}
-
 
 class App extends Component {
     constructor(props) {

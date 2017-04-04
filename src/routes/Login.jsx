@@ -160,6 +160,22 @@ class Login extends React.Component {
     }
 }
 
+export class LoginNavbar extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        if (this.props.token === '')
+            return (
+                <span>
+                    <FlatButton label="Sign Up" containerElement={<Link to="/signup"/>}/>
+                    <FlatButton label="Login" containerElement={<Link to="/login"/>}/>
+                </span>
+            );
+        else return false;
+    };
+}
 
 export class GetUserInfo extends React.Component {
     constructor(props) {
