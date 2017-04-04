@@ -6,7 +6,8 @@ import Snackbar from 'material-ui/Snackbar';
 import './SignUp.css';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import FlatButton from 'material-ui/FlatButton';
-
+import DropZone from 'react-dropzone';
+import Modal from 'react-modal';
 
 const styles = {
 	textfield: {
@@ -24,53 +25,113 @@ const styles = {
 	}
 };
 
+const customStlye = {
+	overlay : {
+		position          : 'fixed',
+		top               : 0,
+		left              : 0,
+		right             : 0,
+		bottom            : 0,
+		backgroundColor   : 'rgba(33, 28, 28, 0.74902)',
+		zIndex           : 100
+	},
+	content : {
+		position                   : 'absolute',
+		top                        : '40px',
+		left                       : '40px',
+		right                      : '40px',
+		bottom                     : '40px',
+		border                     : '1px solid #ccc',
+		background                 : '#fff',
+		overflow                   : 'auto',
+		WebkitOverflowScrolling    : 'touch',
+		borderRadius               : '4px',
+		outline                    : 'none',
+		padding                    : '20px',
+		width                      : '500px',
+		height                     : '300px',
+
+	}
+}
 
 class postRequest extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			canSubmit: false,
-			SnackbarOpen: false
+			modalIsOpen: false,
+			imageFiles: []
 		};
-		this.handleTouchTap = this.handleTouchTap.bind(this);
+
+		//ModalBox
+		this.openModal = this.openModal.bind(this);
+		this.closeModal = this.closeModal.bind(this);
+
+		//Submit
 		this.submit = this.submit.bind(this);
 	}
 
-	handleTouchTap = (req) => {
-		this.setState({
-			SnackbarOpen: true,
-		});
+	openModal() {
+		this.setState(
+			{
+				modalIsOpen: true
+			}
+		);
 	}
 
-	handleRequestClose = () => {
-		this.setState({
-			SnackbarOpen: false
-		});
-	};
-
+	closeModal() {
+		this.setState(
+			{
+				modalIsOpen: false
+			}
+		)
+	}
 
 	enableButton = () => {
 		this.setState({
 			canSubmit: true
 		});
 	}
+
 	disableButton = () => {
 		this.setState({
 			canSubmit: false
 		});
 	}
 
+	onDrop = (acceptedFiles, rejectedFiles) => {
+		var file = acceptedFiles[0];
+		const reader = new FileReader();
+		reader.onload = (event) => {
+			this.setState({
+				imageFiles: event.target.result
+			})
+			// Axios.post('https://jetspree-node-test.herokuapp.com/requests',
+			// 	{image:event.target.result}
+			// )
+		};
+		reader.readAsDataURL(file);
+	}
+
 	submit(data) {
 		Axios.post('https://serene-meadow-20972.herokuapp.com/items',
 			{name:data.name, price: data.price, description: data.description})
 			.then(response => {
-				console.log(response);
+				this.openModal();
 			})
 	}
 
 	render() {
 		return (
 			<div className="accountForm stayCenter mgTop40">
+				<Modal
+					isOpen={this.state.modalIsOpen}
+					onRequestClose={this.closeModal}
+					style={customStlye}
+					contentLabel="Success!"
+				>
+						<div> Success! </div>
+				</Modal>
 				<h2>Post Request</h2>
 				<Form
 					onSubmit={this.submit}
@@ -111,6 +172,18 @@ class postRequest extends React.Component {
 							floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
 							required />
 					</li>
+					<li>
+						<DropZone
+							onDrop={this.onDrop}
+							accept="image/*"
+							multiple={true}
+						>
+								<div>
+									Drag and Drop image files
+									<img src={this.state.imageFiles} />
+								</div>
+						</DropZone>
+					</li>
 				</ul>
 				<div className="floatWrap">
 					<div className="pullRight">
@@ -123,9 +196,9 @@ class postRequest extends React.Component {
 				</div>
 				</Form>
 			</div>
+
 		);
 	}
 }
-
 
 export default postRequest;

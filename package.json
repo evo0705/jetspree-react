@@ -9,8 +9,11 @@
     "material-ui": "0.17.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-dropzone": "^3.12.2",
+    "react-dropzone-component": "^1.4.1",
     "react-image-fallback": "4.0.1",
     "react-intl": "2.2.3",
+    "react-modal": "^1.7.3",
     "react-router-dom": "4.0.0",
     "react-select": "^1.0.0-rc",
     "react-tap-event-plugin": "2.0.1"
