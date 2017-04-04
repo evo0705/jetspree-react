@@ -1,14 +1,14 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { loadItems } from '../../data/requests.js';
-import RaisedButton from 'material-ui/RaisedButton';
-import ProductView from './View.js';
-import Dialog from 'material-ui/Dialog';
-import '../requests/List.css';
+import React from "react";
+import {Link, Route, Switch} from "react-router-dom";
+import {loadItems} from "../../data/requests.js";
+import RaisedButton from "material-ui/RaisedButton";
+import ProductView from "./View.jsx";
+import Dialog from "material-ui/Dialog";
+import "../requests/List.css";
 
 class Products extends React.Component {
   constructor (props) {
-    super(props)
+      super(props);
     this.state = {
       items: {},
     };
@@ -102,7 +102,7 @@ if (match.isExact) {
   const back = () => {
     var modalOpen = false;
     history.goBack();
-  }
+  };
   
   return (
 
@@ -114,7 +114,7 @@ if (match.isExact) {
     </Dialog>
  
     )
-}
+};
 
 class ProductsList extends React.Component {
 
@@ -130,10 +130,10 @@ class ProductsList extends React.Component {
   // So, to get both screens to render, we can save the old
   // location and pass it to Switch, so it will think the location
   // is still `/` even though its `/images/2`.
-  previousLocation = this.props.location
+    previousLocation = this.props.location;
 
   componentWillUpdate(nextProps) {
-    const { location } = this.props
+      const {location} = this.props;
     // set previousLocation if props.location is not modal
     if ( nextProps.history.action !== 'POP' && (!location.state || !location.state.modal) ) {
       this.previousLocation = this.props.location
@@ -142,10 +142,10 @@ class ProductsList extends React.Component {
 
   render() {
   //console.log('location: ' + JSON.stringify(this.props))
-  const { location } = this.props
+      const {location} = this.props;
   const isModal = !!(
     location.state && location.state.modal && this.previousLocation !== location // not initial render
-  )
+  );
 
 
     return (  

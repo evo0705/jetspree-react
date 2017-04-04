@@ -1,11 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Form } from 'formsy-react';
+import React from "react";
+import {Form} from "formsy-react";
 import Axios from "axios";
-import Snackbar from 'material-ui/Snackbar';
-import './SignUp.css';
-import FormsyText from 'formsy-material-ui/lib/FormsyText';
-import FlatButton from 'material-ui/FlatButton';
+import "./SignUp.css";
+import FormsyText from "formsy-material-ui/lib/FormsyText";
+import FlatButton from "material-ui/FlatButton";
 
 
 const styles = {
@@ -40,7 +38,7 @@ class postRequest extends React.Component {
 		this.setState({
 			SnackbarOpen: true,
 		});
-	}
+    };
 
 	handleRequestClose = () => {
 		this.setState({
@@ -53,12 +51,12 @@ class postRequest extends React.Component {
 		this.setState({
 			canSubmit: true
 		});
-	}
+    };
 	disableButton = () => {
 		this.setState({
 			canSubmit: false
 		});
-	}
+    };
 
 	submit(data) {
 		Axios.post('https://serene-meadow-20972.herokuapp.com/items',
