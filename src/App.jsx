@@ -20,6 +20,8 @@ import SignUp from "./routes/SignUp.jsx";
 import Login, {GetUserInfo, LoginNavbar} from "./routes/Login.jsx";
 import Request from "./routes/PostRequest";
 import createBrowserHistory from "history/createBrowserHistory";
+import SnackBar from "./components/SnackBar";
+import Utils from "./helper/Utils";
 
 injectTapEventPlugin();
 
@@ -27,67 +29,41 @@ const yuTheme = getMuiTheme({
     fontFamily: 'inherit',
 });
 
-const history = createBrowserHistory();
+const History = createBrowserHistory();
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: ''
+            token: '',
+            snackBar: {open: false, message: ''}
         };
         // get token from cookie and set into state
         this.updateToken = this.updateToken.bind(this);
+        this.showSnackBar = this.showSnackBar.bind(this);
     }
 
-
-getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+    componentWillMount() {
+        var token = Utils.getCookie("token");
+        if (token !== "") {
+            this.setState({token: token});
         }
     }
-    return "";
-}
-
-setCookie(cname,cvalue,exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires=" + d.toGMTString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-    updateToken(token) {
-        this.setCookie("token", token, 30);
-        this.setState({token: token});
-    }
-
-componentWillMount(){
- var token=this.getCookie("token");
-       if (token !== "") {
-           this.setState({token: token});
-       } 
-       return null
- console.log(token)
-}
 
     updateToken(token) {
         this.setState({token: token});
-        localStorage.setItem("token", token);
+        Utils.setCookie("token", token, 30);
     }
 
+    showSnackBar(message) {
+        this.setState({snackBar: {open: true, message: message}});
+    }
 
     render() {
 
         return (
 
-            <Router history={history}>
+            <Router history={History}>
                 <MuiThemeProvider muiTheme={yuTheme}>
                     <div className="App">
                         <div className="header">
@@ -99,13 +75,15 @@ componentWillMount(){
                                     <FlatButton label="Requests" containerElement={<Link to="/request"/>}/>
                                     <FlatButton label="Products" containerElement={<Link to="/products"/>}/>
                                     <LoginNavbar token={this.state.token}/>
-                                    <GetUserInfo token={this.state.token} updateToken={this.updateToken}/>
+                                    <GetUserInfo token={this.state.token} updateToken={this.updateToken}
+                                                 showSnackBar={this.showSnackBar}/>
                                 </div>
                             </div>
                         </div>
                         <Route exact path="/" component={Landing}/>
                         <Route path="/signup" component={SignUp}/>
-                        <Route path="/login" component={() => (<Login updateToken={this.updateToken}/>)}/>
+                        <Route path="/login" component={() => (
+                            <Login updateToken={this.updateToken} showSnackBar={this.showSnackBar}/>)}/>
                         <Route path="/countries" component={BrowseCountries}/>
                         <Route path="/items" component={ItemsList}/>
                         <Route exact path='/items/:Id' component={RequestView}/>
@@ -113,7 +91,7 @@ componentWillMount(){
                         <Route path="/products" component={ProductsList}/>
                         <Route exact path='/products/:Id' component={ProductView}/>
                         <Route path="/request" component={Request}/>
-
+                        <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}/>
                     </div>
                 </MuiThemeProvider>
             </Router>
