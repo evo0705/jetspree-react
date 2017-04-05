@@ -8,7 +8,7 @@ import Snackbar from "material-ui/Snackbar";
 import "./SignUp.css";
 import FormsyText from "formsy-material-ui/lib/FormsyText";
 import FlatButton from "material-ui/FlatButton";
-import {getAuthUser} from "../data/account.js";
+import {getAuthUser, postLogin} from "../data/account.js";
 
 const styles = {
     textfield: {
@@ -85,22 +85,22 @@ class Form extends React.Component {
         });
     };
 
-    submit(data) {
+    submit(param) {
         let updateToken = this.props.updateToken;
-        Axios.post('https://jetspree-node-test.herokuapp.com/login/account', {
-            email: data.email,
-            password: data.password
-        })
-            .then(response => {
-                if (response.data.token) {
-                    updateToken(response.data.token);
-                }
-                this.handleTouchTap(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        //alert(JSON.stringify(data.email, null, 4));
+        let handleTouchTap = this.handleTouchTap;
+        postLogin(param).then((response) => {
+           if (response.data.success === false) {
+               // TODO:display errors to user
+           } else if (response.data.token) {
+               updateToken(response.data.token);
+              
+           }else{
+               // unknown error
+           }
+       }, (error) => {
+           // TODO:error handling
+       });
+        handleTouchTap();
     }
 
     render() {
@@ -144,7 +144,7 @@ class Login extends React.Component {
     }
 
     onChildChanged(newState) {
-        //this.setState({checked: newState})
+        this.setState({checked: newState})
     }
 
     render() {

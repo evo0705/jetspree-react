@@ -9,6 +9,10 @@ export function postSignup(data) {
 		});
 }
 
+export function postLogin(data) {
+    return Axios.post('https://jetspree-node-test.herokuapp.com/login/account', {email: data.email, password: data.password})
+}
+
 
 export function getAuthUser(token) {
     return Axios.get('https://jetspree-node-test.herokuapp.com/auth/user?token=' + token)

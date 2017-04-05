@@ -39,10 +39,49 @@ class App extends Component {
         this.updateToken = this.updateToken.bind(this);
     }
 
+
+getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+    updateToken(token) {
+        this.setCookie("token", token, 30);
+        this.setState({token: token});
+    }
+
+componentWillMount(){
+ var token=this.getCookie("token");
+       if (token !== "") {
+           this.setState({token: token});
+       } 
+       return null
+ console.log(token)
+}
+
     updateToken(token) {
         this.setState({token: token});
         localStorage.setItem("token", token);
     }
+
 
     render() {
 
@@ -50,12 +89,7 @@ class App extends Component {
 
             <Router history={history}>
                 <MuiThemeProvider muiTheme={yuTheme}>
-
                     <div className="App">
-                        {/*<div className="App-header">
-                         <img src={logo} className="App-logo" alt="logo" />
-                         <h2>Welcome to React123</h2>
-                         </div>*/}
                         <div className="header">
                             <div className="overflowFixBeta">
                                 <div className="container">
