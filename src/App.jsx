@@ -65,9 +65,7 @@ class App extends Component {
     }
 
     render() {
-
         return (
-
             <Router history={History}>
                 <MuiThemeProvider muiTheme={yuTheme}>
                     <div className="App">

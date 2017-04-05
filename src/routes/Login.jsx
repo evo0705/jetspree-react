@@ -7,6 +7,7 @@ import "./SignUp.css";
 import FormsyText from "formsy-material-ui/lib/FormsyText";
 import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
+import SnackBar from "../components/SnackBar";
 
 const styles = {
     textfield: {
@@ -25,9 +26,12 @@ class Login extends React.Component {
         super(props);
         this.state = {
             checked: false,
-            message: ''
+            message: '',
+            snackBar: {open: false, message: ''}
         };
         this.submit = this.submit.bind(this);
+        this.showSnackBar = this.showSnackBar.bind(this);
+        this.closeSnackBar = this.closeSnackBar.bind(this);
     }
 
     enableButton = () => {
@@ -41,16 +45,24 @@ class Login extends React.Component {
         });
     };
 
+    showSnackBar(message) {
+        this.setState({snackBar: {open: true, message: message}});
+    }
+
+    closeSnackBar() {
+        this.setState({snackBar: {open: false, message: ''}});
+    }
+
     submit(param) {
-        console.log(this.props);
         let updateToken = this.props.updateToken;
         let showSnackBar = this.props.showSnackBar;
         postLogin(param).then((response) => {
             if (response.data.success === false) {
                 // TODO:display errors to user
+                this.showSnackBar(response.data.message);
             } else if (response.data.token) {
                 updateToken(response.data.token);
-                this.props.showSnackBar('You\'ve logged in successfully.');
+                showSnackBar('You\'ve logged in successfully.');
             } else {
                 // unknown error
             }
@@ -87,6 +99,8 @@ class Login extends React.Component {
                         </div>
                     </div>
                 </Formsy.Form>
+                <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}
+                          close={this.closeSnackBar}/>
                 <div className="mgTop60 taCenter">Not member yet? <Link to="/signup">Sign Up</Link></div>
             </div>
         );
@@ -113,6 +127,7 @@ export class LoginNavbar extends React.Component {
 export class GetUserInfo extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
             token: this.props.token,
             userName: '',
