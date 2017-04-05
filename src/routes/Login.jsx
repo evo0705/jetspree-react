@@ -3,13 +3,10 @@ import {Link} from "react-router-dom";
 //import { postSignup } from '../data/account';
 import Formsy from "formsy-react";
 //import MyInput from './../components/Input';
-import Axios from "axios";
 import "./SignUp.css";
 import FormsyText from "formsy-material-ui/lib/FormsyText";
 import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
-import SnackbarMsg from "../components/SnackBar"
-
 
 const styles = {
     textfield: {
@@ -23,15 +20,12 @@ const styles = {
     }
 };
 
-
-class Form extends React.Component {
-    constructor(props, {initialChecked}) {
+class Login extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            canSubmit: false,
-            SnackbarOpen: false,
-            message: '',
-            checked: initialChecked
+            checked: false,
+            message: ''
         };
         this.submit = this.submit.bind(this);
     }
@@ -48,26 +42,28 @@ class Form extends React.Component {
     };
 
     submit(param) {
+        console.log(this.props);
         let updateToken = this.props.updateToken;
-        let handleTouchTap = this.props.handleTouchTap;
+        let showSnackBar = this.props.showSnackBar;
         postLogin(param).then((response) => {
-           if (response.data.success === false) {
-               // TODO:display errors to user
-           } else if (response.data.token) {
-               updateToken(response.data.token);
-           
-           }else{
-               // unknown error
-           }
-       }, (error) => {
-           // TODO:error handling
-       });
-           handleTouchTap(true);
+            if (response.data.success === false) {
+                // TODO:display errors to user
+            } else if (response.data.token) {
+                updateToken(response.data.token);
+                this.props.showSnackBar('You\'ve logged in successfully.');
+            } else {
+                // unknown error
+            }
+        }, (error) => {
+            // TODO:error handling
+        });
     }
 
     render() {
+        
         return (
-            <div>
+            <div className="accountForm stayCenter mgTop40">
+                <h1>Login</h1>
                 <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}
                              className="login">
                     <ul>
@@ -91,42 +87,6 @@ class Form extends React.Component {
                         </div>
                     </div>
                 </Formsy.Form>
-            </div>
-        )
-    }
-}
-
-
-class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checked: false,
-            message:'wei'
-        };
-        this.handleTouchTap = this.handleTouchTap.bind(this);
-    }
-
-
-    handleTouchTap(SnackbarOpen) {
-        // const newState = !this.state.checked; // this is toggle
-       this.setState({checked: SnackbarOpen});
-       console.log(SnackbarOpen)
-
-    }
-
-    //snackBarMessage(message) {
-     //  this.setState({message: message});
-    //}
-
-    render() {
-        
-        return (
-            <div className="accountForm stayCenter mgTop40">
-                <h1>Login</h1>
-                <Form updateToken={this.props.updateToken} initialChecked={this.state.checked}
-                      handleTouchTap={this.handleTouchTap}/>
-                <SnackbarMsg active={this.state.checked} text={this.state.message} />
                 <div className="mgTop60 taCenter">Not member yet? <Link to="/signup">Sign Up</Link></div>
             </div>
         );
@@ -173,6 +133,7 @@ export class GetUserInfo extends React.Component {
     logout() {
         this.setState({token: '', userEmail: '', userName: '', userId: ''});
         this.props.updateToken('');
+        this.props.showSnackBar('You\'ve logged out successfully.');
         localStorage.removeItem("token");
     }
 

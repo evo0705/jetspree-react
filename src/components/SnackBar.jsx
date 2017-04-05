@@ -1,34 +1,23 @@
 import React from "react";
-import Snackbar from "material-ui/Snackbar";
+import SnackBar from "material-ui/Snackbar";
 
-export default class SnackbarMsg extends React.Component {
-    constructor({active}) {
-        console.log(active)
-        super();
+export default class SnackBarMsg extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
-            SnackbarOpen: active,
+            open: false,
             message: ''
         }
     }
 
     handleRequestClose = () => {
-        this.setState({
-            SnackbarOpen: false
-        });
+        this.props.close();
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.active) {
-            this.setState({SnackbarOpen: true, message: nextProps.text})
-        }
-        console.log(nextProps)
-    }
-
     render() {
-        console.log('render Snackbar')
         return (
             <div>
-                <Snackbar open={this.state.SnackbarOpen} message={this.state.message} autoHideDuration={4000}
+                <SnackBar open={this.props.open} message={this.props.message} autoHideDuration={4000}
                           onRequestClose={this.handleRequestClose}/>
             </div>
         )
