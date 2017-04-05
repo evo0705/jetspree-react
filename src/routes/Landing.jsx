@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from '../logo.svg';
-import Select from 'react-select';
-import { Link } from 'react-router-dom';
+import React from "react";
+import logo from "../logo.svg";
+import Select from "react-select";
+import {Link} from "react-router-dom";
 //import { loadSubCategories } from '../data/common.js';
-import { loadItems, loadRequests } from '../data/requests.js';
-import { loadTrips, loadRecommendations } from '../data/traveller.js';
-import {FormattedDate} from 'react-intl';
+import {loadItems, loadRequests} from "../data/requests.js";
+import {loadRecommendations, loadTrips} from "../data/traveller.js";
+import {FormattedDate} from "react-intl";
 import ReactImageFallback from "react-image-fallback";
 //import withStyles from '../../node_modules/react-with-styles/lib/withStyles.js';
-import './Landing.css';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import How1 from '../../public/imgs/how1.png';
-import How2 from '../../public/imgs/how2.png';
-import How3 from '../../public/imgs/how3.png';
-import How4 from '../../public/imgs/how4.png';
-
+import "./Landing.css";
+import RaisedButton from "material-ui/RaisedButton";
+import Dialog from "material-ui/Dialog";
+import How1 from "../../public/imgs/how1.png";
+import How2 from "../../public/imgs/how2.png";
+import How3 from "../../public/imgs/how3.png";
+import How4 from "../../public/imgs/how4.png";
 
 
 class ItemsHome extends React.Component {
 	constructor (props) {
-		super(props)
+        super(props);
 		this.state = {
 			items: {},
 		};
@@ -74,7 +73,7 @@ class ItemsHome extends React.Component {
 
 class Recommendations extends React.Component{
 	constructor (props) {
-		super(props)
+        super(props);
 		this.state = {
 			recommendations: {},
 		};
@@ -145,7 +144,7 @@ const styles = {
 
 class Modal extends React.Component {
 	constructor (props) {
-		super(props)
+        super(props);
 		this.state = {
 			modalOpen: false
 		};
@@ -188,7 +187,7 @@ class Modal extends React.Component {
 
 class Trips extends React.Component {
 	constructor (props) {
-		super(props)
+        super(props);
 		this.state = {
 			trips: []
 		};
@@ -250,7 +249,7 @@ class Trips extends React.Component {
 
 class Landing extends React.Component {
 	constructor (props) {
-		super(props)
+        super(props);
 		this.state = {
 			requests: '',
 			name: 'cake',

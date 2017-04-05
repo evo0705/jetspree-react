@@ -1,14 +1,14 @@
-import React from 'react';
-import { loadRequest } from '../../data/requests.js';
+import React from "react";
+import {loadRequest} from "../../data/requests.js";
 import ReactImageFallback from "react-image-fallback";
-import Placeholder from '../../../public/imgs/greyImg.gif';
-import RaisedButton from 'material-ui/RaisedButton';
-import './View.css';
+import Placeholder from "../../../public/imgs/greyImg.gif";
+import RaisedButton from "material-ui/RaisedButton";
+import "./View.css";
 
 class ItemDetails extends React.Component {
 	constructor(props){
 		//console.log(props)
-		super(props)
+        super(props);
 		this.state = {
 			name:'',
 			Description: ''
@@ -59,7 +59,7 @@ class ItemDetails extends React.Component {
 class RequestView extends React.Component {
 	constructor(props){
 		//console.log(props)
-		super(props)
+        super(props);
 		this.state = {
 			item: '',
 		}
@@ -78,7 +78,7 @@ class RequestView extends React.Component {
 			//modal page, load from ViewModal.js > const Modal 
 			let param = {
 				id: this.props.modalId
-			}
+            };
 			loadRequest(param).then((data) => {
 				this.setState({item: data});
 			});
