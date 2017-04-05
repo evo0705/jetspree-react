@@ -65,9 +65,6 @@ class Form extends React.Component {
            handleTouchTap(true);
     }
 
-
-    
-
     render() {
         return (
             <div>

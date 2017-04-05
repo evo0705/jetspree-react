@@ -39,6 +39,7 @@ class App extends Component {
         this.updateToken = this.updateToken.bind(this);
     }
 
+
 getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -75,6 +76,13 @@ componentWillMount(){
        return null
  console.log(token)
 }
+
+    updateToken(token) {
+        this.setState({token: token});
+        localStorage.setItem("token", token);
+    }
+
+
     render() {
 
         return (
