@@ -4,11 +4,12 @@ import {Link} from "react-router-dom";
 import Formsy from "formsy-react";
 //import MyInput from './../components/Input';
 import Axios from "axios";
-import Snackbar from "material-ui/Snackbar";
 import "./SignUp.css";
 import FormsyText from "formsy-material-ui/lib/FormsyText";
 import FlatButton from "material-ui/FlatButton";
-import {getAuthUser, postLogin} from "../data/account.js";
+import {getAuthUser, postLogin} from "../data/account";
+import SnackbarMsg from "../components/SnackBar"
+
 
 const styles = {
     textfield: {
@@ -23,37 +24,6 @@ const styles = {
 };
 
 
-class SnackbarMsg extends React.Component {
-    constructor({active}) {
-        super();
-        this.state = {
-            SnackbarOpen: active,
-            message: ''
-        }
-    }
-
-    handleRequestClose = () => {
-        this.setState({
-            SnackbarOpen: false
-        });
-    };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.active) {
-            this.setState({SnackbarOpen: true, message: nextProps.text})
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <Snackbar open={this.state.SnackbarOpen} message={this.state.message} autoHideDuration={4000}
-                          onRequestClose={this.handleRequestClose}/>
-            </div>
-        )
-    }
-}
-
 class Form extends React.Component {
     constructor(props, {initialChecked}) {
         super(props);
@@ -63,15 +33,7 @@ class Form extends React.Component {
             message: '',
             checked: initialChecked
         };
-        this.handleTouchTap = this.handleTouchTap.bind(this);
         this.submit = this.submit.bind(this);
-    }
-
-    handleTouchTap() {
-        // const newState = !this.state.checked; // this is toggle
-        const newState = true;
-        //this.setState({checked: newState});
-        this.props.callbackParent(newState); // notify parent
     }
 
     enableButton = () => {
@@ -87,20 +49,20 @@ class Form extends React.Component {
 
     submit(param) {
         let updateToken = this.props.updateToken;
-        let handleTouchTap = this.handleTouchTap;
+        let handleTouchTap = this.props.handleTouchTap;
         postLogin(param).then((response) => {
            if (response.data.success === false) {
                // TODO:display errors to user
            } else if (response.data.token) {
                updateToken(response.data.token);
-              
+           
            }else{
                // unknown error
            }
        }, (error) => {
            // TODO:error handling
        });
-        handleTouchTap();
+           handleTouchTap(true);
     }
 
     render() {
@@ -139,21 +101,32 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: false
+            checked: false,
+            message:'wei'
         };
+        this.handleTouchTap = this.handleTouchTap.bind(this);
     }
 
-    onChildChanged(newState) {
-        this.setState({checked: newState})
+
+    handleTouchTap(SnackbarOpen) {
+        // const newState = !this.state.checked; // this is toggle
+       this.setState({checked: SnackbarOpen});
+       console.log(SnackbarOpen)
+
     }
+
+    //snackBarMessage(message) {
+     //  this.setState({message: message});
+    //}
 
     render() {
+        
         return (
             <div className="accountForm stayCenter mgTop40">
                 <h1>Login</h1>
                 <Form updateToken={this.props.updateToken} initialChecked={this.state.checked}
-                      callbackParent={(newState) => this.onChildChanged(newState)}/>
-                <SnackbarMsg active={this.state.checked} text="Successsss"/>
+                      handleTouchTap={this.handleTouchTap}/>
+                <SnackbarMsg active={this.state.checked} text={this.state.message} />
                 <div className="mgTop60 taCenter">Not member yet? <Link to="/signup">Sign Up</Link></div>
             </div>
         );
