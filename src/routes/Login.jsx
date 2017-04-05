@@ -25,7 +25,6 @@ const styles = {
 
 class SnackbarMsg extends React.Component {
     constructor({active}) {
-        console.log(active)
         super();
         this.state = {
             SnackbarOpen: active,
@@ -103,9 +102,6 @@ class Form extends React.Component {
        });
         handleTouchTap();
     }
-
-
-    
 
     render() {
         return (
