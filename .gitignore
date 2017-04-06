@@ -22,5 +22,6 @@ src/data/items.json
 src/data/recommendation.json
 src/data/trips.json
 
-.idea
-.settings
+/.settings
+/.idea
+/jetspree-react.iml

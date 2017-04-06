@@ -41,6 +41,7 @@ class App extends Component {
         // get token from cookie and set into state
         this.updateToken = this.updateToken.bind(this);
         this.showSnackBar = this.showSnackBar.bind(this);
+        this.closeSnackBar = this.closeSnackBar.bind(this);
     }
 
     componentWillMount() {
@@ -59,10 +60,12 @@ class App extends Component {
         this.setState({snackBar: {open: true, message: message}});
     }
 
+    closeSnackBar() {
+        this.setState({snackBar: {open: false, message: ''}});
+    }
+
     render() {
-
         return (
-
             <Router history={History}>
                 <MuiThemeProvider muiTheme={yuTheme}>
                     <div className="App">
@@ -91,7 +94,8 @@ class App extends Component {
                         <Route path="/products" component={ProductsList}/>
                         <Route exact path='/products/:Id' component={ProductView}/>
                         <Route path="/request" component={Request}/>
-                        <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}/>
+                        <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}
+                                  close={this.closeSnackBar}/>
                     </div>
                 </MuiThemeProvider>
             </Router>
