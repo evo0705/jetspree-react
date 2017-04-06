@@ -3,7 +3,7 @@ import injectTapEventPlugin from "../node_modules/react-tap-event-plugin";
 //import getMuiTheme from '../node_modules/material-ui/styles/getMuiTheme';
 import MuiThemeProvider from "../node_modules/material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import FlatButton from "../node_modules/material-ui/FlatButton";
+import FlatButton from "material-ui/FlatButton";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -23,6 +23,7 @@ import createBrowserHistory from "history/createBrowserHistory";
 import SnackBar from "./components/SnackBar";
 import Utils from "./helper/Utils";
 
+
 injectTapEventPlugin();
 
 const yuTheme = getMuiTheme({
@@ -36,12 +37,14 @@ class App extends Component {
         super(props);
         this.state = {
             token: '',
-            snackBar: {open: false, message: ''}
+            snackBar: {open: false, message: ''},
+            id: ''
         };
         // get token from cookie and set into state
         this.updateToken = this.updateToken.bind(this);
         this.showSnackBar = this.showSnackBar.bind(this);
         this.closeSnackBar = this.closeSnackBar.bind(this);
+        this.passId = this.passId.bind(this);
     }
 
     componentWillMount() {
@@ -49,6 +52,11 @@ class App extends Component {
         if (token !== "") {
             this.setState({token: token});
         }
+    }
+
+    passId(id){
+        console.log(id);
+        this.setState({id: id});
     }
 
     updateToken(token) {
@@ -65,6 +73,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state.id)
         return (
             <Router history={History}>
                 <MuiThemeProvider muiTheme={yuTheme}>
@@ -83,7 +92,8 @@ class App extends Component {
                                 </div>
                             </div>
                         </div>
-                        <Route exact path="/" component={Landing}/>
+                        <Route exact path="/" component={() => (
+                            <Landing passId={this.passId} />)}/>
                         <Route path="/signup" component={SignUp}/>
                         <Route path="/login" component={() => (
                             <Login updateToken={this.updateToken} showSnackBar={this.showSnackBar}/>)}/>
@@ -93,7 +103,8 @@ class App extends Component {
 
                         <Route path="/products" component={ProductsList}/>
                         <Route exact path='/products/:Id' component={ProductView}/>
-                        <Route path="/request" component={Request}/>
+                        <Route path="/request" component={() => (
+                            <Request receiveId={this.state.id} />)}/>
                         <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}
                                   close={this.closeSnackBar}/>
                     </div>

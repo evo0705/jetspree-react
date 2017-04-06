@@ -57,10 +57,12 @@ const customStlye = {
 class postRequest extends React.Component {
 	constructor(props) {
 		super(props);
+		console.log(props)
 		this.state = {
 			canSubmit: false,
 			modalIsOpen: false,
-			imageFiles: []
+			imageFiles: [],
+            prefill: ''
 		};
 
 		//ModalBox
@@ -69,6 +71,7 @@ class postRequest extends React.Component {
 
 		//Submit
 		this.submit = this.submit.bind(this);
+        this.reset = this.reset.bind(this);
 	}
 
 	openModal() {
@@ -113,9 +116,24 @@ class postRequest extends React.Component {
 			})
 	}
 
+
+	componentWillMount(){
+        this.setState({
+           prefill: this.props.receiveId
+        })
+    }
+    reset() {
+        this.setState({
+            prefill: ''
+        })
+    }
+
 	render() {
 		return (
 			<div className="accountForm stayCenter mgTop40">
+                <p>Prefill ID HERE: {this.state.prefill}</p>
+
+                <button onClick={this.reset}>Clear Form</button>
 				<Modal
 					isOpen={this.state.modalIsOpen}
 					onRequestClose={this.closeModal}

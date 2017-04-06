@@ -48,6 +48,7 @@ function getSuggestions(value) {
     return people.filter(person => regex.test(getSuggestionValue(person)));
 }
 
+
 function getSuggestionValue(suggestion) {
     return `${suggestion.name}`;
 }
@@ -81,8 +82,9 @@ class AutoComplete extends React.Component {
         super();
         this.state = {
             value: '',
-            suggestions: []
+            suggestions: [],
         };
+        this.getSuggestionValue = this.getSuggestionValue.bind(this);
     }
 
     onChange = (event, {newValue, method}) => {
@@ -90,6 +92,13 @@ class AutoComplete extends React.Component {
             value: newValue
         });
     };
+
+
+
+getSuggestionValue(suggestion) {
+    this.props.passId(suggestion.id) //pass clicked result to app.jsx
+    //return `${suggestion.name}`; // display clicked result name (original)
+}
 
     onSuggestionsFetchRequested = ({value}) => {
         loadItems({
@@ -117,7 +126,8 @@ class AutoComplete extends React.Component {
     };
 
     render() {
-        console.log('rendee')
+
+        console.log(this.state.suggestions)
         const {value, suggestions} = this.state;
         const inputProps = {
             placeholder: "What are you want to buy?",
@@ -125,14 +135,23 @@ class AutoComplete extends React.Component {
             onChange: this.onChange
         };
 
+
+        let renderBtnRequest = '';
+        if (this.state.suggestions.length === 0 && this.state.value !== '') {
+            renderBtnRequest = <RaisedButton className="btnPost" primary={true} label="Post Request" containerElement={<Link to="/request"/>}/>
+        }
         return (
-            <Autosuggest
-                suggestions={suggestions}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                getSuggestionValue={getSuggestionValue}
-                renderSuggestion={renderSuggestion}
-                inputProps={inputProps} />
+            <div id="searchBar">
+                <Autosuggest
+                    suggestions={suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={renderSuggestion}
+                    inputProps={inputProps}/>
+                {renderBtnRequest}
+
+            </div>
         );
     }
 }
@@ -418,6 +437,7 @@ class Landing extends React.Component {
 
     render() {
         console.log(this.state.items);
+        console.log(this.props)
         return (
             <div className="Landing-page">
                 <div id="banner" className="grad-blue">
@@ -434,7 +454,7 @@ class Landing extends React.Component {
                                  <RaisedButton label="I am Shopper" primary={true} className="btnShopper btnBig" style={{height: '45px',}}/>
                                  <RaisedButton label="I am Traveller" secondary={true} className="btnTraveller btnBig" style={{height: '45px',}}/>
                                  */}
-                                <AutoComplete />
+                                <AutoComplete passId={this.props.passId} />
                             </div>
                         </div>
                     </div>
