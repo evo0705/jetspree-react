@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "autosuggest-highlight": "^3.1.0",
     "axios": "0.15.3",
     "formsy-material-ui": "^0.5.5",
     "formsy-react": "^0.19.2",
     "material-ui": "0.17.1",
     "react": "^15.4.2",
+    "react-autosuggest": "^9.0.0",
     "react-dom": "^15.4.2",
     "react-dropzone": "^3.12.2",
     "react-dropzone-component": "^1.4.1",

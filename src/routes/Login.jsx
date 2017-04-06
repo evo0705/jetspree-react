@@ -66,6 +66,7 @@ class Form extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div>
                 <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}
