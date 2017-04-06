@@ -3,7 +3,7 @@ import logo from "../logo.svg";
 import Select from "react-select";
 import {Link} from "react-router-dom";
 //import { loadSubCategories } from '../data/common.js';
-import {loadItems, loadRequests} from "../data/requests.js";
+import {getItems, getRequests} from "../data/requests.js";
 import {loadRecommendations, loadTrips} from "../data/traveller.js";
 import {FormattedDate} from "react-intl";
 import ReactImageFallback from "react-image-fallback";
@@ -33,7 +33,7 @@ class ItemsHome extends React.Component {
 		let paramItems = {
 			pagesize: 4
 		};
-		loadItems(paramItems).then((data) => {
+        getItems(paramItems).then((data) => {
 			this.setState({items: data});
 		});
 	}
@@ -271,7 +271,7 @@ class Landing extends React.Component {
 			category: scope.state.category,
 			pagesize: pagesize
 		};
-		loadRequests(param).then((data) => {
+        getRequests(param).then((data) => {
 			scope.setState({requests: JSON.stringify(data)});
 		});
 	}
