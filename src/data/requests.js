@@ -3,7 +3,7 @@ import Axios from "axios";
 import Utils from "../helper/Utils";
 
 export function getRequest(param) {
-    return Axios.get('https://www.jetspree.com/api/items/' + param.id + '?' + QueryString.stringify(param))
+    return Axios.get('https://jetspree-node-test.herokuapp.com/requests?' + QueryString.stringify(param))
         .then((response) => response.data)
         .catch(function (error) {
             console.log(error);
@@ -27,7 +27,7 @@ export function postRequests(param) {
         });
 }
 
-export function getItems(param) {
+export function loadItems(param) {
     return Axios({
         method: 'GET', url: 'https://www.jetspree.com/api/items?' + QueryString.stringify(param),
         crossDomain: true,

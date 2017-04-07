@@ -4,7 +4,6 @@ import {postRequests} from "../data/requests";
 import "./SignUp.css";
 import DropZone from "react-dropzone";
 import Modal from "react-modal";
-import "./SignUp.css";
 import FormsyText from "formsy-material-ui/lib/FormsyText";
 import FlatButton from "material-ui/FlatButton";
 
@@ -87,6 +86,8 @@ class postRequest extends React.Component {
     };
 
     onDrop = (acceptedFiles, rejectedFiles) => {
+        console.log(acceptedFiles);
+        console.log(rejectedFiles);
         var file = acceptedFiles[0];
         const reader = new FileReader();
         reader.onload = (event) => {
