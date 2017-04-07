@@ -72,7 +72,6 @@ class Login extends React.Component {
     }
 
     render() {
-        
         return (
             <div className="accountForm stayCenter mgTop40">
                 <h1>Login</h1>

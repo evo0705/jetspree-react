@@ -23,7 +23,7 @@ input{padding: 10px;}
 
 .full{width: 100%}
 .fullheight{height: 100%}
-.container{max-width: 1000px;margin-left: auto;margin-right: auto;}
+.container{max-width: 1000px;margin-left: auto;margin-right: auto;padding-left:40px;padding-right:40px;}
 .contentWrap{padding-right: 6px;padding-left: 6px;}
 .colWrap{margin-right: -6px;margin-left: -6px;}
 .col{padding-left: 6px;padding-right: 6px;display: inline-block;vertical-align:top;margin-bottom: 10px;}
@@ -55,7 +55,7 @@ input{padding: 10px;}
 button.bgPri{background: #00bcd4!important;color: #fff!important}
 button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: rgba(0, 0, 0, 0.298039)!important;}
 
-.pdWrap{padding: 60px 0}
+.pdWrap{padding-top: 60px;padding-bottom:60px;}
 .mgBottom10{margin-bottom: 10px;}
 .mgBottom30{margin-bottom: 30px}
 .mgBottom40{margin-bottom: 40px}
@@ -80,8 +80,8 @@ button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: r
 .itemWrap h1{font-size: 1.4em;text-transform: capitalize;}
 .itemWrap h1 a{color: #000}
 
-
-
+.smallImgWrap {width:50px;height:50px;background:#eee;position: absolute; left: 20px;}
+.smallImgWrap img{height:100%;width:100%}
 
 
 
