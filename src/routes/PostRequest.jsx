@@ -62,7 +62,8 @@ class postRequest extends React.Component {
 			canSubmit: false,
 			modalIsOpen: false,
 			imageFiles: [],
-            prefill: ''
+            prefill: '',
+            itemName:''
 		};
 
 		//ModalBox
@@ -119,7 +120,8 @@ class postRequest extends React.Component {
 
 	componentWillMount(){
         this.setState({
-           prefill: this.props.receiveId
+            prefill: this.props.receiveId,
+            itemName: this.props.receiveRequestName
         })
     }
     reset() {
@@ -132,6 +134,7 @@ class postRequest extends React.Component {
 		return (
 			<div className="accountForm stayCenter mgTop40">
                 <p>Prefill ID HERE: {this.state.prefill}</p>
+                <p>Prefill Name HERE: {this.state.itemName}</p>
 
                 <button onClick={this.reset}>Clear Form</button>
 				<Modal

@@ -9,6 +9,7 @@
     "formsy-react": "^0.19.2",
     "material-ui": "0.17.1",
     "react": "^15.4.2",
+    "react-addons-css-transition-group": "^15.4.2",
     "react-autosuggest": "^9.0.0",
     "react-dom": "^15.4.2",
     "react-dropzone": "^3.12.2",
@@ -18,7 +19,8 @@
     "react-modal": "^1.7.3",
     "react-router-dom": "4.0.0",
     "react-select": "^1.0.0-rc",
-    "react-tap-event-plugin": "2.0.1"
+    "react-tap-event-plugin": "2.0.1",
+    "react-tooltip": "^3.2.10"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"

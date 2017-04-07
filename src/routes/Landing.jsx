@@ -19,7 +19,9 @@ import How4 from "../../public/imgs/how4.png";
 import Autosuggest from 'react-autosuggest';
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
-
+import ReactTooltip from 'react-tooltip'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {browserHistory} from 'react-router';
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
@@ -59,9 +61,11 @@ function renderSuggestion(suggestion, {query}) {
     const parts = AutosuggestHighlightParse(suggestionText, matches);
 
     return (
-        <div className={'suggestion-content '}>
-            <div className="smallImgWrap"><img src={"https://www.jetspree.com/images/requests/" + suggestion.id + "/" + suggestion.pic}/></div>
-            <span className="name">
+        <a href={"/products/" + suggestion.id}>
+            <div className={'suggestion-content '}>
+
+                <div className="smallImgWrap"><img src={"https://www.jetspree.com/images/requests/" + suggestion.id + "/" + suggestion.pic}/></div>
+                <span className="name">
                 {
                     parts.map((part, index) => {
                         const className = part.highlight ? 'highlight' : null;
@@ -73,7 +77,9 @@ function renderSuggestion(suggestion, {query}) {
                     })
                 }
                 </span>
-        </div>
+
+            </div>
+        </a>
     );
 }
 
@@ -83,8 +89,10 @@ class AutoComplete extends React.Component {
         this.state = {
             value: '',
             suggestions: [],
+            isFetch: false
         };
         this.getSuggestionValue = this.getSuggestionValue.bind(this);
+        this.getTypeValue = this.getTypeValue.bind(this);
     }
 
     onChange = (event, {newValue, method}) => {
@@ -94,11 +102,10 @@ class AutoComplete extends React.Component {
     };
 
 
-
-getSuggestionValue(suggestion) {
-    this.props.passId(suggestion.id) //pass clicked result to app.jsx
-    //return `${suggestion.name}`; // display clicked result name (original)
-}
+    getSuggestionValue(suggestion) {
+        //this.props.passId(suggestion.id) //pass clicked result to app.jsx
+        //return `${suggestion.name}`; // display clicked result name (original)
+    }
 
     onSuggestionsFetchRequested = ({value}) => {
         loadItems({
@@ -110,7 +117,8 @@ getSuggestionValue(suggestion) {
                     return {name: obj.Item.Name, id: obj.Item.Id, pic: obj.Item.ItemURL};
                 });
                 this.setState({
-                    suggestions: wei
+                    suggestions: wei,
+                    isFetch: true
                 })
             }
         });
@@ -125,21 +133,27 @@ getSuggestionValue(suggestion) {
         });
     };
 
+    getTypeValue(suggestion) {
+        this.props.passValue(this.state.value) //pass clicked result to app.jsx
+        browserHistory.push('/request');
+    }
+
     render() {
-
-        console.log(this.state.suggestions)
+        console.log(this.state.value)
         const {value, suggestions} = this.state;
-        const inputProps = {
-            placeholder: "What are you want to buy?",
-            value,
-            onChange: this.onChange
-        };
+        const inputProps = {placeholder: "What are you want to buy?", value, onChange: this.onChange};
 
-
-        let renderBtnRequest = '';
-        if (this.state.suggestions.length === 0 && this.state.value !== '') {
-            renderBtnRequest = <RaisedButton className="btnPost" primary={true} label="Post Request" containerElement={<Link to="/request"/>}/>
+        let toolTip;
+        let transition = "aniOff";
+        if (this.state.isFetch) {
+            if (this.state.suggestions.length === 0 && this.state.value !== '') {
+                toolTip = <div className="toolTips slideInDown delay">No suggestion! Please post new request instead.</div>;
+                transition = 'aniOn';
+            } else {
+                transition = 'aniOff';
+            }
         }
+
         return (
             <div id="searchBar">
                 <Autosuggest
@@ -149,8 +163,10 @@ getSuggestionValue(suggestion) {
                     getSuggestionValue={this.getSuggestionValue}
                     renderSuggestion={renderSuggestion}
                     inputProps={inputProps}/>
-                {renderBtnRequest}
-
+                <button onClick={this.getTypeValue}>pass this man</button>
+                <RaisedButton className={`btnPost transition ${transition}`} primary={true} label="Post Request"
+                              containerElement={<Link to="/request" onClick={this.getTypeValue}/>}/>
+                {toolTip}
             </div>
         );
     }
@@ -440,21 +456,22 @@ class Landing extends React.Component {
         console.log(this.props)
         return (
             <div className="Landing-page">
-                <div id="banner" className="grad-blue">
-                    <div className="container banner">
-                        <div className="table fullheight stayCenter">
-                            <div className="bannerimg"><img src="http://www.freeiconspng.com/uploads/white-iphone-6-png-image-22.png" alt="phone"
-                                                            width="350"/>
-                            </div>
-                            <div className="banner-text tableCell vaMiddle full">
-                                <h1>Welcome to Jetspree.</h1>
-                                <p>Use Jetspree to shop overseas products. A trusted traveler can bring them to you anywhere in the world using our
-                                    international p2p delivery platform.</p>
-                                {/*<div className="askuser">Please tell us who you are</div>
-                                 <RaisedButton label="I am Shopper" primary={true} className="btnShopper btnBig" style={{height: '45px',}}/>
-                                 <RaisedButton label="I am Traveller" secondary={true} className="btnTraveller btnBig" style={{height: '45px',}}/>
-                                 */}
-                                <AutoComplete passId={this.props.passId} />
+                <div id="banner">
+                    <div className="banner">
+                        <div className="container">
+                            <div className="table fullheight stayCenter">
+                                <div className="bannerimg"><img src="http://www.freeiconspng.com/uploads/white-iphone-6-png-image-22.png" alt="phone"
+                                                                width="350"/>
+                                </div>
+                                <div className="banner-text tableCell vaMiddle full">
+                                    <h1>Order stuff Globally from traveller. 100% worry-free.</h1>
+                                    <p>Get your stuff within 2 weeks, or you can have all your money fully refunded. Guaranteed.</p>
+                                    {/*<div className="askuser">Please tell us who you are</div>
+                                     <RaisedButton label="I am Shopper" primary={true} className="btnShopper btnBig" style={{height: '45px',}}/>
+                                     <RaisedButton label="I am Traveller" secondary={true} className="btnTraveller btnBig" style={{height: '45px',}}/>
+                                     */}
+                                    <AutoComplete passId={this.props.passId} passValue={this.props.passValue} />
+                                </div>
                             </div>
                         </div>
                     </div>

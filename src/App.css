@@ -24,6 +24,7 @@ input{padding: 10px;}
 .full{width: 100%}
 .fullheight{height: 100%}
 .container{max-width: 1000px;margin-left: auto;margin-right: auto;padding-left:40px;padding-right:40px;}
+.itemModal .container{padding-left: 0;padding-right: 0}
 .contentWrap{padding-right: 6px;padding-left: 6px;}
 .colWrap{margin-right: -6px;margin-left: -6px;}
 .col{padding-left: 6px;padding-right: 6px;display: inline-block;vertical-align:top;margin-bottom: 10px;}
@@ -82,6 +83,41 @@ button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: r
 
 .smallImgWrap {width:50px;height:50px;background:#eee;position: absolute; left: 20px;}
 .smallImgWrap img{height:100%;width:100%}
+
+.toolTips{background-color:#fff;padding:7px 10px;border-radius:4px;position:absolute;top:65px;/*right:0;*/left:0;display:inline-block;height:30px;font-family:Helvetica,sans-serif;color:#000}
+.toolTips:before,.toolTips:after{content:"";width:0;height:0;position:absolute}
+.toolTips:before{border-left:10px solid transparent;border-right:10px solid transparent;top:-8px;left:50%;margin-left:-10px}
+.toolTips:after{border-left:8px solid transparent;border-right:8px solid transparent;top:-6px;/*right:70px;*/left:28px;margin-left:-8px;border-bottom-color:#fff;border-bottom-style:solid;border-bottom-width:6px}
+.transition{transition:opacity 1s ease-in}
+.aniOff{opacity:.01}
+.aniOn{opacity:1!important}
+.delay{-webkit-animation-delay:.4s;animation-delay:.4s}
+.slideInDown{-webkit-animation-name:slideInDown;animation-name:slideInDown;-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
+@-webkit-keyframes slideInDown {
+    0%{-webkit-transform:translateY(-100%);transform:translateY(-100%);visibility:hidden;opacity:0}
+    100%{-webkit-transform:translateY(0);transform:translateY(0);visibility:visible;opacity:1}
+}
+@keyframes slideInDown {
+    0%{-webkit-transform:translateY(-100%);transform:translateY(-100%);visibility:hidden;opacity:0}
+    100%{-webkit-transform:translateY(0);transform:translateY(0);visibility:visible;opacity:1}
+}
+.fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn;-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
+@-webkit-keyframes fadeIn {
+    0%{opacity:0}
+    100%{opacity:1}
+}
+@keyframes fadeIn {
+    0%{opacity:0}
+    100%{opacity:1}
+}
+
+
+
+
+
+
+
+
 
 
 
