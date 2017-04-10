@@ -15,13 +15,17 @@ import How1 from "../../public/imgs/how1.png";
 import How2 from "../../public/imgs/how2.png";
 import How3 from "../../public/imgs/how3.png";
 import How4 from "../../public/imgs/how4.png";
+import banner from "../../public/imgs/banner5.jpg";
 
 import Autosuggest from 'react-autosuggest';
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import ReactTooltip from 'react-tooltip'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {browserHistory} from 'react-router';
+
+
+import createBrowserHistory from "history/createBrowserHistory";
+
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
@@ -86,6 +90,7 @@ function renderSuggestion(suggestion, {query}) {
 class AutoComplete extends React.Component {
     constructor() {
         super();
+        console.log(History)
         this.state = {
             value: '',
             suggestions: [],
@@ -133,12 +138,14 @@ class AutoComplete extends React.Component {
         });
     };
 
-    getTypeValue(suggestion) {
-        this.props.passValue(this.state.value) //pass clicked result to app.jsx
-        browserHistory.push('/request');
+    getTypeValue(e) {
+        e.preventDefault();
+        this.props.passValue(this.state.value); //pass clicked result to app.jsx
+        //this.context.history.push('/request');
     }
 
     render() {
+        console.log(this.context)
         console.log(this.state.value)
         const {value, suggestions} = this.state;
         const inputProps = {placeholder: "What are you want to buy?", value, onChange: this.onChange};
@@ -147,7 +154,7 @@ class AutoComplete extends React.Component {
         let transition = "aniOff";
         if (this.state.isFetch) {
             if (this.state.suggestions.length === 0 && this.state.value !== '') {
-                toolTip = <div className="toolTips slideInDown delay">No suggestion! Please post new request instead.</div>;
+                toolTip = <div className="toolTips slideInDown delay">Suggestion doesn't match? Post a new request instead</div>;
                 transition = 'aniOn';
             } else {
                 transition = 'aniOff';
@@ -171,6 +178,8 @@ class AutoComplete extends React.Component {
         );
     }
 }
+
+
 
 
 class ItemsHome extends React.Component {
@@ -457,12 +466,13 @@ class Landing extends React.Component {
         return (
             <div className="Landing-page">
                 <div id="banner">
+                    <div className="bannerimg">
+                        <img src={banner} alt="banner"/>
+                    </div>
                     <div className="banner">
                         <div className="container">
                             <div className="table fullheight stayCenter">
-                                <div className="bannerimg"><img src="http://www.freeiconspng.com/uploads/white-iphone-6-png-image-22.png" alt="phone"
-                                                                width="350"/>
-                                </div>
+
                                 <div className="banner-text tableCell vaMiddle full">
                                     <h1>Order stuff Globally from traveller. 100% worry-free.</h1>
                                     <p>Get your stuff within 2 weeks, or you can have all your money fully refunded. Guaranteed.</p>
@@ -470,7 +480,7 @@ class Landing extends React.Component {
                                      <RaisedButton label="I am Shopper" primary={true} className="btnShopper btnBig" style={{height: '45px',}}/>
                                      <RaisedButton label="I am Traveller" secondary={true} className="btnTraveller btnBig" style={{height: '45px',}}/>
                                      */}
-                                    <AutoComplete passId={this.props.passId} passValue={this.props.passValue} />
+                                    <AutoComplete passId={this.props.passId} passValue={this.props.passValue}/>
                                 </div>
                             </div>
                         </div>
