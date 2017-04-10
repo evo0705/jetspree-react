@@ -20,6 +20,7 @@ import ProductView from "./routes/products/View.jsx";
 import SignUp from "./routes/SignUp.jsx";
 import Login, {GetUserInfo, LoginNavbar} from "./routes/Login.jsx";
 import Request from "./routes/PostRequest";
+import Trip from "./routes/PostTrip";
 import createBrowserHistory from "history/createBrowserHistory";
 import SnackBar from "./components/SnackBar";
 import Utils from "./helper/Utils";
@@ -94,6 +95,7 @@ class App extends Component {
                                     <FlatButton label="Home" containerElement={<Link to="/"/>}/>
                                     <FlatButton label="Countries" containerElement={<Link to="/countries"/>}/>
                                     <FlatButton label="Requests" containerElement={<Link to="/request"/>}/>
+                                    <FlatButton label="Trip" containerElement={<Link to="/trip"/>}/>
                                     <FlatButton label="Products" containerElement={<Link to="/products"/>}/>
                                     <LoginNavbar token={this.state.token}/>
                                     <GetUserInfo token={this.state.token} updateToken={this.updateToken}
@@ -109,7 +111,7 @@ class App extends Component {
                         <Route path="/countries" component={BrowseCountries}/>
                         <Route path="/items" component={ItemsList}/>
                         <Route exact path='/items/:Id' component={RequestView}/>
-
+                        <Route path="/trip" component={Trip}/>
                         <Route path="/products" component={ProductsList}/>
                         <Route exact path='/products/:Id' component={ProductView}/>
                         <Route path="/request" component={() => (
