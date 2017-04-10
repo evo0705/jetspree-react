@@ -85,12 +85,12 @@ class postRequest extends React.Component {
         });
     };
 
-	componentWillMount(){
+    componentWillMount() {
         this.setState({
-            prefill: this.props.receiveId,
-            itemName: this.props.receiveRequestName
+            prefill: this.props.location.state
         })
     }
+
     reset() {
         this.setState({
             prefill: ''
@@ -122,8 +122,6 @@ class postRequest extends React.Component {
     render() {
         return (
             <div className="accountForm stayCenter mgTop40">
-                <p>Prefill ID HERE: {this.state.prefill}</p>
-                <p>Prefill Name HERE: {this.state.itemName}</p>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
@@ -141,7 +139,7 @@ class postRequest extends React.Component {
                     <ul>
                         <li>
                             <FormsyText
-                                value=""
+                                value={this.state.prefill.name}
                                 name="name"
                                 hintText=""
                                 floatingLabelText="Name"

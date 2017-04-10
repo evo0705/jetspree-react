@@ -3,7 +3,7 @@ import logo from "../logo.svg";
 import Select from "react-select";
 import {Link} from "react-router-dom";
 //import { loadSubCategories } from '../data/common.js';
-import {loadItems, loadRequests} from "../data/requests.js";
+import {getRequests} from "../data/requests.js";
 import {loadRecommendations, loadTrips} from "../data/traveller.js";
 import {FormattedDate} from "react-intl";
 import ReactImageFallback from "react-image-fallback";
@@ -17,12 +17,11 @@ import How3 from "../../public/imgs/how3.png";
 import How4 from "../../public/imgs/how4.png";
 import banner from "../../public/imgs/banner5.jpg";
 
-import Autosuggest from 'react-autosuggest';
-import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
-import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
-import ReactTooltip from 'react-tooltip'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Autosuggest from "react-autosuggest";
+import AutosuggestHighlightMatch from "autosuggest-highlight/match";
+import AutosuggestHighlightParse from "autosuggest-highlight/parse";
 
+import history from "../helper/History";
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
@@ -65,7 +64,7 @@ function renderSuggestion(suggestion, {query}) {
         <a href={"/products/" + suggestion.id}>
             <div className={'suggestion-content '}>
 
-                <div className="smallImgWrap"><img src={"https://www.jetspree.com/images/requests/" + suggestion.id + "/" + suggestion.pic}/></div>
+                <div className="smallImgWrap"><img src={suggestion.pic}/></div>
                 <span className="name">
                 {
                     parts.map((part, index) => {
@@ -85,11 +84,9 @@ function renderSuggestion(suggestion, {query}) {
 }
 
 
-
 class AutoComplete extends React.Component {
     constructor() {
         super();
-        console.log(History)
         this.state = {
             value: '',
             suggestions: [],
@@ -112,23 +109,19 @@ class AutoComplete extends React.Component {
     }
 
     onSuggestionsFetchRequested = ({value}) => {
-        loadItems({
+        getRequests({
             pagesize: 5,
             name: value
         }).then((data) => {
-            if (data.Items) {
-                let wei = data.Items.map((obj, i) => {
-                    return {name: obj.Item.Name, id: obj.Item.Id, pic: obj.Item.ItemURL};
-                });
+            if (data.success) {
                 this.setState({
-                    suggestions: wei,
+                    suggestions: data.result.map((obj, i) => {
+                        return {name: obj.name, id: obj.id, pic: data.image_host + obj.image_path};
+                    }),
                     isFetch: true
                 })
             }
         });
-        /*this.setState({
-         suggestions: getSuggestions(value)
-         });*/
     };
 
     onSuggestionsClearRequested = () => {
@@ -139,14 +132,16 @@ class AutoComplete extends React.Component {
 
     getTypeValue(e) {
         // TO DO
-        e.preventDefault();
-        this.props.passValue(this.state.value); //pass clicked result to app.jsx
-        history.push('/request', { some: 'state' })
+        // e.preventDefault();
+        // this.props.passValue(this.state.value); //pass clicked result to app.jsx
+        history.push({
+            pathname: '/request',
+            state: {name: 'adadasd'}
+        })
         //this.context.history.push('/request');
     }
 
 
-    
     render() {
         const {value, suggestions} = this.state;
         const inputProps = {placeholder: "What are you want to buy?", value, onChange: this.onChange};
@@ -155,7 +150,8 @@ class AutoComplete extends React.Component {
         let transition = "aniOff";
         if (this.state.isFetch) {
             if (this.state.suggestions.length === 0 && this.state.value !== '') {
-                toolTip = <div className="toolTips slideInDown delay">Suggestion doesn't match? Post a new request instead</div>;
+                toolTip = <div className="toolTips slideInDown delay">Suggestion doesn't match? Post a new request
+                    instead</div>;
                 transition = 'aniOn';
             } else {
                 transition = 'aniOff';
@@ -171,16 +167,13 @@ class AutoComplete extends React.Component {
                     getSuggestionValue={this.getSuggestionValue}
                     renderSuggestion={renderSuggestion}
                     inputProps={inputProps}/>
-                <button onClick={this.getTypeValue}>pass this man</button>
                 <RaisedButton className={`btnPost transition ${transition}`} primary={true} label="Post Request"
-                              containerElement={<Link to="/request" onClick={this.getTypeValue}/>}/>
+                              containerElement={<Link to={{pathname: '/request', state: {name: this.state.value}}}/>}/>
                 {toolTip}
             </div>
         );
     }
 }
-
-
 
 
 class ItemsHome extends React.Component {
@@ -199,7 +192,7 @@ class ItemsHome extends React.Component {
         let paramItems = {
             pagesize: 4
         };
-        loadItems(paramItems).then((data) => {
+        getRequests(paramItems).then((data) => {
             this.setState({items: data});
         });
     }
@@ -212,8 +205,9 @@ class ItemsHome extends React.Component {
                         <Link to={`/items/${obj.Item.Id}`}>
                             <div className="bgWhite relative">
                                 <div className="imgWrap">
-                                    <img src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL}
-                                         alt="hould be here"/>
+                                    <img
+                                        src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL}
+                                        alt="hould be here"/>
                                 </div>
                                 <div className="productInfo"><h4>{obj.Item.Name}</h4>
                                     <div className="mgBottom">{obj.Item.CurrencyCode}{obj.Item.OfferPrice}</div>
@@ -267,7 +261,9 @@ class Recommendations extends React.Component {
                     <div className="col list mgBottom40" key={obj.Id}>
                         <div className="table full bgWhite relative">
                             <div className="imgWrap">
-                                <img src={'https://www.jetspree.com/images/recommendations/' + obj.Id + '/' + obj.ItemURL} alt="phone"/></div>
+                                <img
+                                    src={'https://www.jetspree.com/images/recommendations/' + obj.Id + '/' + obj.ItemURL}
+                                    alt="phone"/></div>
                             <div className="productInfo tableCell vatop full"><h4>{obj.Name}</h4>
                                 <div>{obj.Description}</div>
                                 <div>{obj.CurrencyCode}{obj.Price}</div>
@@ -339,9 +335,11 @@ class Modal extends React.Component {
         let userUID = this.props.userUID;
         if (userUID) {
             return (
-                <Dialog title={this.tripsUserName + " offer help to buy these products:"} /*actions={actions}*/ modal={false}
+                <Dialog title={this.tripsUserName + " offer help to buy these products:"} /*actions={actions}*/
+                        modal={false}
                         open={this.state.modalOpen} onRequestClose={this.handleClose} autoScrollBodyContent={true}
-                        bodyStyle={ styles.dialogBody } style={ styles.dialogRoot } titleStyle={ styles.dialogTitle} repositionOnUpdate={ false }>
+                        bodyStyle={ styles.dialogBody } style={ styles.dialogRoot } titleStyle={ styles.dialogTitle}
+                        repositionOnUpdate={ false }>
                     <div className="mgBottom40">
                         Trips at <FormattedDate value={formatTripsDate} day="numeric" month="long" year="numeric"/>
                     </div>
@@ -442,7 +440,7 @@ class Landing extends React.Component {
             category: this.state.category,
             pagesize: pagesize
         };
-        loadRequests(param).then((data) => {
+        getRequests(param).then((data) => {
             this.setState({requests: JSON.stringify(data)});
         });
     }
@@ -462,8 +460,6 @@ class Landing extends React.Component {
 
 
     render() {
-        console.log(this.state.items);
-        console.log(history)
         return (
             <div className="Landing-page">
                 <div id="banner">
@@ -476,7 +472,8 @@ class Landing extends React.Component {
 
                                 <div className="banner-text tableCell vaMiddle full">
                                     <h1>Order stuff Globally from traveller. 100% worry-free.</h1>
-                                    <p>Get your stuff within 2 weeks, or you can have all your money fully refunded. Guaranteed.</p>
+                                    <p>Get your stuff within 2 weeks, or you can have all your money fully refunded.
+                                        Guaranteed.</p>
                                     {/*<div className="askuser">Please tell us who you are</div>
                                      <RaisedButton label="I am Shopper" primary={true} className="btnShopper btnBig" style={{height: '45px',}}/>
                                      <RaisedButton label="I am Traveller" secondary={true} className="btnTraveller btnBig" style={{height: '45px',}}/>
@@ -491,13 +488,16 @@ class Landing extends React.Component {
                         <div className="container">
                             <h2>How Jetspree Work?</h2>
                             <div className="colMd3 col"><img src={How1} alt="post your request"/>
-                                <div><p className="colorPri">Post your buy request</p><span>Request any item from around the world.</span></div>
+                                <div><p className="colorPri">Post your buy request</p><span>Request any item from around the world.</span>
+                                </div>
                             </div>
                             <div className="colMd3 col"><img src={How2} alt="post your request"/>
-                                <div><p className="colorPri">Traveller offer to help</p><span>Accept traveller's offer and deposit money.</span></div>
+                                <div><p className="colorPri">Traveller offer to help</p><span>Accept traveller's offer and deposit money.</span>
+                                </div>
                             </div>
                             <div className="colMd3 col"><img src={How3} alt="post your request"/>
-                                <div><p className="colorPri">Traveller delivers item</p><span>100% refund if not fullfilled.</span></div>
+                                <div><p className="colorPri">Traveller delivers item</p><span>100% refund if not fullfilled.</span>
+                                </div>
                             </div>
                             <div className="colMd3 col"><img src={How4} alt="post your request"/>
                                 <div><p className="colorPri">Payment release to traveller</p><span>Traveller will be paid after acknowledged by shopper.</span>
@@ -513,7 +513,8 @@ class Landing extends React.Component {
                     <div className="container pdWrap">
                         <div className="table">
                             <aside className="leftSide">
-                                <h3>Recent Trips<span className="colorGrey small">See what they're going to buy</span></h3>
+                                <h3>Recent Trips<span className="colorGrey small">See what they're going to buy</span>
+                                </h3>
                                 <ul className="travelerList">
 
                                     <Trips />
@@ -530,12 +531,16 @@ class Landing extends React.Component {
                                     <ItemsHome />
 
 
-                                    <label>Name:</label><input type="text" value={this.state.name} onChange={this.inputChange}/><br />
-                                    <label>Category</label><Select name="form-category" searchable={false} clearable={false}
-                                                                   value={this.state.category} options={this.state.categories}
+                                    <label>Name:</label><input type="text" value={this.state.name}
+                                                               onChange={this.inputChange}/><br />
+                                    <label>Category</label><Select name="form-category" searchable={false}
+                                                                   clearable={false}
+                                                                   value={this.state.category}
+                                                                   options={this.state.categories}
                                                                    onChange={this.changeCategory}/>
                                     <input type="button" onClick={() => this.buttonClick(100)} value="Get 100 records"/>
-                                    <input type="button" onClick={() => this.buttonClick(1000)} value="Get 1000 records!"/>
+                                    <input type="button" onClick={() => this.buttonClick(1000)}
+                                           value="Get 1000 records!"/>
                                     <pre>{this.state.requests}</pre>
 
                                 </div>
