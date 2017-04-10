@@ -60,7 +60,7 @@ class Products extends React.Component {
                                 </div>
                                 <div className="contentWrap tableCell full vatop">
                                     <div className="content colWrap productList">
-                                        {itemsNodes}}
+                                        {itemsNodes}
                                     </div>
                                 </div>
                             </div>

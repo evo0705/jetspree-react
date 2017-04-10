@@ -9,6 +9,10 @@ import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
 import SnackBar from "../components/SnackBar";
 
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+
 const styles = {
     textfield: {
         width: '100%'
@@ -131,10 +135,12 @@ export class GetUserInfo extends React.Component {
             token: this.props.token,
             userName: '',
             userEmail: '',
-            userId: ''
+            userId: '',
+            dropdownOpen:false
         };
         this.getUserInfo = this.getUserInfo.bind(this);
         this.logout = this.logout.bind(this);
+        this.toggle = this.toggle.bind(this);
     }
 
     getUserInfo() {
@@ -150,6 +156,29 @@ export class GetUserInfo extends React.Component {
         this.props.showSnackBar('You\'ve logged out successfully.');
         localStorage.removeItem("token");
     }
+
+    toggle() {
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
+    }
+
+    handleTouchTap = (event) => {
+        // This prevents ghost click.
+        event.preventDefault();
+
+        this.setState({
+            dropdownOpen: true,
+            anchorEl: event.currentTarget,
+        });
+    };
+
+    handleRequestClose = () => {
+        this.setState({
+            dropdownOpen: false,
+        });
+    };
+
 
     componentDidMount() {
         this.getUserInfo()
@@ -172,14 +201,37 @@ export class GetUserInfo extends React.Component {
     }
 
     render() {
-        if (this.state.token !== '')
+        console.log(this.state.dropdownOpen)
+
+
+        if (this.state.token !== '') {
             return (
-                <div>Hi, {this.state.userName}
-                    <button onClick={this.logout}>logout</button>
+                <div className={"userNav " + (this.state.dropdownOpen ? 'dropOpen' : 'dropHide')}>
+                    <div className="userIcon" onClick={this.handleTouchTap}><i className="iconfont icon-my"></i></div>
+                    <div className="dropDown">
+                        <Popover
+                            open={this.state.dropdownOpen}
+                            anchorEl={this.state.anchorEl}
+                            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                            onRequestClose={this.handleRequestClose}
+                        >
+                            <Menu>
+                                <MenuItem primaryText={this.state.userName} />
+                                <MenuItem primaryText="Refresh" />
+                                <MenuItem primaryText="Help &amp; feedback" />
+                                <MenuItem primaryText="Settings" />
+                                <MenuItem primaryText="Sign out" onClick={this.logout} />
+                            </Menu>
+                        </Popover>
+
+                    </div>
                 </div>
-            );
+            )
+        }
         else
             return false;
+
     }
 }
 
