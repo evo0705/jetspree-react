@@ -3,7 +3,7 @@ import Axios from "axios";
 import Utils from "../helper/Utils";
 
 export function getRequest(param) {
-    return Axios.get('https://jetspree-node-test.herokuapp.com/requests?' + QueryString.stringify(param))
+    return Axios.get(process.env.REACT_APP_JETSPREE_API_URL + '/requests?' + QueryString.stringify(param))
         .then((response) => response.data)
         .catch(function (error) {
             console.log(error);
@@ -11,7 +11,7 @@ export function getRequest(param) {
 }
 
 export function getRequests(param) {
-    return Axios.get('https://jetspree-node-test.herokuapp.com/requests?' + QueryString.stringify(param))
+    return Axios.get(process.env.REACT_APP_JETSPREE_API_URL + '/requests?' + QueryString.stringify(param))
         .then((response) => response.data)
         .catch(function (error) {
             console.log(error);
@@ -19,7 +19,7 @@ export function getRequests(param) {
 }
 
 export function postRequests(param) {
-    return Axios.post('https://jetspree-node-test.herokuapp.com/auth/requests', param,
+    return Axios.post(process.env.REACT_APP_JETSPREE_API_URL + '/auth/requests', param,
         {headers: {'x-access-token': Utils.getCookie('token')}})
         .then((response) => response.data)
         .catch(function (error) {

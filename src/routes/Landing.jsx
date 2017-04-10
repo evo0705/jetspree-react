@@ -3,7 +3,7 @@ import logo from "../logo.svg";
 import Select from "react-select";
 import {Link} from "react-router-dom";
 //import { loadSubCategories } from '../data/common.js';
-import {loadItems, loadRequests} from "../data/requests.js";
+import {getRequests} from "../data/requests.js";
 import {loadRecommendations, loadTrips} from "../data/traveller.js";
 import {FormattedDate} from "react-intl";
 import ReactImageFallback from "react-image-fallback";
@@ -17,12 +17,9 @@ import How3 from "../../public/imgs/how3.png";
 import How4 from "../../public/imgs/how4.png";
 import banner from "../../public/imgs/banner5.jpg";
 
-import Autosuggest from 'react-autosuggest';
-import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
-import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
-import ReactTooltip from 'react-tooltip'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
+import Autosuggest from "react-autosuggest";
+import AutosuggestHighlightMatch from "autosuggest-highlight/match";
+import AutosuggestHighlightParse from "autosuggest-highlight/parse";
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
@@ -65,7 +62,7 @@ function renderSuggestion(suggestion, {query}) {
         <a href={"/products/" + suggestion.id}>
             <div className={'suggestion-content '}>
 
-                <div className="smallImgWrap"><img src={"https://www.jetspree.com/images/requests/" + suggestion.id + "/" + suggestion.pic}/></div>
+                <div className="smallImgWrap"><img src={suggestion.pic}/></div>
                 <span className="name">
                 {
                     parts.map((part, index) => {
@@ -89,7 +86,7 @@ function renderSuggestion(suggestion, {query}) {
 class AutoComplete extends React.Component {
     constructor() {
         super();
-        console.log(History)
+        console.log(History);
         this.state = {
             value: '',
             suggestions: [],
@@ -112,13 +109,13 @@ class AutoComplete extends React.Component {
     }
 
     onSuggestionsFetchRequested = ({value}) => {
-        loadItems({
+        getRequests({
             pagesize: 5,
             name: value
         }).then((data) => {
-            if (data.Items) {
-                let wei = data.Items.map((obj, i) => {
-                    return {name: obj.Item.Name, id: obj.Item.Id, pic: obj.Item.ItemURL};
+            if (data.success) {
+                let wei = data.result.map((obj, i) => {
+                    return {name: obj.name, id: obj.id, pic: data.image_host + obj.image_path};
                 });
                 this.setState({
                     suggestions: wei,
@@ -199,7 +196,7 @@ class ItemsHome extends React.Component {
         let paramItems = {
             pagesize: 4
         };
-        loadItems(paramItems).then((data) => {
+        getRequests(paramItems).then((data) => {
             this.setState({items: data});
         });
     }
@@ -442,7 +439,7 @@ class Landing extends React.Component {
             category: this.state.category,
             pagesize: pagesize
         };
-        loadRequests(param).then((data) => {
+        getRequests(param).then((data) => {
             this.setState({requests: JSON.stringify(data)});
         });
     }
@@ -463,7 +460,7 @@ class Landing extends React.Component {
 
     render() {
         console.log(this.state.items);
-        console.log(history)
+        console.log(history);
         return (
             <div className="Landing-page">
                 <div id="banner">
