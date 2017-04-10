@@ -127,6 +127,153 @@ export class LoginNavbar extends React.Component {
     };
 }
 
+
+class DropDown extends React.Component {
+    static propTypes = {
+        id: React.PropTypes.string.isRequired,
+    };
+
+    constructor(props) {
+        super(props);
+        // Dropdown block is inactive & hidden by default
+        this.state = {
+            dropdownIsActive: false,
+            dropdownIsVisible: false,
+        };
+
+        // We should bind `this` to click event handler right here
+        this.hideDropdown = this.hideDropdown.bind(this);
+        this.toggleDropdown = this.toggleDropdown.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
+        this.hello = this.hello.bind(this);
+        this.stopPropagation = this.stopPropagation.bind(this)
+    }
+
+    componentDidMount() {
+        // Hide dropdown block on click outside the block
+        window.addEventListener('click', this.hideDropdown, false);
+    }
+
+    componentWillUnmount() {
+        // Remove click event listener on component unmount
+        window.removeEventListener('click', this.hideDropdown, false);
+    }
+
+    stopPropagation(e) {
+        // Stop bubbling of click event on click inside the dropdown content
+        e.stopPropagation();
+    }
+
+    toggleDropdown() {
+        const {dropdownIsVisible} = this.state;
+        // Toggle dropdown block visibility
+        this.setState({dropdownIsVisible: !dropdownIsVisible});
+    }
+
+    hideDropdown() {
+        const {dropdownIsActive} = this.state;
+        // Hide dropdown block if it's not active
+        if (!dropdownIsActive) {
+            this.setState({dropdownIsVisible: false});
+        }
+    }
+
+    handleFocus() {
+        // Make active on focus
+        this.setState({dropdownIsActive: true});
+    }
+
+
+    handleBlur() {
+        // Clean up everything on blur
+        this.setState({
+            dropdownIsVisible: false,
+            dropdownIsActive: false,
+        });
+    }
+
+    hello() {
+        alert('alert')
+    }
+
+    renderDropdown() {
+        const dropdownId = this.props.id;
+        const {dropdownIsVisible} = this.state;
+
+        console.log(this.props.id)
+        if (dropdownId == 1) {
+            return (
+                <div tabIndex={dropdownId}
+                     onFocus={this.handleFocus}
+                     onBlur={this.handleBlur}
+                     onClick={this.toggleDropdown}
+                >
+        <span className="toggler">
+             <div className="userIcon"><i className="iconfont icon-my"></i></div>
+        </span>
+                    { dropdownIsVisible &&
+                    <div className="userDropDown">
+                        <div className="item" onClick={this.hello}>
+                            Do something!
+                        </div>
+                        <div className="item" onClick={this.hello}>
+                            Do something!
+                        </div>
+                        <div>
+                            <div  onClick={this.stopPropagation}>
+                        <FlatButton label="Requests" containerElement={<Link to="/request"/>} />
+                            </div>
+
+                        </div>
+                        <div className="item" onClick={this.hello}>
+                        Do something!
+                    </div>
+                        <div className="item" onClick={this.hello}>
+                            Do something!
+                        </div>
+
+                    </div>
+                    }
+                </div>
+            );
+        }
+
+        if (dropdownId == 2) {
+            return (
+                <div tabIndex={dropdownId}
+                     onFocus={this.handleFocus}
+                     onBlur={this.handleBlur}
+                     onClick={this.toggleDropdown}
+                >
+        <span className="toggler">
+             <div className="userIcon" onClick={this.handleTouchTap}><i className="iconfont icon-my"></i></div>
+        </span>
+                    { dropdownIsVisible &&
+                    <div className="content">
+                        <div className="item">
+                           asd jkaldj asldj l
+                        </div>
+                    </div>
+                    }
+                </div>
+            );
+        }
+
+
+    }
+
+
+    render() {
+        return (
+            <div className="dropdown">
+                {this.renderDropdown()}
+            </div>
+        );
+    }
+
+}
+
 export class GetUserInfo extends React.Component {
     constructor(props) {
         super(props);
@@ -136,7 +283,7 @@ export class GetUserInfo extends React.Component {
             userName: '',
             userEmail: '',
             userId: '',
-            dropdownOpen:false
+            dropdownOpen: false
         };
         this.getUserInfo = this.getUserInfo.bind(this);
         this.logout = this.logout.bind(this);
@@ -200,6 +347,7 @@ export class GetUserInfo extends React.Component {
         }
     }
 
+
     render() {
         console.log(this.state.dropdownOpen)
 
@@ -207,6 +355,12 @@ export class GetUserInfo extends React.Component {
         if (this.state.token !== '') {
             return (
                 <div className={"userNav " + (this.state.dropdownOpen ? 'dropOpen' : 'dropHide')}>
+
+
+                    <DropDown id="1"/>
+                    <DropDown id="2"/>
+
+
                     <div className="userIcon" onClick={this.handleTouchTap}><i className="iconfont icon-my"></i></div>
                     <div className="dropDown">
                         <Popover
@@ -217,11 +371,11 @@ export class GetUserInfo extends React.Component {
                             onRequestClose={this.handleRequestClose}
                         >
                             <Menu>
-                                <MenuItem primaryText={this.state.userName} />
-                                <MenuItem primaryText="Refresh" />
-                                <MenuItem primaryText="Help &amp; feedback" />
-                                <MenuItem primaryText="Settings" />
-                                <MenuItem primaryText="Sign out" onClick={this.logout} />
+                                <MenuItem primaryText={this.state.userName}/>
+                                <MenuItem primaryText="Refresh"/>
+                                <MenuItem primaryText="Help &amp; feedback"/>
+                                <MenuItem primaryText="Settings"/>
+                                <MenuItem primaryText="Sign out" onClick={this.logout}/>
                             </Menu>
                         </Popover>
 
