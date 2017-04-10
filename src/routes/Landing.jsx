@@ -24,9 +24,6 @@ import ReactTooltip from 'react-tooltip'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
-import createBrowserHistory from "history/createBrowserHistory";
-
-
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -87,6 +84,8 @@ function renderSuggestion(suggestion, {query}) {
     );
 }
 
+
+
 class AutoComplete extends React.Component {
     constructor() {
         super();
@@ -139,14 +138,16 @@ class AutoComplete extends React.Component {
     };
 
     getTypeValue(e) {
+        // TO DO
         e.preventDefault();
         this.props.passValue(this.state.value); //pass clicked result to app.jsx
+        history.push('/request', { some: 'state' })
         //this.context.history.push('/request');
     }
 
+
+    
     render() {
-        console.log(this.context)
-        console.log(this.state.value)
         const {value, suggestions} = this.state;
         const inputProps = {placeholder: "What are you want to buy?", value, onChange: this.onChange};
 
@@ -186,7 +187,7 @@ class ItemsHome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: {},
+            items: {}
         };
     }
 
@@ -240,7 +241,7 @@ class Recommendations extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            recommendations: {},
+            recommendations: {}
         };
     }
 
@@ -462,7 +463,7 @@ class Landing extends React.Component {
 
     render() {
         console.log(this.state.items);
-        console.log(this.props)
+        console.log(history)
         return (
             <div className="Landing-page">
                 <div id="banner">
@@ -508,7 +509,6 @@ class Landing extends React.Component {
                 </div>
 
                 <div className="bgGrey">
-
 
                     <div className="container pdWrap">
                         <div className="table">

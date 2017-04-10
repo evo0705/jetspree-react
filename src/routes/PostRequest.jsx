@@ -122,6 +122,8 @@ class postRequest extends React.Component {
     render() {
         return (
             <div className="accountForm stayCenter mgTop40">
+                <p>Prefill ID HERE: {this.state.prefill}</p>
+                <p>Prefill Name HERE: {this.state.itemName}</p>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}

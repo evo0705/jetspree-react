@@ -6,6 +6,7 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import FlatButton from "material-ui/FlatButton";
 
 import logo from "./logo.svg";
+import "../public/fonts/iconfont.css"
 import "./App.css";
 import "../node_modules/react-select/dist/react-select.min.css";
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
@@ -23,14 +24,14 @@ import createBrowserHistory from "history/createBrowserHistory";
 import SnackBar from "./components/SnackBar";
 import Utils from "./helper/Utils";
 
-
 injectTapEventPlugin();
 
 const yuTheme = getMuiTheme({
     fontFamily: 'inherit',
 });
 
-const History = createBrowserHistory();
+const history = createBrowserHistory();
+
 
 class App extends Component {
     constructor(props) {
@@ -82,9 +83,10 @@ class App extends Component {
     render() {
         console.log(this.state.postRequestName)
         return (
-            <Router history={History}>
+            <Router history={history}>
                 <MuiThemeProvider muiTheme={yuTheme}>
                     <div className="App">
+
                         <div className="header">
                             <div className="overflowFixBeta">
                                 <div className="container">

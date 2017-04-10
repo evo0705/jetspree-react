@@ -71,12 +71,51 @@ button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: r
 .abBottomRight{position: absolute;bottom: 20px;right: 20px;}
 
 .header{background: #fff;font-family: 'Roboto'}
+
+.userNav{float:right; position: relative;}
+.userIcon{
+    margin-top: 5px;
+    padding: 4px 5px;
+    border-radius: 50%;
+    background: #eee;}
+.userIcon i{    font-size: 23px;}
+.dropHide .dropDown{display: none}
+.dropShow .dropDown{display: block}
+.dropDown{ position: absolute;   z-index: 95; background: #fff;    top: 43px;box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 0.5);}
+
+
+.triangle {
+    width: 50px;
+    height: 23px;
+    margin-top: -23px;
+    right: 8px;
+    z-index: 1;
+    top: 0px;
+    display: block;
+    position: absolute;
+    overflow: hidden;
+}
+.triangle:after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    top: 15px;
+    left: 15px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0px 0px 6px -2px rgba(0, 0, 0, 0.4);
+}
+
+
 .itemModal .itemWrap{margin-top: 0!important}
 .itemWrap{position: relative;min-height: 400px;padding-left: 340px;}
 .itemImgWrap{position: absolute;background: #fff;left: 0;width: 340px;height: 100%;top: 0;overflow: hidden;}
 .itemImgWrap img{position: absolute;min-height: 100%;max-height: 235px; max-width: 800px;top: 0;left: 50%;-webkit-transform: translate(-50%,0%);transform: translate(-50%,0%);}
 .itemInfo{padding: 20px;padding-bottom: 70px;}
-
 
 .itemWrap h1{font-size: 1.4em;text-transform: capitalize;}
 .itemWrap h1 a{color: #000}
