@@ -54,7 +54,10 @@ class postRequest extends React.Component {
         this.state = {
             canSubmit: false,
             modalIsOpen: false,
-            imageFiles: []
+            imageFiles: [],
+            prefill: {
+                name: ''
+            }
         };
 
         //ModalBox
@@ -86,6 +89,7 @@ class postRequest extends React.Component {
     };
 
     componentWillMount() {
+        if (this.props.location.state)
         this.setState({
             prefill: this.props.location.state
         })
@@ -93,7 +97,7 @@ class postRequest extends React.Component {
 
     reset() {
         this.setState({
-            prefill: ''
+            prefill: {}
         })
     }
 
