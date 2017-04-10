@@ -1,0 +1,206 @@
+import React from 'react';
+import Axios from 'axios';
+import Modal from 'react-modal';
+import {Form} from "formsy-react";
+import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
+import FlatButton from "material-ui/FlatButton";
+import './SignUp.css';
+import "./SignUp.css";
+import moment from "moment";
+import DatePicker from 'material-ui/DatePicker';
+import MenuItem from 'material-ui/MenuItem';
+import cookie from 'react-cookie';
+
+
+const customStlye = {
+	overlay : {
+		position          : 'fixed',
+		top               : 0,
+		left              : 0,
+		right             : 0,
+		bottom            : 0,
+		backgroundColor   : 'rgba(33, 28, 28, 0.74902)',
+		zIndex           : 100
+	},
+	content : {
+		position                   : 'absolute',
+		top                        : '40px',
+		left                       : '40px',
+		right                      : '40px',
+		bottom                     : '40px',
+		border                     : '1px solid #ccc',
+		background                 : '#fff',
+		overflow                   : 'auto',
+		WebkitOverflowScrolling    : 'touch',
+		borderRadius               : '4px',
+		outline                    : 'none',
+		padding                    : '20px',
+		width                      : '500px',
+		height                     : '300px',
+		
+	}
+}
+
+class CountryDropDown extends React.Component {
+	render() {
+		if(this.props.countries) {
+			var displayCountry = this.props.countries.map((options, i) => {
+				return <MenuItem key={i} value={options.code} primaryText={options.name} />
+			});
+			
+			return (
+				<div>
+					<FormsySelect
+						name={this.props.name}
+						floatingLabelText={this.props.floatingLabelText}
+					>
+						{displayCountry}
+					</FormsySelect>
+				</div>
+			)
+		}
+		return null;
+	}
+}
+
+class postTrip extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			canSubmit: false,
+			modalIsOpen: false,
+			autoOk: true,
+			countries: [],
+			
+			//DatePicker
+			ReturnDate: ""
+		}
+		
+		this.loadCountries();
+		this.openModal = this.openModal.bind(this);
+		this.closeModal = this.closeModal.bind(this);
+		this.submit = this.submit.bind(this);
+	}
+	
+	loadCountries() {
+		Axios({
+			method: 'get',
+			url: 'http://jetspree-node-test.herokuapp.com/countries'
+		}).then(resp => {
+			this.setState({
+				countries: resp.data.result
+			});
+		}).catch(error => {
+			console.log(error);
+		})
+	}
+	
+	openModal = () => {
+		this.setState({
+			modalIsOpen: true
+		})
+	}
+	
+	closeModal = () => {
+		this.setState({
+			modalIsOpen: false
+		})
+	}
+	
+	enableButton = () => {
+		this.setState({
+			canSubmit: true
+		});
+	};
+	
+	
+	disableButton = () => {
+		this.setState({
+			canSubmit: false
+		});
+	};
+	
+	handleChangeReturnDate = (date) => {
+		this.setState({
+			ReturnDate: date
+		})
+	}
+	
+	disabledDate = (date) => {
+		return date < moment.now();
+	}
+	
+	submit(data) {
+		console.log(this.state.TravelDate);
+		Axios({
+			method: 'post',
+			url: 'https://jetspree-node-test.herokuapp.com/auth/trips',
+			headers: {'x-access-token': cookie.load('access_token') },
+			data: {
+				travelCountryCode: data.travelCountry,
+				returnCountryCode: data.returnCountry,
+				travelDate: moment(this.state.TravelDate).utc().format(),
+				returnDate: moment(this.state.ReturnDate).utc().format()
+			}
+		}).then(resp => {
+			this.openModal();
+		}).catch(error => {
+			console.log(error);
+		})
+	}
+	
+	render() {
+		return (
+			<div className="accountForm stayCenter mgTop40">
+				<Modal
+					isOpen={this.state.modalIsOpen}
+					onRequestClose={this.closeModal}
+					style={customStlye}
+					contentLabel="Success!"
+				>
+					<div> Success! </div>
+				</Modal>
+				<h2>Post Trip</h2>
+				<Form
+					onSubmit={this.submit}
+					onValid={this.enableButton}
+					onInvalid={this.disableButton}
+					className="login">
+					<ul>
+						<li>
+							<CountryDropDown
+								name="travelCountry"
+								floatingLabelText="Travel Country"
+								countries={this.state.countries} />
+						</li>
+						<li>
+							<CountryDropDown
+								name="returnCountry"
+								floatingLabelText="Return Country"
+								countries={this.state.countries} />
+						</li>
+						<li>
+							<DatePicker
+								autoOk={this.state.autoOk}
+								onChange={this.handleChangeReturnDate}
+								floatingLabelText="Return Date"
+								shouldDisableDate={this.disabledDate}
+							/>
+						</li>
+					</ul>
+					<div className="floatWrap">
+						<div className="pullRight">
+							<FlatButton type="submit"
+										label="Submit"
+										disabled={!this.state.canSubmit}
+										className="bgPri"
+							/>
+						</div>
+					</div>
+				</Form>
+			</div>
+		)
+	}
+}
+
+export default postTrip;
