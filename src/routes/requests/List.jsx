@@ -1,6 +1,6 @@
 import React from "react";
 import {Link, Route, Switch} from "react-router-dom";
-import {loadItems} from "../../data/requests.js";
+import {getItems} from "../../data/requests.js";
 import RaisedButton from "material-ui/RaisedButton";
 import RequestView from "./View.jsx";
 import Dialog from "material-ui/Dialog";
@@ -23,7 +23,7 @@ class Items extends React.Component {
       pagesize: 20
     };
 
-    loadItems(paramItems).then((data) => {
+      getItems(paramItems).then((data) => {
       this.setState({items: data});
     });
   }

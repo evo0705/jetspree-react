@@ -1,5 +1,5 @@
 import React from "react";
-import {loadRequest} from "../../data/requests.js";
+import {getRequest} from "../../data/requests.js";
 import ReactImageFallback from "react-image-fallback";
 import Placeholder from "../../../public/imgs/greyImg.gif";
 import RaisedButton from "material-ui/RaisedButton";
@@ -71,7 +71,7 @@ class RequestView extends React.Component {
 			let param ={
 				id: this.props.match.params.Id
 			};
-			loadRequest(param).then((data) => {
+            getRequest(param).then((data) => {
 				this.setState({item: data});
 			});
 		} else {
@@ -79,7 +79,7 @@ class RequestView extends React.Component {
 			let param = {
 				id: this.props.modalId
             };
-			loadRequest(param).then((data) => {
+            getRequest(param).then((data) => {
 				this.setState({item: data});
 			});
 		}
