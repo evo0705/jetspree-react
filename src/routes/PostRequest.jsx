@@ -56,7 +56,6 @@ class postRequest extends React.Component {
             modalIsOpen: false,
             imageFiles: [],
             prefill:''
-
         };
 
         //ModalBox
@@ -99,7 +98,7 @@ class postRequest extends React.Component {
 
     reset() {
         this.setState({
-            prefill: ''
+            prefill: {}
         })
     }
 

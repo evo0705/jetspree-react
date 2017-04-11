@@ -63,7 +63,7 @@ class CountryDropDown extends React.Component {
 	}
 }
 
-class postTrip extends React.Component {
+class PostTrip extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -203,4 +203,4 @@ class postTrip extends React.Component {
 	}
 }
 
-export default postTrip;
+export default PostTrip;
