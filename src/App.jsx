@@ -19,6 +19,7 @@ import ProductsList from "./routes/products/Products.jsx";
 import ProductView from "./routes/products/View.jsx";
 import SignUp from "./routes/SignUp.jsx";
 import Login, {GetUserInfo, LoginNavbar} from "./routes/Login.jsx";
+import Trip from "./routes/PostTrip";
 import Request from "./routes/PostRequest";
 import history from "./helper/History";
 import SnackBar from "./components/SnackBar";
@@ -77,6 +78,7 @@ class App extends Component {
                                     <FlatButton label="Countries" containerElement={<Link to="/countries"/>}/>
                                     <FlatButton label="Requests" containerElement={<Link to="/request"/>}/>
                                     <FlatButton label="Products" containerElement={<Link to="/products"/>}/>
+                                    <FlatButton label="Trip" containerElement={<Link to="/trip"/>} />
                                     <LoginNavbar token={this.state.token}/>
                                     <GetUserInfo token={this.state.token} updateToken={this.updateToken}
                                                  showSnackBar={this.showSnackBar}/>
@@ -96,6 +98,7 @@ class App extends Component {
                         <Route path="/request" component={Request}/>
                         <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}
                                   close={this.closeSnackBar}/>
+                        <Route path="/trip" component={Trip} />
                     </div>
                 </MuiThemeProvider>
             </Router>
