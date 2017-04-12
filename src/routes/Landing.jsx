@@ -43,14 +43,14 @@ const people = [
     }
 ];
 
-function getSuggestions(value) {
+/*function getSuggestions(value) {
     const escapedValue = escapeRegexCharacters(value.trim());
     if (escapedValue === '') {
         return [];
     }
     const regex = new RegExp('\\b' + escapedValue, 'i');
     return people.filter(person => regex.test(getSuggestionValue(person)));
-}
+}*/
 
 
 function getSuggestionValue(suggestion) {
@@ -133,7 +133,7 @@ class AutoComplete extends React.Component {
     };
 
     getTypeValue(e) {
-        // TO DO
+        // TODO
         // e.preventDefault();
         // this.props.passValue(this.state.value); //pass clicked result to app.jsx
         history.push({
@@ -271,9 +271,11 @@ class Modal extends React.Component {
         this.tripsUserUid = nextProps.userUID;
         this.tripsUserName = nextProps.userName;
         this.tripsUserTripsDate = nextProps.userTripsDate
+
     }
 
     render() {
+        console.log(this.tripsUserTripsDate)
         const formatTripsDate = this.tripsUserTripsDate;
         /*const actions = [
          <RaisedButton label="Cancel" primary={true} onTouchTap={this.handleClose} />,

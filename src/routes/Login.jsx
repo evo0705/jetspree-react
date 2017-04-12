@@ -13,7 +13,7 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 //import MenuItem from 'material-ui/MenuItem';
 
-import { DropdownMenu, MenuItem } from 'react-bootstrap-dropdown-menu';
+import {DropdownMenu, MenuItem} from 'react-bootstrap-dropdown-menu';
 
 const styles = {
     textfield: {
@@ -29,7 +29,7 @@ const styles = {
 
 class Login extends React.Component {
     constructor(props) {
-        super(props)    ;
+        super(props);
         this.state = {
             checked: false,
             message: '',
@@ -69,36 +69,35 @@ class Login extends React.Component {
                 this.showSnackBar(response.data.message);
             } else if (response.data.token) {
                 this.setState({
-					redirectToHome: true
-				})
+                    redirectToHome: true
+                })
                 showSnackBar('You\'ve logged in successfully.');
-				updateToken(response.data.token);
+                updateToken(response.data.token);
             } else {
                 // unknown error
             }
-            
+
         }, (error) => {
             // TODO:error handling
         });
     }
-    
+
     loadfacebook = () => {
-		return window.location.href= 'https://jetspree-node-test.herokuapp.com/login/facebook';
+        return window.location.href = 'https://jetspree-node-test.herokuapp.com/login/facebook';
     }
 
     render() {
 
         if (this.state.redirectToHome) {
             return (
-                <Redirect to="/" />
+                <Redirect to="/"/>
             )
         }
-        
+
         return (
             <div className="accountForm stayCenter mgTop40">
                 <h1>Login</h1>
-                <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}
-                             className="login">
+                <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
                     <ul>
                         <li>
                             <FormsyText value="" name="email" hintText="" floatingLabelText="Email"
@@ -119,7 +118,7 @@ class Login extends React.Component {
                             {/*<FlatButton onTouchTap={this.handleTouchTap} label="Snackbar" />*/}
                         </div>
                         <div className="pullRight" style={{marginRight: '10px'}}>
-                            <FlatButton type="button" label="Facebook" className="bgPri" onClick={this.loadfacebook} />
+                            <FlatButton type="button" label="Facebook" className="bgPri" onClick={this.loadfacebook}/>
                         </div>
                     </div>
                 </Formsy.Form>
@@ -147,7 +146,6 @@ export class LoginNavbar extends React.Component {
         else return false;
     };
 }
-
 
 
 export class GetUserInfo extends React.Component {
@@ -198,20 +196,16 @@ export class GetUserInfo extends React.Component {
         }
     }
 
-
     render() {
-        console.log(this.state)
         if (this.state.token !== '') {
             return (
                 <div className="userNav">
-               
-            <DropdownMenu userName={this.state.userName} position="left" triggerType="icon" trigger="glyphicon userIcon iconfont icon-my">
-                <div><Link to="/profile">My Profile</Link></div>
-               <div><Link to="/profile/requests">My Requests</Link></div>
-                <div><Link to="/profile/trips">My Trips</Link></div>
-                <MenuItem text="Logout" onClick={this.logout} />
-            </DropdownMenu>
-
+                    <DropdownMenu userName={this.state.userName} position="left" triggerType="icon" trigger="glyphicon userIcon iconfont icon-my">
+                        <div><Link to="/profile">My Profile</Link></div>
+                        <div><Link to="/profile/requests">My Requests</Link></div>
+                        <div><Link to="/profile/trips">My Trips</Link></div>
+                        <MenuItem text="Logout" onClick={this.logout}/>
+                    </DropdownMenu>
                 </div>
             )
         }

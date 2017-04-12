@@ -8,10 +8,11 @@ body,button{font-family: 'Montserrat', sans-serif;}
 ul{list-style: none;padding-left: 0}
 a{text-decoration: none}
 p{ line-height: 160%;margin-top: 0;margin-bottom: 10px;}
-h1,h2,h3,h4,h5{letter-spacing: 1px;    font-weight: 500;}
+h1,h2,h3,h4,h5{font-weight: 500;}
 h1{font-size: 2.4em;}
 h3{font-size: 1.2em}
 h4{font-weight: 500;}
+h5{font-size: 1em;margin-bottom: 10px}
 img{max-width: 100%}
 input{padding: 10px;}
 
@@ -47,7 +48,7 @@ input{padding: 10px;}
 .stayCenter{margin-right: auto;margin-left: auto;}
 .colorPri,a{color: #00bcd4}
 .colorSec,.itemPrice {color: #ff4081}
-.colorGrey{color: #989898;}
+.colorGrey,.footer li{color: #989898;}
 .small{font-size: 0.7em;font-weight: normal;display: block;}
 .grad-blue {background: linear-gradient(to bottom, #3090ff 0%, #519ffb 100%);}
 .bgPri{background: #00bcd4}
@@ -58,6 +59,9 @@ button.bgPri{background: #00bcd4!important;color: #fff!important}
 button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: rgba(0, 0, 0, 0.298039)!important;}
 
 .pdWrap{padding-top: 60px;padding-bottom:60px;}
+.pd20{padding-top: 20px;padding-bottom: 20px;}
+.pd30{padding-top: 30px;padding-bottom: 30px;}
+.pd40{padding-top: 40px;padding-bottom: 40px;}
 .mgBottom10{margin-bottom: 10px;}
 .mgBottom30{margin-bottom: 30px}
 .mgBottom40{margin-bottom: 40px}
@@ -66,7 +70,7 @@ button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: r
 .mgTop40{margin-top: 40px;}
 .mgTop50{margin-top: 50px;}
 .mgTop60{margin-top: 60px;}
-.leftSide{width: 240px;}
+.leftSide{width: 240px;    padding-right: 30px;}
 
 .relative{position: relative;}
 .abBottomRight{position: absolute;bottom: 20px;right: 20px;}
@@ -143,6 +147,16 @@ button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: r
 .aniOff{opacity:.01;visibility: hidden}
 .aniOn{opacity:1!important}
 .delay{-webkit-animation-delay:.8s;animation-delay:.8s}
+
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+}
+.copyRight{padding-bottom: 10px}
 
 
 

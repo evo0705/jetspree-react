@@ -27,6 +27,7 @@ import Profile from "./routes/user/Profile.jsx";
 import history from "./helper/History";
 import SnackBar from "./components/SnackBar";
 import Utils from "./helper/Utils";
+import Footer from "./Footer"
 
 injectTapEventPlugin();
 
@@ -108,6 +109,8 @@ class App extends Component {
                         <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}
                                   close={this.closeSnackBar}/>
                         <Route path="/trip" component={Trip}/>
+
+                        <Footer />
                     </div>
                 </MuiThemeProvider>
             </Router>
