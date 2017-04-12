@@ -5,12 +5,15 @@ import RaisedButton from "material-ui/RaisedButton";
 import ProductView from "./View.jsx";
 import Dialog from "material-ui/Dialog";
 import "../requests/List.css";
+import DialogBox from "../../components/DialogBox";
 
 class Products extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             items: {},
+			error: false,
+			messageError: []
         };
     }
 
@@ -25,8 +28,16 @@ class Products extends React.Component {
 
         getRequests(paramItems).then((data) => {
             this.setState({items: data.result, imageHost: data.image_host});
+        }).catch((error) => {
+			var errmsg = this.state.messageError;
+			errmsg.push(error);
+			this.setState({error: true});
         });
     }
+	
+	handleClose = () => {
+		this.setState({error: false})
+	};
 
     render() {
         if (this.state.items.length > 0) {
@@ -68,7 +79,16 @@ class Products extends React.Component {
                     </div>
                 </div>
             )
-        }
+        } else if (this.state.error) {
+			return (
+                <DialogBox
+                    title="Message"
+                    open={this.state.error}
+                    onRequestClose={this.handleClose}
+                    errorMessage={this.state.messageError[0].message}
+                />
+			)
+		}
         return null
     }
 }
