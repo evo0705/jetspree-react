@@ -59,7 +59,7 @@ class CountryDropDown extends React.Component {
 				</div>
 			)
 		}
-		return null;
+		return null
 	}
 }
 
@@ -73,10 +73,12 @@ class postTrip extends React.Component {
 			countries: [],
 			
 			//DatePicker
-			ReturnDate: ""
+			ReturnDate: "",
+			TravelDate: ""
 		}
 		
 		this.loadCountries();
+		this.loadTrips();
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
 		this.submit = this.submit.bind(this);
@@ -85,7 +87,7 @@ class postTrip extends React.Component {
 	loadCountries() {
 		Axios({
 			method: 'get',
-			url: 'http://jetspree-node-test.herokuapp.com/countries'
+			url: process.env.REACT_APP_JETSPREE_API_URL + '/countries'
 		}).then(resp => {
 			this.setState({
 				countries: resp.data.result
@@ -95,11 +97,24 @@ class postTrip extends React.Component {
 		})
 	}
 	
+	loadTrips() {
+		Axios({
+			method: 'get',
+			url: process.env.REACT_APP_JETSPREE_API_URL + '/trips'
+		}).then(resp => {
+			resp.data.result.map((data) => {
+				if (data.return_date > data.travel_date) { console.log("YES IS CORRECT"); }
+			})
+		}).catch(error => {
+			console.log(error);
+		})
+	}
+	
 	openModal = () => {
 		this.setState({
 			modalIsOpen: true
 		})
-	}
+	};
 	
 	closeModal = () => {
 		this.setState({
@@ -124,18 +139,24 @@ class postTrip extends React.Component {
 		this.setState({
 			ReturnDate: date
 		})
-	}
+	};
+	
+	handleChangeTravelDate = (date) => {
+		this.setState({
+			TravelDate: date
+		})
+	};
+	
 	
 	disabledDate = (date) => {
 		return date < moment.now();
 	}
 	
 	submit(data) {
-		console.log(this.state.TravelDate);
 		Axios({
 			method: 'post',
-			url: 'https://jetspree-node-test.herokuapp.com/auth/trips',
-			headers: {'x-access-token': cookie.load('access_token') },
+			url: process.env.REACT_APP_JETSPREE_API_URL + '/auth/trips',
+			headers: {'x-access-token': cookie.load('token') },
 			data: {
 				travelCountryCode: data.travelCountry,
 				returnCountryCode: data.returnCountry,
@@ -183,6 +204,14 @@ class postTrip extends React.Component {
 							<DatePicker
 								autoOk={this.state.autoOk}
 								onChange={this.handleChangeReturnDate}
+								floatingLabelText="Return Date"
+								shouldDisableDate={this.disabledDate}
+							/>
+						</li>
+						<li>
+							<DatePicker
+								autoOk={this.state.autoOk}
+								onChange={this.handleChangeTravelDate}
 								floatingLabelText="Return Date"
 								shouldDisableDate={this.disabledDate}
 							/>
