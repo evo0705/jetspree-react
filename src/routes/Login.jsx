@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, withRouter} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 //import { postSignup } from '../data/account';
 import Formsy from "formsy-react";
 //import MyInput from './../components/Input';
@@ -9,9 +9,9 @@ import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
 import SnackBar from "../components/SnackBar";
 
-import Popover from "material-ui/Popover";
-import Menu from "material-ui/Menu";
-import MenuItem from "material-ui/MenuItem";
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 
 const styles = {
     textfield: {
@@ -27,11 +27,12 @@ const styles = {
 
 class Login extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)    ;
         this.state = {
             checked: false,
             message: '',
-            snackBar: {open: false, message: ''}
+            snackBar: {open: false, message: ''},
+            redirectToHome: false,
         };
         this.submit = this.submit.bind(this);
         this.showSnackBar = this.showSnackBar.bind(this);
@@ -65,18 +66,31 @@ class Login extends React.Component {
                 // TODO:display errors to user
                 this.showSnackBar(response.data.message);
             } else if (response.data.token) {
-                updateToken(response.data.token);
-                showSnackBar('You\'ve logged in successfully.');
-                this.props.history.push('/');
+				this.setState({
+					redirectToHome: true
+				})
+				updateToken(response.data.token);
             } else {
                 // unknown error
             }
+            
         }, (error) => {
             // TODO:error handling
         });
     }
+    
+    loadfacebook = () => {
+		return window.location.href= 'https://jetspree-node-test.herokuapp.com/login/facebook';
+    }
 
     render() {
+
+        if (this.state.redirectToHome) {
+            return (
+                <Redirect to="/" />
+            )
+        }
+        
         return (
             <div className="accountForm stayCenter mgTop40">
                 <h1>Login</h1>
@@ -100,6 +114,9 @@ class Login extends React.Component {
                         <div className="pullRight">
                             <FlatButton type="submit" label="Login" disabled={!this.state.canSubmit} className="bgPri"/>
                             {/*<FlatButton onTouchTap={this.handleTouchTap} label="Snackbar" />*/}
+                        </div>
+                        <div className="pullRight" style={{marginRight: '10px'}}>
+                            <FlatButton type="button" label="Facebook" className="bgPri" onClick={this.loadfacebook} />
                         </div>
                     </div>
                 </Formsy.Form>
@@ -201,6 +218,8 @@ export class GetUserInfo extends React.Component {
     }
 
     render() {
+        console.log(this.state.dropdownOpen)
+
 
         if (this.state.token !== '') {
             return (
@@ -234,4 +253,4 @@ export class GetUserInfo extends React.Component {
 }
 
 
-export default withRouter(Login);
+export default Login;
