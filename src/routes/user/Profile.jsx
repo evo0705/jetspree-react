@@ -42,7 +42,7 @@ class UserTrips extends React.Component {
                 const travelDate = moment(obj.travel_date).format("DD MMM YYYY");
                 const returnDate = moment(obj.return_date).format("DD MMM YYYY");
                 return (
-                    <div className="" key={obj.id}>
+                    <div className="border" key={obj.id}>
                         <Link to={{pathname: `/trips/${obj.id}`, state: {modal: true}}}>
                             <div className="bgWhite relative">
                                 {/*<div className="imgWrapBox">
@@ -66,7 +66,7 @@ class UserTrips extends React.Component {
                                         </div>
                                     </div>
                                     <div className="tripDetail">
-                                        <div className="detail"><i className="iconfont icon-yishouchu"></i>Fullfilled<span>3</span></div>
+                                        <div className="detail"><i className="iconfont icon-yishouchu"></i>Fullfilled<span>3/3</span></div>
                                         <div className="detail"><i className="iconfont icon-xinyongqia"></i>Reimbursed<span>RM1300</span></div>
                                         <div className="detail"><i className="iconfont icon-emoji"></i>Earned<span>RM300</span></div>
                                     </div>
@@ -89,7 +89,7 @@ class UserTrips extends React.Component {
                 }
 
                 return (
-                    <div className="mgBottom10" key={obj.id}>
+                    <div className="mgBottom10 border" key={obj.id}>
                         <Link to={{pathname: `/trips/${obj.id}`, state: {modal: true}}}>
                             <div className="bgWhite relative">
                                 <div className="tripInfo table full">
@@ -134,7 +134,7 @@ class UserTrips extends React.Component {
                 }
 
                 return (
-                <div className="mgBottom10" key={obj.id}>
+                <div className="mgBottom10 border" key={obj.id}>
                     <Link to={{pathname: `/trips/${obj.id}`, state: {modal: true}}}>
                         <div className="bgWhite relative">
                             <div className="tripInfo table full">
