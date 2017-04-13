@@ -63,7 +63,7 @@ class CountryDropDown extends React.Component {
 	}
 }
 
-class postTrip extends React.Component {
+class PostTrip extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -85,7 +85,7 @@ class postTrip extends React.Component {
 	loadCountries() {
 		Axios({
 			method: 'get',
-			url: 'http://jetspree-node-test.herokuapp.com/countries'
+			url: 'http://jetspree-node-test.herokuapp.com/v1/countries'
 		}).then(resp => {
 			this.setState({
 				countries: resp.data.result
@@ -119,7 +119,7 @@ class postTrip extends React.Component {
 			canSubmit: false
 		});
 	};
-	
+
 	handleChangeReturnDate = (date) => {
 		this.setState({
 			ReturnDate: date
@@ -134,7 +134,7 @@ class postTrip extends React.Component {
 		console.log(this.state.TravelDate);
 		Axios({
 			method: 'post',
-			url: 'https://jetspree-node-test.herokuapp.com/auth/trips',
+			url: 'https://jetspree-node-test.herokuapp.com/v1/auth/trips',
 			headers: {'x-access-token': cookie.load('access_token') },
 			data: {
 				travelCountryCode: data.travelCountry,
@@ -203,4 +203,4 @@ class postTrip extends React.Component {
 	}
 }
 
-export default postTrip;
+export default PostTrip;

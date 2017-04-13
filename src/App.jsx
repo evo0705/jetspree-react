@@ -8,6 +8,7 @@ import FlatButton from "material-ui/FlatButton";
 import logo from "./logo.svg";
 import "../public/fonts/iconfont.css";
 import "./App.css";
+import "./animation.css";
 import "../node_modules/react-select/dist/react-select.min.css";
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import Landing from "./routes/Landing.jsx";
@@ -15,15 +16,18 @@ import BrowseCountries from "./routes/requests/Countries.js";
 import ItemsList from "./routes/requests/List.jsx";
 import RequestView from "./routes/requests/View.jsx";
 
-import ProductsList from "./routes/products/Products.jsx";
+import ProductsList from "./routes/products/List.jsx";
 import ProductView from "./routes/products/View.jsx";
 import SignUp from "./routes/SignUp.jsx";
 import Login, {GetUserInfo, LoginNavbar} from "./routes/Login.jsx";
 import Trip from "./routes/PostTrip";
 import Request from "./routes/PostRequest";
+import Profile from "./routes/user/Profile.jsx";
+
 import history from "./helper/History";
 import SnackBar from "./components/SnackBar";
 import Utils from "./helper/Utils";
+import Footer from "./Footer"
 
 injectTapEventPlugin();
 
@@ -78,10 +82,10 @@ class App extends Component {
                                     <FlatButton label="Countries" containerElement={<Link to="/countries"/>}/>
                                     <FlatButton label="Requests" containerElement={<Link to="/request"/>}/>
                                     <FlatButton label="Products" containerElement={<Link to="/products"/>}/>
-                                    <FlatButton label="Trip" containerElement={<Link to="/trip"/>} />
+                                    <FlatButton label="Trip" containerElement={<Link to="/trip"/>}/>
                                     <LoginNavbar token={this.state.token}/>
                                     <GetUserInfo token={this.state.token} updateToken={this.updateToken}
-                                                 showSnackBar={this.showSnackBar}/>
+                                                 showSnackBar={this.showSnackBar} history={history}/>
                                 </div>
                             </div>
                         </div>
@@ -96,9 +100,17 @@ class App extends Component {
                         <Route path="/products" component={ProductsList}/>
                         <Route exact path='/products/:Id' component={ProductView}/>
                         <Route path="/request" component={Request}/>
+
+                        <Route path="/profile" component={() => (
+                            <Profile token={this.state.token}/>)}/>
+                        <Route path="/user/:Id" component={Profile}/>
+
+
                         <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}
                                   close={this.closeSnackBar}/>
-                        <Route path="/trip" component={Trip} />
+                        <Route path="/trip" component={Trip}/>
+
+                        <Footer />
                     </div>
                 </MuiThemeProvider>
             </Router>

@@ -55,9 +55,7 @@ class postRequest extends React.Component {
             canSubmit: false,
             modalIsOpen: false,
             imageFiles: [],
-            prefill: {
-                name: ''
-            }
+            prefill:''
         };
 
         //ModalBox
@@ -89,10 +87,13 @@ class postRequest extends React.Component {
     };
 
     componentWillMount() {
-        if (this.props.location.state)
-        this.setState({
-            prefill: this.props.location.state
+        console.log(this.props)
+        if (this.props.location.state !== undefined)
+        {        this.setState({
+            prefill: this.props.location.state.name
         })
+        }
+
     }
 
     reset() {
@@ -143,7 +144,7 @@ class postRequest extends React.Component {
                     <ul>
                         <li>
                             <FormsyText
-                                value={this.state.prefill.name}
+                                value={this.state.prefill}
                                 name="name"
                                 hintText=""
                                 floatingLabelText="Name"

@@ -6,7 +6,30 @@ import ProductView from "./View.jsx";
 import Dialog from "material-ui/Dialog";
 import "../requests/List.css";
 
-class Products extends React.Component {
+class ProductsLayout extends React.Component {
+    render() {
+        return (
+            <div className="itemsListWrap">
+                <div className="overflowFixBeta">
+                    <div className="container">
+                        <div className="table">
+                            <div className="leftSide">
+                                Category here
+                            </div>
+                            <div className="contentWrap tableCell full vatop">
+                                <div className="content colWrap productList">
+                                    <Products />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+export class Products extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,21 +74,8 @@ class Products extends React.Component {
             });
 
             return (
-                <div className="itemsListWrap">
-                    <div className="overflowFixBeta">
-                        <div className="container">
-                            <div className="table">
-                                <div className="leftSide">
-                                    Category here
-                                </div>
-                                <div className="contentWrap tableCell full vatop">
-                                    <div className="content colWrap productList">
-                                        {itemsNodes}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                {itemsNodes}
                 </div>
             )
         }
@@ -154,7 +164,7 @@ class ProductsList extends React.Component {
         return (
             <div>
                 <Switch location={isModal ? this.previousLocation : location}>
-                    <Route exact path='/products' component={Products}/>
+                    <Route exact path='/products' component={ProductsLayout}/>
                 </Switch>
                 {isModal ? <div className="modalView"><Route path='/products/:Id' component={Modal}/></div> : null}
             </div>
