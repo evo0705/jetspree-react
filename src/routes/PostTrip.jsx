@@ -87,11 +87,7 @@ class PostTrip extends React.Component {
 	loadCountries() {
 		Axios({
 			method: 'get',
-<<<<<<< HEAD
             url: process.env.REACT_APP_JETSPREE_API_URL + '/countries'
-=======
-			url: 'http://jetspree-node-test.herokuapp.com/v1/countries'
->>>>>>> origin/master
 		}).then(resp => {
 			this.setState({
 				countries: resp.data.result
@@ -161,13 +157,8 @@ class PostTrip extends React.Component {
 	submit(data) {
 		Axios({
 			method: 'post',
-<<<<<<< HEAD
             url: process.env.REACT_APP_JETSPREE_API_URL + '/auth/trips',
             headers: {'x-access-token': cookie.load('token')},
-=======
-			url: 'https://jetspree-node-test.herokuapp.com/v1/auth/trips',
-			headers: {'x-access-token': cookie.load('access_token') },
->>>>>>> origin/master
 			data: {
 				travelCountryCode: data.travelCountry,
 				returnCountryCode: data.returnCountry,

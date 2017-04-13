@@ -9,17 +9,11 @@ import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
 import SnackBar from "../components/SnackBar";
 
-<<<<<<< HEAD
-import Popover from "material-ui/Popover";
-import Menu from "material-ui/Menu";
-import MenuItem from "material-ui/MenuItem";
-=======
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 //import MenuItem from 'material-ui/MenuItem';
 
 import {DropdownMenu, MenuItem} from 'react-bootstrap-dropdown-menu';
->>>>>>> origin/master
 
 const styles = {
     textfield: {
@@ -76,12 +70,8 @@ class Login extends React.Component {
             } else if (response.data.token) {
                 this.setState({
                     redirectToHome: true
-<<<<<<< HEAD
-                });
-=======
                 })
                 showSnackBar('You\'ve logged in successfully.');
->>>>>>> origin/master
                 updateToken(response.data.token);
             } else {
                 // unknown error
@@ -94,11 +84,7 @@ class Login extends React.Component {
 
     loadfacebook = () => {
         return window.location.href = 'https://jetspree-node-test.herokuapp.com/login/facebook';
-<<<<<<< HEAD
-    };
-=======
     }
->>>>>>> origin/master
 
     render() {
 
@@ -211,12 +197,6 @@ export class GetUserInfo extends React.Component {
     }
 
     render() {
-<<<<<<< HEAD
-        console.log(this.state.dropdownOpen);
-
-
-=======
->>>>>>> origin/master
         if (this.state.token !== '') {
             return (
                 <div className="userNav">
