@@ -37,6 +37,7 @@ input{padding: 10px;}
 
 .table{display: table;}
 .tableCell{display: table-cell;}
+.inlineBlock {display: inline-block}
 
 .floatWrap:after{content: '';display: table;clear: both;}
 .pullLeft{float: left;}
@@ -49,9 +50,11 @@ input{padding: 10px;}
 .colorPri,a{color: #00bcd4}
 .colorSec,.itemPrice {color: #ff4081}
 .colorGrey,.footer li{color: #989898;}
+.colorBlack{color:#000}
 .small{font-size: 0.7em;font-weight: normal;display: block;}
 .grad-blue {background: linear-gradient(to bottom, #3090ff 0%, #519ffb 100%);}
 .bgPri{background: #00bcd4}
+.bgSec{background: #ff4081}
 .bgGrey{background: #eee}
 .bgWhite{background: #fff}
 
