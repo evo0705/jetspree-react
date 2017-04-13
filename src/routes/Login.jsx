@@ -9,9 +9,9 @@ import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
 import SnackBar from "../components/SnackBar";
 
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import Popover from "material-ui/Popover";
+import Menu from "material-ui/Menu";
+import MenuItem from "material-ui/MenuItem";
 
 const styles = {
     textfield: {
@@ -27,7 +27,7 @@ const styles = {
 
 class Login extends React.Component {
     constructor(props) {
-        super(props)    ;
+        super(props);
         this.state = {
             checked: false,
             message: '',
@@ -66,28 +66,28 @@ class Login extends React.Component {
                 // TODO:display errors to user
                 this.showSnackBar(response.data.message);
             } else if (response.data.token) {
-				this.setState({
-					redirectToHome: true
-				})
-				updateToken(response.data.token);
+                this.setState({
+                    redirectToHome: true
+                });
+                updateToken(response.data.token);
             } else {
                 // unknown error
             }
-            
+
         }, (error) => {
             // TODO:error handling
         });
     }
-    
+
     loadfacebook = () => {
-		return window.location.href= 'https://jetspree-node-test.herokuapp.com/login/facebook';
-    }
+        return window.location.href = 'https://jetspree-node-test.herokuapp.com/login/facebook';
+    };
 
     render() {
 
         if (this.state.redirectToHome) {
             return (
-                <Redirect to="/" />
+                <Redirect to="/"/>
             )
         }
         
@@ -116,7 +116,7 @@ class Login extends React.Component {
                             {/*<FlatButton onTouchTap={this.handleTouchTap} label="Snackbar" />*/}
                         </div>
                         <div className="pullRight" style={{marginRight: '10px'}}>
-                            <FlatButton type="button" label="Facebook" className="bgPri" onClick={this.loadfacebook} />
+                            <FlatButton type="button" label="Facebook" className="bgPri" onClick={this.loadfacebook}/>
                         </div>
                     </div>
                 </Formsy.Form>
@@ -218,7 +218,7 @@ export class GetUserInfo extends React.Component {
     }
 
     render() {
-        console.log(this.state.dropdownOpen)
+        console.log(this.state.dropdownOpen);
 
 
         if (this.state.token !== '') {

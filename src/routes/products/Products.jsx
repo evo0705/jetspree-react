@@ -12,8 +12,8 @@ class Products extends React.Component {
         super(props);
         this.state = {
             items: {},
-			error: false,
-			messageError: []
+            error: false,
+            messageError: []
         };
     }
 
@@ -29,15 +29,15 @@ class Products extends React.Component {
         getRequests(paramItems).then((data) => {
             this.setState({items: data.result, imageHost: data.image_host});
         }).catch((error) => {
-			var errmsg = this.state.messageError;
-			errmsg.push(error);
-			this.setState({error: true});
+            var errmsg = this.state.messageError;
+            errmsg.push(error);
+            this.setState({error: true});
         });
     }
-	
-	handleClose = () => {
-		this.setState({error: false})
-	};
+
+    handleClose = () => {
+        this.setState({error: false})
+    };
 
     render() {
         if (this.state.items.length > 0) {
@@ -83,15 +83,15 @@ class Products extends React.Component {
                 </div>
             )
         } else if (this.state.error) {
-			return (
+            return (
                 <DialogBox
                     title="Message"
                     open={this.state.error}
                     onRequestClose={this.handleClose}
                     errorMessage={this.state.messageError[0].message}
                 />
-			)
-		}
+            )
+        }
         return null
     }
 }

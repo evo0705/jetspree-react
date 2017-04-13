@@ -1,15 +1,15 @@
-import React from 'react';
-import Axios from 'axios';
-import Modal from 'react-modal';
+import React from "react";
+import Axios from "axios";
+import Modal from "react-modal";
 import {Form} from "formsy-react";
-import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
+import FormsySelect from "formsy-material-ui/lib/FormsySelect";
 import FlatButton from "material-ui/FlatButton";
-import './SignUp.css';
+import "./SignUp.css";
 import "./SignUp.css";
 import moment from "moment";
-import DatePicker from 'material-ui/DatePicker';
-import MenuItem from 'material-ui/MenuItem';
-import cookie from 'react-cookie';
+import DatePicker from "material-ui/DatePicker";
+import MenuItem from "material-ui/MenuItem";
+import cookie from "react-cookie";
 
 
 const customStlye = {
@@ -39,7 +39,7 @@ const customStlye = {
 		height                     : '300px',
 		
 	}
-}
+};
 
 class CountryDropDown extends React.Component {
 	render() {
@@ -59,7 +59,7 @@ class CountryDropDown extends React.Component {
 				</div>
 			)
 		}
-		return null
+        return null
 	}
 }
 
@@ -73,12 +73,12 @@ class postTrip extends React.Component {
 			countries: [],
 			
 			//DatePicker
-			ReturnDate: "",
-			TravelDate: ""
-		}
+            ReturnDate: "",
+            TravelDate: ""
+        };
 		
 		this.loadCountries();
-		this.loadTrips();
+        this.loadTrips();
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
 		this.submit = this.submit.bind(this);
@@ -87,7 +87,7 @@ class postTrip extends React.Component {
 	loadCountries() {
 		Axios({
 			method: 'get',
-			url: process.env.REACT_APP_JETSPREE_API_URL + '/countries'
+            url: process.env.REACT_APP_JETSPREE_API_URL + '/countries'
 		}).then(resp => {
 			this.setState({
 				countries: resp.data.result
@@ -96,31 +96,33 @@ class postTrip extends React.Component {
 			console.log(error);
 		})
 	}
-	
-	loadTrips() {
-		Axios({
-			method: 'get',
-			url: process.env.REACT_APP_JETSPREE_API_URL + '/trips'
-		}).then(resp => {
-			resp.data.result.map((data) => {
-				if (data.return_date > data.travel_date) { console.log("YES IS CORRECT"); }
-			})
-		}).catch(error => {
-			console.log(error);
-		})
-	}
+
+    loadTrips() {
+        Axios({
+            method: 'get',
+            url: process.env.REACT_APP_JETSPREE_API_URL + '/trips'
+        }).then(resp => {
+            resp.data.result.map((data) => {
+                if (data.return_date > data.travel_date) {
+                    console.log("YES IS CORRECT");
+                }
+            })
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 	
 	openModal = () => {
 		this.setState({
 			modalIsOpen: true
 		})
-	};
+    };
 	
 	closeModal = () => {
 		this.setState({
 			modalIsOpen: false
 		})
-	}
+    };
 	
 	enableButton = () => {
 		this.setState({
@@ -139,24 +141,24 @@ class postTrip extends React.Component {
 		this.setState({
 			ReturnDate: date
 		})
-	};
-	
-	handleChangeTravelDate = (date) => {
-		this.setState({
-			TravelDate: date
-		})
-	};
+    };
+
+    handleChangeTravelDate = (date) => {
+        this.setState({
+            TravelDate: date
+        })
+    };
 	
 	
 	disabledDate = (date) => {
 		return date < moment.now();
-	}
+    };
 	
 	submit(data) {
 		Axios({
 			method: 'post',
-			url: process.env.REACT_APP_JETSPREE_API_URL + '/auth/trips',
-			headers: {'x-access-token': cookie.load('token') },
+            url: process.env.REACT_APP_JETSPREE_API_URL + '/auth/trips',
+            headers: {'x-access-token': cookie.load('token')},
 			data: {
 				travelCountryCode: data.travelCountry,
 				returnCountryCode: data.returnCountry,
