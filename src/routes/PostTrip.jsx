@@ -1,15 +1,15 @@
-import React from 'react';
-import Axios from 'axios';
-import Modal from 'react-modal';
+import React from "react";
+import Axios from "axios";
+import Modal from "react-modal";
 import {Form} from "formsy-react";
-import FormsySelect from 'formsy-material-ui/lib/FormsySelect';
+import FormsySelect from "formsy-material-ui/lib/FormsySelect";
 import FlatButton from "material-ui/FlatButton";
-import './SignUp.css';
+import "./SignUp.css";
 import "./SignUp.css";
 import moment from "moment";
-import DatePicker from 'material-ui/DatePicker';
-import MenuItem from 'material-ui/MenuItem';
-import cookie from 'react-cookie';
+import DatePicker from "material-ui/DatePicker";
+import MenuItem from "material-ui/MenuItem";
+import cookie from "react-cookie";
 
 
 const customStlye = {
@@ -39,7 +39,7 @@ const customStlye = {
 		height                     : '300px',
 		
 	}
-}
+};
 
 class CountryDropDown extends React.Component {
 	render() {
@@ -74,7 +74,7 @@ class postTrip extends React.Component {
 			
 			//DatePicker
 			ReturnDate: ""
-		}
+        };
 		
 		this.loadCountries();
 		this.openModal = this.openModal.bind(this);
@@ -85,7 +85,7 @@ class postTrip extends React.Component {
 	loadCountries() {
 		Axios({
 			method: 'get',
-			url: 'http://jetspree-node-test.herokuapp.com/countries'
+            url: 'http://jetspree-node-test.herokuapp.com/v1/countries'
 		}).then(resp => {
 			this.setState({
 				countries: resp.data.result
@@ -99,13 +99,13 @@ class postTrip extends React.Component {
 		this.setState({
 			modalIsOpen: true
 		})
-	}
+    };
 	
 	closeModal = () => {
 		this.setState({
 			modalIsOpen: false
 		})
-	}
+    };
 	
 	enableButton = () => {
 		this.setState({
@@ -124,11 +124,11 @@ class postTrip extends React.Component {
 		this.setState({
 			ReturnDate: date
 		})
-	}
+    };
 	
 	disabledDate = (date) => {
 		return date < moment.now();
-	}
+    };
 	
 	submit(data) {
 		console.log(this.state.TravelDate);

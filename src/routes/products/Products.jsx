@@ -33,7 +33,10 @@ class Products extends React.Component {
             let itemsNodes = this.state.items.map((obj, i) => {
                 return (
                     <div className="colMd6 col" key={obj.id}>
-                        <Link to={{pathname: `/products/${obj.id}`, state: {modal: true}}}>
+                        <Link to={{
+                            pathname: `/products/${obj.id}`,
+                            state: {modal: true, item: obj, image_host: this.state.imageHost}
+                        }}>
                             <div className="bgWhite relative">
                                 <div className="imgWrap">
                                     <img
@@ -106,12 +109,14 @@ const Modal = ({match, history}) => {
         history.goBack();
     };
 
-    return (
+    let item = (history.location.state.item ? history.location.state.item : {});
+    let imageHost = (history.location.state.image_host ? history.location.state.image_host : '');
 
+    return (
         <Dialog modal={false} open={modalOpen} onRequestClose={back} autoScrollBodyContent={true} className="itemModal"
                 bodyStyle={ styles.dialogBody } style={ styles.dialogRoot } titleStyle={ styles.dialogTitle}
                 repositionOnUpdate={ false }>
-            <ProductView modalId={match.params.Id}/>
+            <ProductView id={match.params.id} item={item} imageHost={imageHost}/>
             {/*<button type='button' onClick={back}>Close</button>*/}
 
         </Dialog>
@@ -144,19 +149,19 @@ class ProductsList extends React.Component {
     }
 
     render() {
-        //console.log('location: ' + JSON.stringify(this.props))
         const {location} = this.props;
-        const isModal = !!(
+        const isModal = (
             location.state && location.state.modal && this.previousLocation !== location // not initial render
         );
-
 
         return (
             <div>
                 <Switch location={isModal ? this.previousLocation : location}>
                     <Route exact path='/products' component={Products}/>
                 </Switch>
-                {isModal ? <div className="modalView"><Route path='/products/:Id' component={Modal}/></div> : null}
+                {isModal ?
+                    <div className="modalView"><Route path='/products/:id' component={Modal}/>
+                    </div> : null}
             </div>
         )
     }

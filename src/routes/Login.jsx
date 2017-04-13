@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 //import { postSignup } from '../data/account';
 import Formsy from "formsy-react";
 //import MyInput from './../components/Input';
@@ -9,9 +9,9 @@ import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
 import SnackBar from "../components/SnackBar";
 
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import Popover from "material-ui/Popover";
+import Menu from "material-ui/Menu";
+import MenuItem from "material-ui/MenuItem";
 
 const styles = {
     textfield: {
@@ -67,6 +67,7 @@ class Login extends React.Component {
             } else if (response.data.token) {
                 updateToken(response.data.token);
                 showSnackBar('You\'ve logged in successfully.');
+                this.props.history.push('/');
             } else {
                 // unknown error
             }
@@ -130,7 +131,6 @@ export class LoginNavbar extends React.Component {
 export class GetUserInfo extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             token: this.props.token,
             userName: '',
@@ -201,8 +201,6 @@ export class GetUserInfo extends React.Component {
     }
 
     render() {
-        console.log(this.state.dropdownOpen)
-
 
         if (this.state.token !== '') {
             return (
@@ -236,4 +234,4 @@ export class GetUserInfo extends React.Component {
 }
 
 
-export default Login;
+export default withRouter(Login);

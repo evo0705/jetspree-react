@@ -10,16 +10,17 @@ import "../public/fonts/iconfont.css";
 import "./App.css";
 import "../node_modules/react-select/dist/react-select.min.css";
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-import Landing from "./routes/Landing.jsx";
-import BrowseCountries from "./routes/requests/Countries.js";
-import ItemsList from "./routes/requests/List.jsx";
-import RequestView from "./routes/requests/View.jsx";
+import Landing from "./routes/Landing";
+import BrowseCountries from "./routes/requests/Countries";
+import ItemsList from "./routes/requests/List";
+import RequestView from "./routes/requests/View";
 
-import ProductsList from "./routes/products/Products.jsx";
-import ProductView from "./routes/products/View.jsx";
+import ProductsList from "./routes/products/Products";
+import ProductView from "./routes/products/View";
 import SignUp from "./routes/SignUp.jsx";
-import Login, {GetUserInfo, LoginNavbar} from "./routes/Login.jsx";
-import Request from "./routes/PostRequest";
+import Login, {GetUserInfo, LoginNavbar} from "./routes/Login";
+import PostRequest from "./routes/PostRequest";
+import PostTrip from "./routes/PostTrip";
 import history from "./helper/History";
 import SnackBar from "./components/SnackBar";
 import Utils from "./helper/Utils";
@@ -92,8 +93,9 @@ class App extends Component {
                         <Route exact path='/items/:Id' component={RequestView}/>
 
                         <Route path="/products" component={ProductsList}/>
-                        <Route exact path='/products/:Id' component={ProductView}/>
-                        <Route path="/request" component={Request}/>
+                        <Route exact path='/products/:id' component={ProductView}/>
+                        <Route path="/request" component={PostRequest}/>
+                        <Route path="/trip" component={PostTrip}/>
                         <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}
                                   close={this.closeSnackBar}/>
                     </div>
