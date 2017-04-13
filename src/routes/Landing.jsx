@@ -21,6 +21,8 @@ import Autosuggest from "react-autosuggest";
 import AutosuggestHighlightMatch from "autosuggest-highlight/match";
 import AutosuggestHighlightParse from "autosuggest-highlight/parse";
 
+import {Products} from "./products/List"
+
 import history from "../helper/History";
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
@@ -41,14 +43,14 @@ const people = [
     }
 ];
 
-function getSuggestions(value) {
+/*function getSuggestions(value) {
     const escapedValue = escapeRegexCharacters(value.trim());
     if (escapedValue === '') {
         return [];
     }
     const regex = new RegExp('\\b' + escapedValue, 'i');
     return people.filter(person => regex.test(getSuggestionValue(person)));
-}
+}*/
 
 
 function getSuggestionValue(suggestion) {
@@ -111,7 +113,7 @@ class AutoComplete extends React.Component {
     onSuggestionsFetchRequested = ({value}) => {
         getRequests({
             pagesize: 5,
-            name: value
+            name: value,
         }).then((data) => {
             if (data.success) {
                 this.setState({
@@ -131,7 +133,7 @@ class AutoComplete extends React.Component {
     };
 
     getTypeValue(e) {
-        // TO DO
+        // TODO
         // e.preventDefault();
         // this.props.passValue(this.state.value); //pass clicked result to app.jsx
         history.push({
@@ -150,7 +152,7 @@ class AutoComplete extends React.Component {
         let transition = "aniOff";
         if (this.state.isFetch) {
             if (this.state.suggestions.length === 0 && this.state.value !== '') {
-                toolTip = <div className="toolTips slideInDown delay">Suggestion doesn't match? Post a new request
+                toolTip = <div className="toolTips slideInDown delay">No suggestion or doesn't match? Post a new request
                     instead</div>;
                 transition = 'aniOn';
             } else {
@@ -172,61 +174,6 @@ class AutoComplete extends React.Component {
                 {toolTip}
             </div>
         );
-    }
-}
-
-
-class ItemsHome extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: {}
-        };
-    }
-
-    componentWillMount() {
-        this.initData();
-    }
-
-    initData() {
-        let paramItems = {
-            pagesize: 4
-        };
-        getRequests(paramItems).then((data) => {
-            this.setState({items: data});
-        });
-    }
-
-    render() {
-        if (this.state.items.Items) {
-            let itemsNodes = this.state.items.Items.map((obj, i) => {
-                return (
-                    <div className="colMd6 col" key={obj.Item.Id}>
-                        <Link to={`/items/${obj.Item.Id}`}>
-                            <div className="bgWhite relative">
-                                <div className="imgWrap">
-                                    <img
-                                        src={'https://www.jetspree.com/images/requests/' + obj.Item.Id + '/' + obj.Item.ItemURL}
-                                        alt="hould be here"/>
-                                </div>
-                                <div className="productInfo"><h4>{obj.Item.Name}</h4>
-                                    <div className="mgBottom">{obj.Item.CurrencyCode}{obj.Item.OfferPrice}</div>
-                                    <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                )
-            });
-
-            return (
-
-                <div className="frontPageItemsList">
-                    {itemsNodes}
-                </div>
-            )
-        }
-        return null
     }
 }
 
@@ -324,9 +271,11 @@ class Modal extends React.Component {
         this.tripsUserUid = nextProps.userUID;
         this.tripsUserName = nextProps.userName;
         this.tripsUserTripsDate = nextProps.userTripsDate
+
     }
 
     render() {
+        console.log(this.tripsUserTripsDate)
         const formatTripsDate = this.tripsUserTripsDate;
         /*const actions = [
          <RaisedButton label="Cancel" primary={true} onTouchTap={this.handleClose} />,
@@ -528,7 +477,8 @@ class Landing extends React.Component {
                                     <div className="pullRight"><span>gadge</span><span>Food</span></div>
                                 </div>
                                 <div className="content colWrap productList">
-                                    <ItemsHome />
+                                    <Products />
+
 
 
                                     <label>Name:</label><input type="text" value={this.state.name}

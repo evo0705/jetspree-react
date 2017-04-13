@@ -9,9 +9,17 @@ import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
 import SnackBar from "../components/SnackBar";
 
+<<<<<<< HEAD
 import Popover from "material-ui/Popover";
 import Menu from "material-ui/Menu";
 import MenuItem from "material-ui/MenuItem";
+=======
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+//import MenuItem from 'material-ui/MenuItem';
+
+import {DropdownMenu, MenuItem} from 'react-bootstrap-dropdown-menu';
+>>>>>>> origin/master
 
 const styles = {
     textfield: {
@@ -68,7 +76,12 @@ class Login extends React.Component {
             } else if (response.data.token) {
                 this.setState({
                     redirectToHome: true
+<<<<<<< HEAD
                 });
+=======
+                })
+                showSnackBar('You\'ve logged in successfully.');
+>>>>>>> origin/master
                 updateToken(response.data.token);
             } else {
                 // unknown error
@@ -81,7 +94,11 @@ class Login extends React.Component {
 
     loadfacebook = () => {
         return window.location.href = 'https://jetspree-node-test.herokuapp.com/login/facebook';
+<<<<<<< HEAD
     };
+=======
+    }
+>>>>>>> origin/master
 
     render() {
 
@@ -90,12 +107,11 @@ class Login extends React.Component {
                 <Redirect to="/"/>
             )
         }
-        
+
         return (
             <div className="accountForm stayCenter mgTop40">
                 <h1>Login</h1>
-                <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}
-                             className="login">
+                <Formsy.Form onSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton} className="login">
                     <ul>
                         <li>
                             <FormsyText value="" name="email" hintText="" floatingLabelText="Email"
@@ -145,6 +161,7 @@ export class LoginNavbar extends React.Component {
     };
 }
 
+
 export class GetUserInfo extends React.Component {
     constructor(props) {
         super(props);
@@ -153,17 +170,16 @@ export class GetUserInfo extends React.Component {
             userName: '',
             userEmail: '',
             userId: '',
-            dropdownOpen:false
+            dropdownOpen: false
         };
         this.getUserInfo = this.getUserInfo.bind(this);
         this.logout = this.logout.bind(this);
-        this.toggle = this.toggle.bind(this);
     }
 
     getUserInfo() {
         if (this.state.token)
             getAuthUser(this.state.token).then((data) => {
-                this.setState({userEmail: data.email, userName: data.email, userId: data.id});
+                this.setState({userEmail: data.result.email, userName: data.result.email, userId: data.result.id});
             })
     }
 
@@ -173,29 +189,6 @@ export class GetUserInfo extends React.Component {
         this.props.showSnackBar('You\'ve logged out successfully.');
         localStorage.removeItem("token");
     }
-
-    toggle() {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-        });
-    }
-
-    handleTouchTap = (event) => {
-        // This prevents ghost click.
-        event.preventDefault();
-
-        this.setState({
-            dropdownOpen: true,
-            anchorEl: event.currentTarget,
-        });
-    };
-
-    handleRequestClose = () => {
-        this.setState({
-            dropdownOpen: false,
-        });
-    };
-
 
     componentDidMount() {
         this.getUserInfo()
@@ -218,37 +211,26 @@ export class GetUserInfo extends React.Component {
     }
 
     render() {
+<<<<<<< HEAD
         console.log(this.state.dropdownOpen);
 
 
+=======
+>>>>>>> origin/master
         if (this.state.token !== '') {
             return (
-                <div className={"userNav " + (this.state.dropdownOpen ? 'dropOpen' : 'dropHide')}>
-                    <div className="userIcon" onClick={this.handleTouchTap}><i className="iconfont icon-my"></i></div>
-                    <div className="dropDown">
-                        <Popover
-                            open={this.state.dropdownOpen}
-                            anchorEl={this.state.anchorEl}
-                            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                            targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                            onRequestClose={this.handleRequestClose}
-                        >
-                            <Menu>
-                                <MenuItem primaryText={this.state.userName} />
-                                <MenuItem primaryText="Refresh" />
-                                <MenuItem primaryText="Help &amp; feedback" />
-                                <MenuItem primaryText="Settings" />
-                                <MenuItem primaryText="Sign out" onClick={this.logout} />
-                            </Menu>
-                        </Popover>
-
-                    </div>
+                <div className="userNav">
+                    <DropdownMenu userName={this.state.userName} position="left" triggerType="icon" trigger="glyphicon userIcon iconfont icon-my">
+                        <div><Link to="/profile">My Profile</Link></div>
+                        <div><Link to="/profile/requests">My Requests</Link></div>
+                        <div><Link to="/profile/trips">My Trips</Link></div>
+                        <MenuItem text="Logout" onClick={this.logout}/>
+                    </DropdownMenu>
                 </div>
             )
         }
         else
             return false;
-
     }
 }
 
