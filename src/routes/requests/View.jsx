@@ -20,19 +20,23 @@ class ItemDetails extends React.Component {
 		if(this.props !== nextProps){
 			this.setState({
 				name: nextProps.data.Item.Name, Description: nextProps.data.Item.Description,
-				id: nextProps.data.Item.Id, Price: nextProps.data.Item.OfferPrice, CurrencyCode: nextProps.data.Item.CurrencyCode, 
+                id: nextProps.data.Item.Id,
+                Price: nextProps.data.Item.OfferPrice,
+                CurrencyCode: nextProps.data.Item.CurrencyCode,
 				ItemURL: nextProps.data.Item.ItemURL, User: nextProps.data.Item.UserProfile.DisplayName, ShippingMethod: nextProps.data.Item.ShippingMethod.Name,
 				Country: nextProps.data.Item.Country.Name
 			});
 		}
 	}
 
-	render() {   	
+    render() {
 		return (
 			<div className="itemWrap">
 			<div className="itemImgWrap">
-			<ReactImageFallback src={'https://www.jetspree.com/images/requests/' + this.state.id + '/' + this.state.ItemURL} alt={this.state.name} 
-			fallbackImage={Placeholder} initialImage={Placeholder} />
+                <ReactImageFallback
+                    src={'https://www.jetspree.com/images/requests/' + this.state.id + '/' + this.state.ItemURL}
+                    alt={this.state.name}
+                    fallbackImage={Placeholder} initialImage={Placeholder} />
 			</div>
 			<div className="itemInfo">
 			<h1>{this.state.name}</h1>
@@ -75,7 +79,7 @@ class RequestView extends React.Component {
 				this.setState({item: data});
 			});
 		} else {
-			//modal page, load from ViewModal.js > const Modal 
+            //modal page, load from ViewModal.js > const Modal
 			let param = {
 				id: this.props.modalId
             };

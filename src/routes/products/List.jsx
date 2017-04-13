@@ -5,6 +5,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import ProductView from "./View.jsx";
 import Dialog from "material-ui/Dialog";
 import "../requests/List.css";
+import DialogBox from "../../components/DialogBox";
 
 class ProductsLayout extends React.Component {
     render() {
@@ -34,6 +35,8 @@ export class Products extends React.Component {
         super(props);
         this.state = {
             items: {},
+            error: false,
+            messageError: []
         };
     }
 
@@ -48,15 +51,26 @@ export class Products extends React.Component {
 
         getRequests(paramItems).then((data) => {
             this.setState({items: data.result, imageHost: data.image_host});
+        }).catch((error) => {
+            var errmsg = this.state.messageError;
+            errmsg.push(error);
+            this.setState({error: true});
         });
     }
+
+    handleClose = () => {
+        this.setState({error: false})
+    };
 
     render() {
         if (this.state.items.length > 0) {
             let itemsNodes = this.state.items.map((obj, i) => {
                 return (
                     <div className="colMd6 col" key={obj.id}>
-                        <Link to={{pathname: `/products/${obj.id}`, state: {modal: true}}}>
+                        <Link to={{
+                            pathname: `/products/${obj.id}`,
+                            state: {modal: true, item: obj, image_host: this.state.imageHost}
+                        }}>
                             <div className="bgWhite relative">
                                 <div className="imgWrap">
                                     <img
@@ -77,6 +91,15 @@ export class Products extends React.Component {
                 <div>
                 {itemsNodes}
                 </div>
+            )
+        } else if (this.state.error) {
+            return (
+                <DialogBox
+                    title="Message"
+                    open={this.state.error}
+                    onRequestClose={this.handleClose}
+                    errorMessage={this.state.messageError[0].message}
+                />
             )
         }
         return null
@@ -116,12 +139,14 @@ const Modal = ({match, history}) => {
         history.goBack();
     };
 
-    return (
+    let item = (history.location.state.item ? history.location.state.item : {});
+    let imageHost = (history.location.state.image_host ? history.location.state.image_host : '');
 
+    return (
         <Dialog modal={false} open={modalOpen} onRequestClose={back} autoScrollBodyContent={true} className="itemModal"
                 bodyStyle={ styles.dialogBody } style={ styles.dialogRoot } titleStyle={ styles.dialogTitle}
                 repositionOnUpdate={ false }>
-            <ProductView modalId={match.params.Id}/>
+            <ProductView id={match.params.id} item={item} imageHost={imageHost}/>
             {/*<button type='button' onClick={back}>Close</button>*/}
 
         </Dialog>
@@ -154,19 +179,19 @@ class ProductsList extends React.Component {
     }
 
     render() {
-        //console.log('location: ' + JSON.stringify(this.props))
         const {location} = this.props;
-        const isModal = !!(
+        const isModal = (
             location.state && location.state.modal && this.previousLocation !== location // not initial render
         );
-
 
         return (
             <div>
                 <Switch location={isModal ? this.previousLocation : location}>
                     <Route exact path='/products' component={ProductsLayout}/>
                 </Switch>
-                {isModal ? <div className="modalView"><Route path='/products/:Id' component={Modal}/></div> : null}
+                {isModal ?
+                    <div className="modalView"><Route path='/products/:id' component={Modal}/>
+                    </div> : null}
             </div>
         )
     }

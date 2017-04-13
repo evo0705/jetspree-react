@@ -13,8 +13,8 @@ export function getRequest(param) {
 export function getRequests(param) {
     return Axios.get(process.env.REACT_APP_JETSPREE_API_URL + '/requests?' + QueryString.stringify(param))
         .then((response) => response.data)
-        .catch(function (error) {
-            console.log(error);
+        .catch((error) => {
+            error
         });
 }
 
