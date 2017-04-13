@@ -8,12 +8,8 @@ import FormsyText from "formsy-material-ui/lib/FormsyText";
 import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
 import SnackBar from "../components/SnackBar";
-
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
+import {DropdownMenu, MenuItem} from "react-bootstrap-dropdown-menu";
 //import MenuItem from 'material-ui/MenuItem';
-
-import {DropdownMenu, MenuItem} from 'react-bootstrap-dropdown-menu';
 
 const styles = {
     textfield: {
@@ -70,7 +66,7 @@ class Login extends React.Component {
             } else if (response.data.token) {
                 this.setState({
                     redirectToHome: true
-                })
+                });
                 showSnackBar('You\'ve logged in successfully.');
                 updateToken(response.data.token);
             } else {
@@ -83,8 +79,8 @@ class Login extends React.Component {
     }
 
     loadfacebook = () => {
-        return window.location.href = 'https://jetspree-node-test.herokuapp.com/login/facebook';
-    }
+        return window.location.href = process.env.REACT_APP_JETSPREE_API_URL + '/login/facebook';
+    };
 
     render() {
 

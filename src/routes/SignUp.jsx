@@ -63,7 +63,10 @@ class SignUp extends React.Component {
 
 	submit(data) {
 		var abc = this;
-		Axios.post('https://jetspree-node-test.herokuapp.com/login/signup', {email:data.email, password: data.password})
+        Axios.post(process.env.REACT_APP_JETSPREE_API_URL + '/login/signup', {
+            email: data.email,
+            password: data.password
+        })
 		.then(response => {
             console.log(response);
 			abc.handleTouchTap(response);
