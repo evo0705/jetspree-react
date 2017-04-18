@@ -15,4 +15,9 @@ class ProgressBar extends React.Component {
     }
 }
 
+ProgressBar.defaultProps = {
+	size: 80,
+	thickness: 5
+}
+
 export default ProgressBar
