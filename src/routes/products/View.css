@@ -1,8 +1,4 @@
-.itemPrice {}
- .itemWrap {box-shadow:rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;background: #fbfbfb;margin-top: 60px;}
-.itemPrice span{font-size: 24px}
-
-/*.itemWrap {   -webkit-animation: fadein 1s; 
+/*.itemWrap {   -webkit-animation: fadein 1s;
        -moz-animation: fadein 1s; 
         -ms-animation: fadein 1s; 
          -o-animation: fadein 1s; 

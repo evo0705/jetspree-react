@@ -136,10 +136,20 @@ button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: r
 .itemWrap{position: relative;min-height: 400px;padding-left: 340px;}
 .itemImgWrap{position: absolute;background: #fff;left: 0;width: 340px;height: 100%;top: 0;overflow: hidden;}
 .itemImgWrap img{position: absolute;min-height: 100%;max-height: 235px; max-width: 800px;top: 0;left: 50%;-webkit-transform: translate(-50%,0%);transform: translate(-50%,0%);}
-.itemInfo{padding: 20px;padding-bottom: 70px;}
 
-.itemWrap h1{font-size: 1.4em;text-transform: capitalize;}
+.standalone .itemWrap{padding-left: 50%;box-shadow: none;background: none;    position: relative; min-height: 400px;}
+.standalone .itemImgWrap{width: 50%;box-shadow: rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;}
+.standalone .itemInfo {margin-left:40px;padding:20px;position:relative;background: #fff;box-shadow:rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;}
+.standalone .abBottomRight{position:static;margin-top: 30px;width: 100%}
+
+
+
+.itemInfo{padding: 40px 20px 70px 20px;}
+
+.itemWrap h1{font-size: 1.4em;text-transform: capitalize;    margin: 0;}
 .itemWrap h1 a{color: #000}
+.itemFull .itemWrap {box-shadow:rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;background: #fbfbfb;margin-top: 60px;}
+.itemPrice span{font-size: 24px}
 
 .smallImgWrap {width:50px;height:50px;background:#eee;position: absolute; left: 20px;}
 .smallImgWrap img{height:100%;width:100%}

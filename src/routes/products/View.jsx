@@ -14,7 +14,7 @@ export class ProductDetails extends React.Component {
 
     render() {
         return (
-            <div className="itemWrap">
+            <div>
                 <div className="itemImgWrap">
                     <ReactImageFallback
                         src={this.props.image_host + this.props.item.image_path}
@@ -29,6 +29,7 @@ export class ProductDetails extends React.Component {
                                 state: {modal: false}
                             }}>{this.props.item.name}</Link>
                     </h1>
+                    <p className="small">Product Id: {this.props.item.id}</p>
                     <p className="itemPrice"><span>{this.props.item.price}</span></p>
                     <div className="mgTop30">
                         <p>{this.props.item.description}</p>
@@ -48,10 +49,11 @@ class ProductView extends React.Component {
         this.state = {
             item: (this.props.item ||
             {
+                id:'',
                 name: '',
                 image_path: ''
             }),
-            image_host: (this.props.imageHost || ''),
+            image_host: (this.props.imageHost || '')
         }
     }
 
@@ -62,32 +64,110 @@ class ProductView extends React.Component {
                 id: this.props.match.params.id
             }).then((data) => {
                 this.setState({
-                    item: data.result[0],
-                    image_host: data.image_host
+                    id: data.id,
+                    item: data.result[5],
+                    image_host: data.image_host,
+                    standalone: true
                 });
             });
+
+
         } else {
             //modal page, load from ViewModal.js > const Modal
             getRequest({
                 id: this.props.item.id
             }).then((data) => {
                 this.setState({
+                    id: data.id,
                     item: data.result[0],
-                    image_host: data.image_host
+                    image_host: data.image_host,
+                    standalone: false
                 });
             });
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.initData();
     }
 
     render() {
+        let renderProductRelated;
+        if (this.state.standalone === true) {
+            return (
+
+                <div className="container standalone mgTop60">
+                    <div className="itemWrap">
+                        <ProductDetails item={this.state.item} image_host={this.state.image_host}/>
+
+                    </div>
+                    <ProductRelated />
+                </div>
+
+
+            )
+        }
+        if (this.state.standalone === false) {
+            return (
+                <div className="container itemFull">
+                    <div className="itemWrap">
+                        <ProductDetails item={this.state.item} image_host={this.state.image_host}/>
+                        {renderProductRelated}
+                    </div>
+                </div>
+            )
+        }
+        return null
+
+
+    }
+}
+
+class ProductRelated extends React.Component {
+    render() {
         return (
-            <div className="bgGrey">
-                <div className="container">
-                    <ProductDetails item={this.state.item} image_host={this.state.image_host}/>
+            <div className="content colWrap productList mgTop60">
+                <div className="colMd4 col">
+                    <a href="/products/19">
+                        <div className="bgWhite relative">
+                            <div className="imgWrap">
+                                <img
+                                    src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
+                                    alt="should be here"/>
+                            </div>
+                            <div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
+                                <div className="mgBottom">14.5</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div className="colMd4 col">
+                    <a href="/products/19">
+                        <div className="bgWhite relative">
+                            <div className="imgWrap">
+                                <img
+                                    src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
+                                    alt="should be here"/>
+                            </div>
+                            <div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
+                                <div className="mgBottom">14.5</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div className="colMd4 col">
+                    <a href="/products/19">
+                        <div className="bgWhite relative">
+                            <div className="imgWrap">
+                                <img
+                                    src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
+                                    alt="should be here"/>
+                            </div>
+                            <div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
+                                <div className="mgBottom">14.5</div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         )

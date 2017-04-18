@@ -98,7 +98,10 @@ class App extends Component {
                         <Route exact path='/items/:Id' component={RequestView}/>
 
                         <Route path="/products" component={ProductsList}/>
-                        <Route exact path='/products/:Id' component={ProductView}/>
+
+
+
+
                         <Route path="/request" component={Request}/>
 
                         <Route path="/profile" component={() => (

@@ -191,7 +191,7 @@ class ProductsList extends React.Component {
                 </Switch>
                 {isModal ?
                     <div className="modalView"><Route path='/products/:id' component={Modal}/>
-                    </div> : null}
+                    </div> : <Route exact path='/products/:Id' component={ProductView}/>}
             </div>
         )
     }
