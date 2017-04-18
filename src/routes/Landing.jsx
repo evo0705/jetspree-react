@@ -15,7 +15,7 @@ import How1 from "../../public/imgs/how1.png";
 import How2 from "../../public/imgs/how2.png";
 import How3 from "../../public/imgs/how3.png";
 import How4 from "../../public/imgs/how4.png";
-import banner from "../../public/imgs/banner5.jpg";
+import banner from "../../public/imgs/banner7.jpg";
 
 import Autosuggest from "react-autosuggest";
 import AutosuggestHighlightMatch from "autosuggest-highlight/match";
@@ -415,8 +415,8 @@ class Landing extends React.Component {
                     <div className="bannerimg">
                         <img src={banner} alt="banner"/>
                     </div>
-                    <div className="banner">
-                        <div className="container">
+                    <div className="banner fullheight">
+                        <div className="container fullheight">
                             <div className="table fullheight stayCenter">
 
                                 <div className="banner-text tableCell vaMiddle full">
@@ -432,7 +432,9 @@ class Landing extends React.Component {
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div className="bgGrey">
                     <div className="howItWork taCenter">
                         <div className="container">
                             <h2>How Jetspree Work?</h2>
@@ -454,10 +456,6 @@ class Landing extends React.Component {
                             </div>
                         </div>
                     </div>
-
-                </div>
-
-                <div className="bgGrey">
 
                     <div className="container pdWrap">
                         <div className="table">

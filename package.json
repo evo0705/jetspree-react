@@ -5,6 +5,7 @@
   "dependencies": {
     "autosuggest-highlight": "^3.1.0",
     "axios": "0.15.3",
+    "cloudinary-react": "^1.0.3",
     "formsy-material-ui": "^0.5.5",
     "formsy-react": "^0.19.2",
     "material-ui": "0.17.1",
@@ -23,8 +24,7 @@
     "react-modal": "^1.7.3",
     "react-router-dom": "4.0.0",
     "react-select": "^1.0.0-rc",
-    "react-tap-event-plugin": "2.0.1",
-    "moment": "^2.18.1"
+    "react-tap-event-plugin": "2.0.1"
   },
   "devDependencies": {
     "react-scripts": "0.9.5",

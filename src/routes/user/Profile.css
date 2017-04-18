@@ -42,3 +42,7 @@
 .tripDetail span { display: block; font-size: 16px; color: #000 }
 .tripDetail i { position: absolute; left: 0px; font-size: 24px; margin-top: 3px; }
 .tripDetail .table { height: 80px; }
+
+.claimedRequest {width: 100px}
+.claimedRequest img{height: 58px;     width: 58px;opacity: 0.1; margin: 0 2px;}
+.claimedRequest img:hover{opacity: 1}
