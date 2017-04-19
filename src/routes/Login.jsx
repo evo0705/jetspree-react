@@ -8,8 +8,9 @@ import FormsyText from "formsy-material-ui/lib/FormsyText";
 import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
 import SnackBar from "../components/SnackBar";
-import {DropdownMenu, MenuItem} from "react-bootstrap-dropdown-menu";
-//import MenuItem from 'material-ui/MenuItem';
+import {DropdownMenu} from "react-bootstrap-dropdown-menu";
+import MenuItem from 'material-ui/MenuItem';
+import Loading from '../components/ProgressBar'
 
 const styles = {
     textfield: {
@@ -31,6 +32,7 @@ class Login extends React.Component {
             message: '',
             snackBar: {open: false, message: ''},
             redirectToHome: false,
+            loading: false
         };
         this.submit = this.submit.bind(this);
         this.showSnackBar = this.showSnackBar.bind(this);
@@ -57,6 +59,11 @@ class Login extends React.Component {
     }
 
     submit(param) {
+        
+        this.setState({
+            loading: true
+        });
+        
         let updateToken = this.props.updateToken;
         let showSnackBar = this.props.showSnackBar;
         postLogin(param).then((response) => {
@@ -65,7 +72,8 @@ class Login extends React.Component {
                 this.showSnackBar(response.data.message);
             } else if (response.data.token) {
                 this.setState({
-                    redirectToHome: true
+                    redirectToHome: true,
+	                loading: false
                 });
                 showSnackBar('You\'ve logged in successfully.');
                 updateToken(response.data.token);
@@ -83,8 +91,14 @@ class Login extends React.Component {
     };
 
     render() {
-
-        if (this.state.redirectToHome) {
+        
+        if (this.state.loading == true) {
+            return (
+                <Loading />
+            )
+        }
+        
+		if (this.state.redirectToHome) {
             return (
                 <Redirect to="/"/>
             )

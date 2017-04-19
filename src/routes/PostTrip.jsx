@@ -7,9 +7,11 @@ import FlatButton from "material-ui/FlatButton";
 import "./SignUp.css";
 import "./SignUp.css";
 import moment from "moment";
-import DatePicker from "material-ui/DatePicker";
-import MenuItem from "material-ui/MenuItem";
-import cookie from "react-cookie";
+import DatePicker from 'material-ui/DatePicker';
+import MenuItem from 'material-ui/MenuItem';
+import cookie from 'react-cookie';
+import DropDown from '../components/DropDown';
+import {loadCountries} from '../data/hardcoded-data';
 
 
 const customStlye = {
@@ -41,29 +43,7 @@ const customStlye = {
 	}
 };
 
-class CountryDropDown extends React.Component {
-	render() {
-		if(this.props.countries) {
-			var displayCountry = this.props.countries.map((options, i) => {
-				return <MenuItem key={i} value={options.code} primaryText={options.name} />
-			});
-			
-			return (
-				<div>
-					<FormsySelect
-						name={this.props.name}
-						floatingLabelText={this.props.floatingLabelText}
-					>
-						{displayCountry}
-					</FormsySelect>
-				</div>
-			)
-		}
-        return null
-	}
-}
-
-class PostTrip extends React.Component {
+class postTrip extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -77,8 +57,6 @@ class PostTrip extends React.Component {
             TravelDate: ""
         };
 		
-		this.loadCountries();
-        this.loadTrips();
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
 		this.submit = this.submit.bind(this);
@@ -96,21 +74,6 @@ class PostTrip extends React.Component {
 			console.log(error);
 		})
 	}
-
-    loadTrips() {
-        Axios({
-            method: 'get',
-            url: process.env.REACT_APP_JETSPREE_API_URL + '/trips'
-        }).then(resp => {
-            resp.data.result.map((data) => {
-                if (data.return_date > data.travel_date) {
-                    console.log("YES IS CORRECT");
-                }
-            })
-        }).catch(error => {
-            console.log(error);
-        })
-    }
 	
 	openModal = () => {
 		this.setState({
@@ -191,16 +154,16 @@ class PostTrip extends React.Component {
 					className="login">
 					<ul>
 						<li>
-							<CountryDropDown
+							<DropDown
 								name="travelCountry"
-								floatingLabelText="Travel Country"
-								countries={this.state.countries} />
+								floatingLabelText="Travel country"
+								countries={loadCountries()} />
 						</li>
 						<li>
-							<CountryDropDown
+							<DropDown
 								name="returnCountry"
 								floatingLabelText="Return Country"
-								countries={this.state.countries} />
+								countries={loadCountries()} />
 						</li>
 						<li>
 							<DatePicker
@@ -234,4 +197,4 @@ class PostTrip extends React.Component {
 	}
 }
 
-export default PostTrip;
+export default postTrip;
