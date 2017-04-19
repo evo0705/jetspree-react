@@ -14,28 +14,52 @@ export class ProductDetails extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="itemImgWrap">
-                    <ReactImageFallback
-                        src={this.props.image_host + this.props.item.image_path}
-                        alt={this.props.item.name}
-                        fallbackImage={Placeholder} initialImage={Placeholder}/>
-                </div>
-                <div className="itemInfo">
-                    <h1>
-                        <Link
-                            to={{
-                                pathname: `/products/${this.props.item.id}`,
-                                state: {modal: false}
-                            }}>{this.props.item.name}</Link>
-                    </h1>
-                    <p className="small">Product Id: {this.props.item.id}</p>
-                    <p className="itemPrice"><span>{this.props.item.price}</span></p>
-                    <div className="mgTop30">
-                        <p>{this.props.item.description}</p>
+            <div className="itemBg table full">
+                <div className="itemLeft">
+                    <div className="squareInfo">
+                        <div className="">
+                            <div className="">
+                                <div className="bgWhite">
+                                    <span className="colorPri">from</span> USA
+                                </div>
+                            </div>
+                            <div className="">
+                                <div className="bgWhite">
+                                    <span className="colorPri">11</span> Requested
+                                </div>
+                            </div>
+                            <div className="">
+                                <div className="bgWhite">
+                                    <span className="colorPri">2</span> Pushed
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="floatWrap">
-                        <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
+                </div>
+                <div className="itemRight tableCell full vatop">
+                    <div className="itemImgWrap">
+                        <ReactImageFallback
+                            src={this.props.image_host + this.props.item.image_path}
+                            alt={this.props.item.name}
+                            fallbackImage={Placeholder} initialImage={Placeholder}/>
+                    </div>
+                    <div className="itemInfo">
+                        <h1>
+                            <Link
+                                to={{
+                                    pathname: `/products/${this.props.item.id}`,
+                                    state: {modal: false}
+                                }}>{this.props.item.name}</Link>
+                        </h1>
+                        <p className="small">Product Id: {this.props.item.id}</p>
+                        <p className="itemPrice"><span>{this.props.item.price}</span></p>
+                        <div className="mgTop30">
+                            <p className="description">{this.props.item.description}</p>
+                        </div>
+                        <div className="floatWrap">
+                            <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -49,7 +73,7 @@ class ProductView extends React.Component {
         this.state = {
             item: (this.props.item ||
             {
-                id:'',
+                id: '',
                 name: '',
                 image_path: ''
             }),
@@ -95,11 +119,9 @@ class ProductView extends React.Component {
         let renderProductRelated;
         if (this.state.standalone === true) {
             return (
-
                 <div className="container standalone mgTop60">
                     <div className="itemWrap">
                         <ProductDetails item={this.state.item} image_host={this.state.image_host}/>
-
                     </div>
                     <ProductRelated />
                 </div>
@@ -126,7 +148,9 @@ class ProductView extends React.Component {
 class ProductRelated extends React.Component {
     render() {
         return (
-            <div className="content colWrap productList mgTop60">
+            <div className="content productList mgTop60">
+                <h3>Related Product</h3>
+                <div className="colWrap mgTop30">
                 <div className="colMd4 col">
                     <a href="/products/19">
                         <div className="bgWhite relative">
@@ -169,6 +193,7 @@ class ProductRelated extends React.Component {
                         </div>
                     </a>
                 </div>
+            </div>
             </div>
         )
     }

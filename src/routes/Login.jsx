@@ -214,7 +214,7 @@ export class GetUserInfo extends React.Component {
                         <div><Link to="/profile">My Profile</Link></div>
                         <div><Link to="/profile/requests">My Requests</Link></div>
                         <div><Link to="/profile/trips">My Trips</Link></div>
-                        <MenuItem text="Logout" onClick={this.logout}/>
+                        <div onClick={this.logout}>Logout</div>
                     </DropdownMenu>
                 </div>
             )
