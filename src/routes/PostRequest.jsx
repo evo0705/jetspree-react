@@ -6,6 +6,8 @@ import DropZone from "react-dropzone";
 import Modal from "react-modal";
 import FormsyText from "formsy-material-ui/lib/FormsyText";
 import FlatButton from "material-ui/FlatButton";
+import DropDown from '../components/DropDown';
+import {loadCurrencies} from '../data/hardcoded-data';
 
 const styles = {
     textfield: {
@@ -163,6 +165,12 @@ class postRequest extends React.Component {
                                 errorStyle={styles.errorStyle}
                                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                                 required/>
+                        </li>
+                        <li>
+                            <DropDown
+                                name="currency"
+                                floatingLabelText="Currency"
+                                currencies={loadCurrencies()} />
                         </li>
                         <li>
                             <FormsyText
