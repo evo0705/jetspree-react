@@ -39,23 +39,37 @@ class UserTrips extends React.Component {
             });
 
             let passTrip = passTripData.map((obj, i) => {
-                let passDate = moment(obj.return_date).format("DD MMM YYYY");
                 const travelDate = moment(obj.travel_date).format("DD MMM YYYY");
                 const returnDate = moment(obj.return_date).format("DD MMM YYYY");
                 return (
-                    <div className="colMd6 col" key={obj.id}>
+                    <div className="border" key={obj.id}>
                         <Link to={{pathname: `/trips/${obj.id}`, state: {modal: true}}}>
                             <div className="bgWhite relative">
-                                <div className="imgWrap">
-                                    <img src={"https://www.jetspree.com/images/country/pic-" + obj.travel_country_code + ".jpg"}
-                                         alt={obj.travel_country_code}/>
-                                </div>
-                                <div className="productInfo">
-                                    <span className="itemPrice">{obj.id} {obj.travel_country_code}</span>
-
-                                    <p>Travel: {travelDate}</p>
-                                    <p>Return: {returnDate}</p>
-                                    <h4 className="itemName">Return at {passDate}</h4>
+                                {/*<div className="imgWrapBox">
+                                 <img src={"https://www.jetspree.com/images/country/pic-" + obj.travel_country_code + ".jpg"}
+                                 alt={obj.travel_country_code}/>
+                                 </div>*/}
+                                <div className="tripInfo table full">
+                                    <div className="tripHead tableCell vaMiddle full">
+                                        <div className="travelCountry">
+                                            <h5 className="colorSec">{obj.travel_country_code}
+                                                <span className="colorBlack">Tokyo, Japan</span>
+                                            </h5>
+                                            <p className="tripDate tripReturn colorSec">{travelDate}</p>
+                                        </div>
+                                        <i className="iconfont icon-feiji1 colorSec iconMiddle"></i>
+                                        <div className="returnCountry">
+                                            <h5 className="colorSec">{obj.return_country_code}
+                                                <span className="colorBlack">Kuala Lumpur, Malaysia</span>
+                                            </h5>
+                                            <p className="tripDate tripReturn colorSec">{returnDate}</p>
+                                        </div>
+                                    </div>
+                                    <div className="tripDetail">
+                                        <div className="detail"><i className="iconfont icon-yishouchu"></i>Fullfilled<span>3/3</span></div>
+                                        <div className="detail"><i className="iconfont icon-xinyongqia"></i>Reimbursed<span>RM1300</span></div>
+                                        <div className="detail"><i className="iconfont icon-emoji"></i>Earned<span>RM300</span></div>
+                                    </div>
                                 </div>
                             </div>
                         </Link>
@@ -75,18 +89,32 @@ class UserTrips extends React.Component {
                 }
 
                 return (
-                    <div className="colMd6 col" key={obj.id}>
+                    <div className="mgBottom10 border" key={obj.id}>
                         <Link to={{pathname: `/trips/${obj.id}`, state: {modal: true}}}>
                             <div className="bgWhite relative">
-                                <div className="imgWrap">
-                                    <img src={"https://www.jetspree.com/images/country/pic-" + obj.travel_country_code + ".jpg"}
-                                         alt={obj.travel_country_code}/>
-                                </div>
-                                <div className="productInfo">
-                                    <span className="itemPrice">{obj.id} {obj.travel_country_code}</span>
-                                    <p>Travel: {travelDate}</p>
-                                    <p>Return: {returnDate}</p>
-                                    <h4 className="itemName">Return {passDate}</h4>
+                                <div className="tripInfo table full">
+                                    <div className="tripHead tableCell vaMiddle full">
+                                        <div className="travelCountry">
+                                            <h5 className="colorSec">{obj.travel_country_code}
+                                                <span className="colorBlack">Tokyo, Japan</span>
+                                            </h5>
+                                            <p className="tripDate tripReturn colorSec">{travelDate}</p>
+                                        </div>
+                                        <i className="iconfont icon-feiji1 colorSec iconMiddle"></i>
+                                        <div className="returnCountry">
+                                            <h5 className="colorSec">{obj.return_country_code}
+                                                <span className="colorBlack">Kuala Lumpur, Malaysia</span>
+                                            </h5>
+                                            <p className="tripDate tripReturn colorSec">Return {passDate}</p>
+                                        </div>
+                                    </div>
+                                    <div className="tripDetail">
+                                        <div className="detail table full">
+                                            <div className="tableCell vaMiddle">
+                                            <i className="iconfont icon-roundcheckfill"></i>Claimed<span>3</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </Link>
@@ -106,23 +134,37 @@ class UserTrips extends React.Component {
                 }
 
                 return (
-                    <div className="colMd6 col" key={obj.id}>
-                        <Link to={{pathname: `/trips/${obj.id}`, state: {modal: true}}}>
-                            <div className="bgWhite relative">
-                                <div className="imgWrap">
-                                    <img src={"https://www.jetspree.com/images/country/pic-" + obj.travel_country_code + ".jpg"}
-                                         alt={obj.travel_country_code}/>
+                <div className="mgBottom10 border" key={obj.id}>
+                    <Link to={{pathname: `/trips/${obj.id}`, state: {modal: true}}}>
+                        <div className="bgWhite relative">
+                            <div className="tripInfo table full">
+                                <div className="tripHead tableCell vaMiddle full">
+                                    <div className="travelCountry">
+                                        <h5 className="colorSec">{obj.travel_country_code}
+                                            <span className="colorBlack">Tokyo, Japan</span>
+                                        </h5>
+                                        <p className="tripDate tripReturn colorSec">{goDate}</p>
+                                    </div>
+                                    <i className="iconfont icon-feiji1 colorSec iconMiddle"></i>
+                                    <div className="returnCountry">
+                                        <h5 className="colorSec">{obj.return_country_code}
+                                            <span className="colorBlack">Kuala Lumpur, Malaysia</span>
+                                        </h5>
+                                        <p className="tripDate tripReturn colorSec">Return {returnDate}</p>
+                                    </div>
                                 </div>
-                                <div className="productInfo">
-                                    <span className="itemPrice">{obj.id} {obj.travel_country_code}</span>
-
-                                    <p>Travel: {travelDate}</p>
-                                    <p>Return: {returnDate}</p>
-                                    <h4 className="itemName">{goDate}</h4>
+                                <div className="tripDetail">
+                                    <div className="detail table full">
+                                        <div className="tableCell vaMiddle">
+                                            <i className="iconfont icon-roundcheckfill"></i>Claimed<span>3</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </Link>
-                    </div>
+                        </div>
+                    </Link>
+                </div>
+
                 )
             });
 
@@ -132,6 +174,7 @@ class UserTrips extends React.Component {
                     <div>
                         {onTrip}
                     </div>
+                    <h3>On Going Trips</h3>
                     {activeTrip}
                     <h3>Past Trips</h3>
                     {passTrip}
@@ -171,7 +214,7 @@ class UserRequests extends React.Component {
         if (this.state.items.length > 0) {
             let itemsNodes = this.state.items.map((obj, i) => {
                 return (
-                    <div className="colMd6 col" key={obj.id}>
+                    <div className="colMd3 col" key={obj.id}>
                         <Link to={{pathname: `/products/${obj.id}`, state: {modal: true}}}>
                             <div className="bgWhite relative">
                                 <div className="imgWrap">
@@ -238,7 +281,9 @@ class Profile extends React.Component {
                     <UserRequests />
                 </div>
                 <h3 className="userRequestTitle">{this.state.userName}'s trips</h3>
-                <UserTrips />
+                <div id="userTrips">
+                    <UserTrips />
+                </div>
             </div>
         )
     }

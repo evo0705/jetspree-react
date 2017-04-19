@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 
 *{box-sizing: border-box;}
-body{font-size: 14px; background: #eee;overflow-y:scroll;}
+body{font-size: 14px; overflow-y:scroll;background: #eee}
 body,button{font-family: 'Montserrat', sans-serif;}
 ul{list-style: none;padding-left: 0}
 a{text-decoration: none}
@@ -37,6 +37,7 @@ input{padding: 10px;}
 
 .table{display: table;}
 .tableCell{display: table-cell;}
+.inlineBlock {display: inline-block}
 
 .floatWrap:after{content: '';display: table;clear: both;}
 .pullLeft{float: left;}
@@ -49,11 +50,15 @@ input{padding: 10px;}
 .colorPri,a{color: #00bcd4}
 .colorSec,.itemPrice {color: #ff4081}
 .colorGrey,.footer li{color: #989898;}
+.colorBlack{color:#000}
 .small{font-size: 0.7em;font-weight: normal;display: block;}
 .grad-blue {background: linear-gradient(to bottom, #3090ff 0%, #519ffb 100%);}
 .bgPri{background: #00bcd4}
+.bgSec{background: #ff4081}
 .bgGrey{background: #eee}
-.bgWhite{background: #fff}
+.bgWhite{background: #fff;}
+
+.border{border: 1px solid #eee;}
 
 button.bgPri{background: #00bcd4!important;color: #fff!important}
 button.bgPri:disabled,button.bgPri[disabled]{background: #eee!important;color: rgba(0, 0, 0, 0.298039)!important;}
@@ -177,6 +182,16 @@ hr {
 .__react_bs_dd_menuItems {
 
 }
+
+
+
+.productInfo { padding: 20px; min-height: 240px;  }
+.productInfo h4 { letter-spacing: normal; word-break: break-word; max-height: 92px; overflow: hidden; }
+
+
+
+
+
 
 
 
