@@ -102,9 +102,7 @@ button.bgPri:disabled, button.bgPri[disabled] { background: #eee !important; col
 .itemImgWrap img { position: absolute; min-height: 100%; max-height: 235px; max-width: 800px; top: 0; left: 50%; -webkit-transform: translate(-50%, 0%); transform: translate(-50%, 0%); }
 .standalone .itemWrap { /*padding-left: 50%;box-shadow: none;background: none;    position: relative; min-height: 400px;*/ }
 .standalone .itemImgWrap { /*width: 50%;box-shadow: rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;*/ }
-.standalone .itemInfo {     padding: 0px 0 30px 30px;
-    float: left;
-    width: 67%; /*margin-left:40px;position:relative;background: #fff;box-shadow:rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;*/ }
+.standalone .itemInfo { padding: 0px 0 30px 30px; float: left; width: 67%; /*margin-left:40px;position:relative;background: #fff;box-shadow:rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;*/ }
 .standalone .abBottomRight { position: static; margin-top: 30px;     float: left;}
 
 
@@ -126,14 +124,8 @@ button.bgPri:disabled, button.bgPri[disabled] { background: #eee !important; col
 .aniOff { opacity: .01; visibility: hidden }
 .aniOn { opacity: 1 !important }
 .delay { -webkit-animation-delay: .8s; animation-delay: .8s }
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-}
-
+hr { display: block; height: 1px; border: 0;border-top: 1px solid #ccc;margin: 1em 0; }
+.avatar {height: 50px;width: 50px;border-radius: 50%;overflow: hidden;margin-right: 10px;}
 
 .footer {    border-top: 1px solid #d9d9d9;}
 .copyRight { padding-bottom: 10px }

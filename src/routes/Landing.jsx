@@ -20,7 +20,8 @@ import happywomen from "../../public/imgs/happywomen.jpg"
 import Autosuggest from "react-autosuggest";
 import AutosuggestHighlightMatch from "autosuggest-highlight/match";
 import AutosuggestHighlightParse from "autosuggest-highlight/parse";
-import {Products} from "./products/List"
+import {Products} from "./products/List";
+import {CompletedRequests} from "./requests/List"
 import history from "../helper/History";
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
@@ -99,7 +100,6 @@ class SearchBar extends React.Component {
             value: newValue
         });
     };
-
 
     getSuggestionValue(suggestion) {
         //this.props.passId(suggestion.id) //pass clicked result to app.jsx
@@ -264,7 +264,7 @@ class Landing extends React.Component {
                                     <div className="pullRight mgTop10"><span>View All</span></div>
                                 </div>
                                 <div className="content colWrap productList recentList">
-                                    <Products />
+                                    <CompletedRequests />
                                     {/* <label>Name:</label><input type="text" value={this.state.name}
                                      onChange={this.inputChange}/><br />
                                      <label>Category</label><Select name="form-category" searchable={false}

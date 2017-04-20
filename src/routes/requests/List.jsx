@@ -107,6 +107,97 @@ export class Requests extends React.Component {
     }
 }
 
+
+
+export class CompletedRequests extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: {},
+            error: false,
+            messageError: []
+        };
+    }
+
+    initData() {
+        let paramItems = {
+            pagesize: 20
+        };
+        getRequests(paramItems).then((data) => {
+            this.setState({items: data.result, imageHost: data.image_host});
+        }).catch((error) => {
+            var errmsg = this.state.messageError;
+            errmsg.push(error);
+            this.setState({error: true});
+        });
+    }
+
+    componentDidMount() {
+        this.initData();
+    }
+
+    handleClose = () => {
+        this.setState({error: false})
+    };
+
+    render() {
+        if (this.state.items.length > 0) {
+            let itemsNodes = this.state.items.map((obj, i) => {
+                if (i < 6) {
+                    return (
+                        <div className="colMd6 col" key={obj.id}>
+                            <Link to={{
+                                pathname: `/requests/${obj.id}`,
+                                state: {modal: true, item: obj, image_host: this.state.imageHost}
+                            }}>
+                                <div className="bgWhite relative">
+                                    <div className="imgWrap">
+                                        <img
+                                            src={this.state.imageHost + obj.image_path}
+                                            alt="should be here"/>
+                                    </div>
+                                    <div className="productInfo">
+                                        <h4>{obj.name}</h4>
+                                        <div className="mgBottom colorSec">{obj.price}</div>
+                                    </div>
+                                    <div className="completedBy">
+                                        <div className="table full">
+                                        <div className="avatar">
+                                            <img src="https://a0.muscache.com/im/pictures/90aef051-f5b7-471a-b4f2-fbb3f5e5fb89.jpg?aki_policy=profile_x_medium" />
+                                        </div>
+                                        <div className="tableCell vaMiddle">
+                                        <span>Yuho</span> delivered Nindento Swtich to hub
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    )
+                } return null
+            });
+
+            return (
+                <div>
+                    {itemsNodes}
+                </div>
+            )
+        } else if (this.state.error) {
+            return (
+                <DialogBox
+                    title="Message"
+                    open={this.state.error}
+                    onRequestClose={this.handleClose}
+                    errorMessage={this.state.messageError[0].message}
+                />
+            )
+        }
+        return null
+    }
+}
+
+
+
 const styles = {
     dialogRoot: {
         paddingTop: 0,
