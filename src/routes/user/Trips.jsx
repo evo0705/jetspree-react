@@ -67,8 +67,8 @@ class UserTrips extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="tripDetail">
-                                                <div className="detail"><i className="iconfont icon-yishouchu"></i>Fullfilled<span>3/3</span></div>
-                                                <div className="detail"><i className="iconfont icon-xinyongqia"></i>Reimbursed<span>RM1300</span>
+                                                <div className="detail"><i className="iconfont icon-roundcheckfill"></i>Fullfilled<span>3/3</span></div>
+                                                <div className="detail"><i className="iconfont icon-vipcard"></i>Reimbursed<span>RM1300</span>
                                                 </div>
                                                 <div className="detail"><i className="iconfont icon-emoji"></i>Earned<span>RM300</span></div>
                                             </div>
@@ -78,14 +78,6 @@ class UserTrips extends React.Component {
                             </div>
                         </div>
 
-                        <div className="claimedRequest">
-                            <img
-                                src="https://a0.muscache.com/im/pictures/90aef051-f5b7-471a-b4f2-fbb3f5e5fb89.jpg?aki_policy=profile_x_medium"/>
-                            <img
-                                src="https://a0.muscache.com/im/pictures/90aef051-f5b7-471a-b4f2-fbb3f5e5fb89.jpg?aki_policy=profile_x_medium"/>
-                            <img
-                                src="https://a0.muscache.com/im/pictures/90aef051-f5b7-471a-b4f2-fbb3f5e5fb89.jpg?aki_policy=profile_x_medium"/>
-                        </div>
                     </div>
                 )
             });

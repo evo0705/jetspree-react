@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 * { box-sizing: border-box; }
+.icon-facebook1{ /*color: #3b5998;*/}
+.icon-twitter {/*color: #1da1f2;*/}
 body { font-size: 14px; overflow-y: scroll; /*background: #eee*/ }
 body, button { font-family: 'Montserrat', sans-serif; }
 ul { list-style: none; padding-left: 0 }
@@ -15,6 +17,7 @@ h4 { font-weight: 500; }
 h5 { font-size: 1em; margin-bottom: 10px }
 img { max-width: 100% }
 input { padding: 10px; }
+.iconfont{line-height: 1}
 .show { display: block !important; }
 .overflowFixBeta { padding-left: calc(100vw - 100%); }
 .itemModal ::-webkit-scrollbar-track { background-color: #eee; }
@@ -52,7 +55,7 @@ input { padding: 10px; }
 .bgSec { background: #ff4081 }
 .bgGrey { background: #eee }
 .bgWhite { background: #fff; }
-.border { border: 1px solid #eee; }
+.border { border: 1px solid #d9d9d9; }
 button.bgPri { background: #00bcd4 !important; color: #fff !important }
 button.bgPri:disabled, button.bgPri[disabled] { background: #eee !important; color: rgba(0, 0, 0, 0.298039) !important; }
 .pdWrap { padding-top: 60px; padding-bottom: 60px; }
@@ -92,14 +95,18 @@ button.bgPri:disabled, button.bgPri[disabled] { background: #eee !important; col
 .itemImgWrap img { position: absolute; min-height: 100%; max-height: 235px; max-width: 800px; top: 0; left: 50%; -webkit-transform: translate(-50%, 0%); transform: translate(-50%, 0%); }
 .standalone .itemWrap { /*padding-left: 50%;box-shadow: none;background: none;    position: relative; min-height: 400px;*/ }
 .standalone .itemImgWrap { /*width: 50%;box-shadow: rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;*/ }
-.standalone .itemInfo { padding: 0px; /*margin-left:40px;position:relative;background: #fff;box-shadow:rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;*/ }
-.standalone .abBottomRight { position: static; margin-top: 30px; }
+.standalone .itemInfo {     padding: 0px 0 30px 30px;
+    float: left;
+    width: 67%; /*margin-left:40px;position:relative;background: #fff;box-shadow:rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px;*/ }
+.standalone .abBottomRight { position: static; margin-top: 30px;     float: left;}
+
+
 .itemInfo { padding: 40px 20px 70px 20px; }
 .itemWrap h1 { font-size: 1.4em; text-transform: capitalize; margin: 0; }
 .itemWrap h1 a { color: #000 }
-.itemFull .itemWrap { box-shadow: rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px; background: #fbfbfb; margin-top: 60px; }
+.itemFull .itemWrap { box-shadow: rgba(0, 0, 0, 0.219608) 0px 9px 28px -10px; /*background: #fbfbfb;*/ margin-top: 60px; }
 .itemPrice span { font-size: 24px }
-.description {white-space: pre-line}
+.description {white-space: pre-line;color: #000}
 
 
 

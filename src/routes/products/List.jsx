@@ -78,7 +78,7 @@ export class Products extends React.Component {
                                         alt="should be here"/>
                                 </div>
                                 <div className="productInfo"><h4>{obj.name}</h4>
-                                    <div className="mgBottom">{obj.price}</div>
+                                    <div className="mgBottom colorSec">{obj.price}</div>
                                     <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@ const styles = {
     },
     dialogBody: {
         minHeight: 400,
-        background: "#eee",
+        background: "#fff",
         paddingTop: 0,
         paddingLeft: 0,
         paddingRight: 0,
@@ -123,8 +123,7 @@ const styles = {
     },
     dialogTitle: {
         fontSize: 18,
-        padding: "10px 20px",
-        background: "#eee"
+        padding: "10px 20px"
     }
 };
 

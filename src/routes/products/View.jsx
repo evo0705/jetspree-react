@@ -14,53 +14,29 @@ export class ProductDetails extends React.Component {
 
     render() {
         return (
-            <div className="itemBg table full">
-                <div className="itemLeft">
-                    <div className="squareInfo">
-                        <div className="">
-                            <div className="">
-                                <div className="bgWhite">
-                                    <span className="colorPri">from</span> USA
-                                </div>
-                            </div>
-                            <div className="">
-                                <div className="bgWhite">
-                                    <span className="colorPri">11</span> Requested
-                                </div>
-                            </div>
-                            <div className="">
-                                <div className="bgWhite">
-                                    <span className="colorPri">2</span> Pushed
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div className="itemRight">
+                <div className="itemImgWrap">
+                    <ReactImageFallback
+                        src={this.props.image_host + this.props.item.image_path}
+                        alt={this.props.item.name}
+                        fallbackImage={Placeholder} initialImage={Placeholder}/>
                 </div>
-                <div className="itemRight tableCell full vatop">
-                    <div className="itemImgWrap">
-                        <ReactImageFallback
-                            src={this.props.image_host + this.props.item.image_path}
-                            alt={this.props.item.name}
-                            fallbackImage={Placeholder} initialImage={Placeholder}/>
+                <div className="itemInfo">
+                    <h1>
+                        <Link to={{
+                                pathname: `/products/${this.props.item.id}`,
+                                state: {modal: false}
+                            }}>{this.props.item.name}</Link>
+                    </h1>
+                    <p className="small">Product Id: {this.props.item.id}</p>
+                    <p className="itemPrice"><span>{this.props.item.price}</span></p>
+                    <div className="mgTop30">
+                        <p className="description">{this.props.item.description}</p>
                     </div>
-                    <div className="itemInfo">
-                        <h1>
-                            <Link
-                                to={{
-                                    pathname: `/products/${this.props.item.id}`,
-                                    state: {modal: false}
-                                }}>{this.props.item.name}</Link>
-                        </h1>
-                        <p className="small">Product Id: {this.props.item.id}</p>
-                        <p className="itemPrice"><span>{this.props.item.price}</span></p>
-                        <div className="mgTop30">
-                            <p className="description">{this.props.item.description}</p>
-                        </div>
-                        <div className="floatWrap">
-                            <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
-                        </div>
+                    <div className="floatWrap">
+                        <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
+                    </div>
 
-                    </div>
                 </div>
             </div>
         )
@@ -84,18 +60,18 @@ class ProductView extends React.Component {
     initData() {
         if (this.props.match) {
             // standalone page
+            console.log(this.props.match.params.Id)
             getRequest({
-                id: this.props.match.params.id
+                id: this.props.match.params.Id
             }).then((data) => {
+                console.log(data)
                 this.setState({
                     id: data.id,
-                    item: data.result[5],
+                    item: data.result[0],
                     image_host: data.image_host,
                     standalone: true
                 });
             });
-
-
         } else {
             //modal page, load from ViewModal.js > const Modal
             getRequest({
@@ -121,12 +97,31 @@ class ProductView extends React.Component {
             return (
                 <div className="container standalone mgTop60">
                     <div className="itemWrap">
-                        <ProductDetails item={this.state.item} image_host={this.state.image_host}/>
+                        <div className="itemBg table full">
+                            <div className="itemLeft">
+                                <div className="squareInfo">
+                                    <div className="bgWhite">
+                                        <span className="colorPri">from</span> USA
+                                    </div>
+                                    <div className="bgWhite">
+                                        <span className="colorPri">11</span> Requested
+                                    </div>
+                                    <div className="bgWhite">
+                                        <span className="colorPri">2</span> Pushed
+                                    </div>
+                                    <div className="bgWhite">
+                                        <i className="iconfont icon-facebook1"></i> Share
+                                    </div>
+                                    <div className="bgWhite">
+                                        <i className="iconfont icon-twitter"></i> Share
+                                    </div>
+                                </div>
+                            </div>
+                            <ProductDetails item={this.state.item} image_host={this.state.image_host}/>
+                        </div>
                     </div>
                     <ProductRelated />
                 </div>
-
-
             )
         }
         if (this.state.standalone === false) {
@@ -140,8 +135,6 @@ class ProductView extends React.Component {
             )
         }
         return null
-
-
     }
 }
 
@@ -151,49 +144,49 @@ class ProductRelated extends React.Component {
             <div className="content productList mgTop60">
                 <h3>Related Product</h3>
                 <div className="colWrap mgTop30">
-                <div className="colMd4 col">
-                    <a href="/products/19">
-                        <div className="bgWhite relative">
-                            <div className="imgWrap">
-                                <img
-                                    src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
-                                    alt="should be here"/>
+                    <div className="colMd4 col">
+                        <a href="/products/19">
+                            <div className="bgWhite relative">
+                                <div className="imgWrap">
+                                    <img
+                                        src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
+                                        alt="should be here"/>
+                                </div>
+                                <div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
+                                    <div className="mgBottom">14.5</div>
+                                </div>
                             </div>
-                            <div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
-                                <div className="mgBottom">14.5</div>
+                        </a>
+                    </div>
+                    <div className="colMd4 col">
+                        <a href="/products/19">
+                            <div className="bgWhite relative">
+                                <div className="imgWrap">
+                                    <img
+                                        src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
+                                        alt="should be here"/>
+                                </div>
+                                <div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
+                                    <div className="mgBottom">14.5</div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+                    <div className="colMd4 col">
+                        <a href="/products/19">
+                            <div className="bgWhite relative">
+                                <div className="imgWrap">
+                                    <img
+                                        src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
+                                        alt="should be here"/>
+                                </div>
+                                <div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
+                                    <div className="mgBottom">14.5</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <div className="colMd4 col">
-                    <a href="/products/19">
-                        <div className="bgWhite relative">
-                            <div className="imgWrap">
-                                <img
-                                    src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
-                                    alt="should be here"/>
-                            </div>
-                            <div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
-                                <div className="mgBottom">14.5</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div className="colMd4 col">
-                    <a href="/products/19">
-                        <div className="bgWhite relative">
-                            <div className="imgWrap">
-                                <img
-                                    src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
-                                    alt="should be here"/>
-                            </div>
-                            <div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
-                                <div className="mgBottom">14.5</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
             </div>
         )
     }

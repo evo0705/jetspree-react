@@ -32,7 +32,7 @@ import Footer from "./Footer"
 injectTapEventPlugin();
 
 const yuTheme = getMuiTheme({
-    fontFamily: 'inherit',
+    fontFamily: 'inherit'
 });
 
 class App extends Component {
