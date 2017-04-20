@@ -16,6 +16,7 @@ import UserTrips from "./Trips"
 
 class ProfileLayout extends React.Component {
     render() {
+        console.log(this.props)
         return (
             <div className="itemsListWrap profileWrap">
                 <div className="overflowFixBeta">
@@ -31,7 +32,11 @@ class ProfileLayout extends React.Component {
                             </div>
                             <div className="contentWrap tableCell full vatop">
                                 <div className="content colWrap productList">
-                                    <Route exact path="/profile" component={UserAbout}/>
+
+                                    <Route exact path="/profile" component={() => (
+                                        <UserAbout token={this.props.token}/>)}
+                                    />
+
                                     <Route path="/profile/requests" component={UserRequests}/>
                                     <Route path="/profile/trips" component={UserTrips}/>
                                 </div>

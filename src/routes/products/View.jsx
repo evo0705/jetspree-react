@@ -8,9 +8,9 @@ import "../requests/View.css";
 import "./View.css";
 
 export class ProductDetails extends React.Component {
-    constructor(props) {
+   /* constructor(props) {
         super(props)
-    }
+    }*/
 
     render() {
         return (
@@ -60,11 +60,9 @@ class ProductView extends React.Component {
     initData() {
         if (this.props.match) {
             // standalone page
-            console.log(this.props.match.params.Id)
             getRequest({
                 id: this.props.match.params.Id
             }).then((data) => {
-                console.log(data)
                 this.setState({
                     id: data.id,
                     item: data.result[0],
@@ -92,7 +90,6 @@ class ProductView extends React.Component {
     }
 
     render() {
-        let renderProductRelated;
         if (this.state.standalone === true) {
             return (
                 <div className="container standalone mgTop60">
@@ -129,7 +126,6 @@ class ProductView extends React.Component {
                 <div className="container itemFull">
                     <div className="itemWrap">
                         <ProductDetails item={this.state.item} image_host={this.state.image_host}/>
-                        {renderProductRelated}
                     </div>
                 </div>
             )

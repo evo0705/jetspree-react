@@ -142,12 +142,7 @@ class UserTrips extends React.Component {
                                 </Link>
                             </div>
                         </div>
-                        <div className="claimedRequest">
-                            <img
-                                src="http://i.imgur.com/tI5jq2c.jpg"/>
-                            <img
-                                src="http://i.imgur.com/B1MCOtx.jpg"/>
-                        </div>
+
                     </div>
                 )
             });

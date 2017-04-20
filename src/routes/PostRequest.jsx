@@ -191,7 +191,7 @@ class postRequest extends React.Component {
                             >
                                 <div>
                                     Drag and Drop image files
-                                    <img src={this.state.imageFiles}/>
+                                    <img src={this.state.imageFiles} alt=""/>
                                 </div>
                             </DropZone>
                         </li>

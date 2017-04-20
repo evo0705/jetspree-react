@@ -13,7 +13,7 @@ h1, h2, h3, h4, h5 { font-weight: 500; }
 h1 { font-size: 2.4em; }
 h2{font-size: 1.4em}
 h3 { font-size: 1.2em }
-h4 { font-weight: 500; }
+h4 { font-weight: 400; }
 h5 { font-size: 1em; margin-bottom: 10px }
 img { max-width: 100% }
 input { padding: 10px; }
@@ -23,9 +23,11 @@ input { padding: 10px; }
 .itemModal ::-webkit-scrollbar-track { background-color: #eee; }
 .itemModal ::-webkit-scrollbar { width: 8px; background-color: #f5f5f5; }
 .itemModal ::-webkit-scrollbar-thumb { background-color: #52b6da; /*  border-radius: 10px;*/ }
+.half{width: 50%}
 .full { width: 100% }
 .fullheight { height: 100% }
 .container { max-width: 1000px; margin-left: auto; margin-right: auto; padding-left: 40px; padding-right: 40px; }
+.container:after{display: table;content: '';clear: both}
 .itemModal .container { padding-left: 0; padding-right: 0 }
 .contentWrap { padding-right: 6px; padding-left: 6px; }
 .colWrap { margin-right: -6px; margin-left: -6px; }
@@ -46,15 +48,18 @@ input { padding: 10px; }
 .taleft { text-align: left; }
 .stayCenter { margin-right: auto; margin-left: auto; }
 .colorPri, a { color: #00bcd4 }
-.colorSec, .itemPrice { color: #ff4081 }
+.colorSec, .itemPrice { color: #ff4081;color:#ff0057!important }
 .colorGrey, .footer li { color: #989898; }
 .colorBlack { color: #000 }
 .small { font-size: 0.7em; font-weight: normal; display: block; }
 .grad-blue { background: linear-gradient(to bottom, #3090ff 0%, #519ffb 100%); }
-.bgPri { background: #00bcd4 }
-.bgSec { background: #ff4081 }
+.bgPri { background: #00bcd4!important; }
+.bgSec,.btnSec { background: #ff4081!important;background: #ff0057!important }
+.btnSec{color: #fff!important;}
 .bgGrey { background: #eee }
 .bgWhite { background: #fff; }
+.bgBanner{ position: absolute; left: 0; top: 0; width: 100%; z-index: -1;}
+
 .border { border: 1px solid #d9d9d9; }
 button.bgPri { background: #00bcd4 !important; color: #fff !important }
 button.bgPri:disabled, button.bgPri[disabled] { background: #eee !important; color: rgba(0, 0, 0, 0.298039) !important; }
@@ -62,10 +67,12 @@ button.bgPri:disabled, button.bgPri[disabled] { background: #eee !important; col
 .pd20 { padding-top: 20px; padding-bottom: 20px; }
 .pd30 { padding-top: 30px; padding-bottom: 30px; }
 .pd40 { padding-top: 40px; padding-bottom: 40px; }
+.pdTop40{padding-top: 40px;}
 .pdBottom20 { padding-bottom: 20px; }
 .mgBottom10 { margin-bottom: 10px; }
 .mgBottom30 { margin-bottom: 30px }
 .mgBottom40 { margin-bottom: 40px }
+.mgTop10 { margin-top: 10px; }
 .mgTop20 { margin-top: 20px; }
 .mgTop30 { margin-top: 30px; }
 .mgTop40 { margin-top: 40px; }
@@ -109,8 +116,6 @@ button.bgPri:disabled, button.bgPri[disabled] { background: #eee !important; col
 .description {white-space: pre-line;color: #000}
 
 
-
-
 .smallImgWrap { width: 50px; height: 50px; background: #eee; position: absolute; left: 20px; }
 .smallImgWrap img { height: 100%; width: 100% }
 .toolTips { background-color: #fff; padding: 7px 10px; border-radius: 4px; position: absolute; top: 65px; /*right:0;*/ left: 0; display: inline-block; height: 30px; font-family: Helvetica, sans-serif; color: #000 }
@@ -144,7 +149,7 @@ hr {
 }
 .__react_bs_dd_menuItems {
 }
-.productInfo { padding: 20px; min-height: 240px; border:1px solid #d9d9d9; }
+.productInfo { padding: 20px; min-height: 240px; border:1px solid #d9d9d9;/*background: #f9f9f9;*/ }
 .productInfo h4 { letter-spacing: normal; word-break: break-word; max-height: 92px; overflow: hidden; }
 .App-logo {
     animation: App-logo-spin infinite 20s linear;

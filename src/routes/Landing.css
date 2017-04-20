@@ -1,3 +1,4 @@
+
 #banner {    height: 100%;
     position: relative;}
 .banner {  color: #fff;/*padding-top: 80px; padding-bottom: 80px;*/
@@ -27,6 +28,20 @@
 
 .itemsList .imgWrap { width: 165px; }
 
+.recentList .colMd6{width: 33.3%}
+.popularList .colMd6{width: 33.3%}
+
+.sectionBanner{overflow: hidden;}
+
+.LandingPage h3, .sectionBanner h2{font-size: 1.6em;margin-top: 0;}
+.LandingPage h3{margin-bottom: 5px;}
+.bannerAction{ width: 500px;}
+.bannerAction p{margin-bottom: 20px;}
+
+.sideBanner {    max-width: 500px; padding-left: 20px;max-height: 230px;}
+.buyerBanner{padding-top: 0;margin-top: -30px;}
+
+.LandingPage .abBottomRight button{display: none!Important}
 
 #searchBar{ position: relative;}
 .btnPost { position: absolute; right:7px;top:7px;text-shadow: none;letter-spacing: normal}

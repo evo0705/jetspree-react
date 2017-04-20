@@ -9,7 +9,7 @@ import FlatButton from "material-ui/FlatButton";
 import {getAuthUser, postLogin} from "../data/account";
 import SnackBar from "../components/SnackBar";
 import {DropdownMenu} from "react-bootstrap-dropdown-menu";
-import MenuItem from 'material-ui/MenuItem';
+//import MenuItem from 'material-ui/MenuItem';
 import Loading from '../components/ProgressBar'
 
 const styles = {
@@ -92,7 +92,7 @@ class Login extends React.Component {
 
     render() {
         
-        if (this.state.loading == true) {
+        if (this.state.loading === true) {
             return (
                 <Loading />
             )
@@ -141,9 +141,9 @@ class Login extends React.Component {
 }
 
 export class LoginNavbar extends React.Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props)
-    }
+    }*/
 
     render() {
         if (this.props.token === '')

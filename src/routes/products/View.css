@@ -6,7 +6,27 @@
 */
 .squareInfo { /*position: absolute; top: -51px; right: 6px;*/ font-size: 10px; text-align: center }
 .squareInfo span { display: block; font-size: 14px; }
-.squareInfo .bgWhite {padding: 10px; border: 1px solid #d9d9d9; margin-bottom: 12px;}
+.squareInfo .bgWhite {padding: 10px; border: 1px solid #d9d9d9; margin-bottom: 12px;cursor:pointer;}
+
+.squareInfo .bgWhite:hover{
+
+    border: 1px solid #00bcd4;
+    /*
+background: #00bcd4;
+    background: #ff4d89;
+    border-bottom: 2px solid #0c9caf;
+    background: linear-gradient(to bottom, #84f1ff 0%,#73e2f1 10%,#00bcd4 100%);
+    border: 1px solid transparent;
+    color: #fff;
+   border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;*/
+}
+.squareInfo .bgWhite:hover span{/*color: #fff*/}
+
+
+
+
+
 .squareInfo i{font-size: 16px;display: block}
 .standalone .itemBg { /*padding-left: 36%;*/ background: #fff; }
 .standalone .itemImgWrap {

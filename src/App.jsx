@@ -13,15 +13,15 @@ import "../node_modules/react-select/dist/react-select.min.css";
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import Landing from "./routes/Landing.jsx";
 import BrowseCountries from "./routes/requests/Countries.js";
-import ItemsList from "./routes/requests/List.jsx";
-import RequestView from "./routes/requests/View.jsx";
+import RequestsList from "./routes/requests/List.jsx";
+
 
 import ProductsList from "./routes/products/List.jsx";
-import ProductView from "./routes/products/View.jsx";
+//import ProductView from "./routes/products/View.jsx";
 import SignUp from "./routes/SignUp.jsx";
 import Login, {GetUserInfo, LoginNavbar} from "./routes/Login.jsx";
 import Trip from "./routes/PostTrip";
-import Request from "./routes/PostRequest";
+import PostRequest from "./routes/PostRequest";
 import Profile from "./routes/user/Profile.jsx";
 
 import history from "./helper/History";
@@ -69,6 +69,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state.token)
         return (
             <Router history={history}>
                 <MuiThemeProvider muiTheme={yuTheme}>
@@ -80,7 +81,7 @@ class App extends Component {
                                     <img src={logo} className="App-logo" alt="logo"/>
                                     <FlatButton label="Home" containerElement={<Link to="/"/>}/>
                                     <FlatButton label="Countries" containerElement={<Link to="/countries"/>}/>
-                                    <FlatButton label="Requests" containerElement={<Link to="/request"/>}/>
+                                    <FlatButton label="Requests" containerElement={<Link to="/post-request"/>}/>
                                     <FlatButton label="Products" containerElement={<Link to="/products"/>}/>
                                     <FlatButton label="Trip" containerElement={<Link to="/trip"/>}/>
                                     <LoginNavbar token={this.state.token}/>
@@ -94,20 +95,17 @@ class App extends Component {
                         <Route path="/login" component={() => (
                             <Login updateToken={this.updateToken} showSnackBar={this.showSnackBar}/>)}/>
                         <Route path="/countries" component={BrowseCountries}/>
-                        <Route path="/items" component={ItemsList}/>
-                        <Route exact path='/items/:Id' component={RequestView}/>
+                        <Route path="/requests" component={RequestsList}/>
+
+
 
                         <Route path="/products" component={ProductsList}/>
 
-
-
-
-                        <Route path="/request" component={Request}/>
+                        <Route path="/post-request" component={PostRequest}/>
 
                         <Route path="/profile" component={() => (
                             <Profile token={this.state.token}/>)}/>
-                        <Route path="/user/:Id" component={Profile}/>
-
+                        <Route path="/user/:Id" component={Profile} />
 
                         <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}
                                   close={this.closeSnackBar}/>

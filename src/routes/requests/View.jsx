@@ -1,107 +1,191 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {getRequest} from "../../data/requests.js";
 import ReactImageFallback from "react-image-fallback";
 import Placeholder from "../../../public/imgs/greyImg.gif";
 import RaisedButton from "material-ui/RaisedButton";
+import "../requests/View.css";
 import "./View.css";
 
-class ItemDetails extends React.Component {
-	constructor(props){
-		//console.log(props)
-        super(props);
-		this.state = {
-			name:'',
-			Description: ''
-		};
-	}
-
-	componentWillReceiveProps(nextProps){
-		//console.log(nextProps.data.Item)
-		if(this.props !== nextProps){
-			this.setState({
-				name: nextProps.data.Item.Name, Description: nextProps.data.Item.Description,
-                id: nextProps.data.Item.Id,
-                Price: nextProps.data.Item.OfferPrice,
-                CurrencyCode: nextProps.data.Item.CurrencyCode,
-				ItemURL: nextProps.data.Item.ItemURL, User: nextProps.data.Item.UserProfile.DisplayName, ShippingMethod: nextProps.data.Item.ShippingMethod.Name,
-				Country: nextProps.data.Item.Country.Name
-			});
-		}
-	}
+export class RequestDetails extends React.Component {
+	/* constructor(props) {
+	 super(props)
+	 }*/
 
     render() {
-		return (
-			<div className="itemWrap">
-			<div className="itemImgWrap">
-                <ReactImageFallback
-                    src={'https://www.jetspree.com/images/requests/' + this.state.id + '/' + this.state.ItemURL}
-                    alt={this.state.name}
-                    fallbackImage={Placeholder} initialImage={Placeholder} />
-			</div>
-			<div className="itemInfo">
-			<h1>{this.state.name}</h1>
-			<p>{this.state.Description}</p>
-			<div className="mgTop30">
-			<p>Id: {this.state.id}</p>
-			<p>Pay: {this.state.CurrencyCode} <span>{this.state.Price}</span></p>
-			<p>Shopper: {this.state.User}</p>
-			<p>Shipping Method: {this.state.ShippingMethod}</p>
-			<p>Shop Country: {this.state.Country}</p>
-			</div>
-						<div className="floatWrap">
-				<RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
-			</div>
-			</div>
+        return (
+			<div className="itemRight">
+				<div className="itemImgWrap">
+					<ReactImageFallback
+						src={this.props.image_host + this.props.item.image_path}
+						alt={this.props.item.name}
+						fallbackImage={Placeholder} initialImage={Placeholder}/>
+				</div>
+				<div className="itemInfo">
+					<h1>
+						<Link to={{
+                            pathname: `/products/${this.props.item.id}`,
+                            state: {modal: false}
+                        }}>{this.props.item.name}</Link>
+					</h1>
+					<p className="small">Product Id: {this.props.item.id}</p>
+					<p className="itemPrice"><span>{this.props.item.price}</span></p>
+					<div className="mgTop30">
+						<p className="description">{this.props.item.description}</p>
+					</div>
+					<div className="floatWrap">
+						<RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
+					</div>
 
+				</div>
 			</div>
-			)
-	}
-
+        )
+    }
 }
 
-
 class RequestView extends React.Component {
-	constructor(props){
-		//console.log(props)
+    constructor(props) {
         super(props);
-		this.state = {
-			item: '',
-		}
-	}
+        this.state = {
+            item: (this.props.item ||
+            {
+                id: '',
+                name: '',
+                image_path: ''
+            }),
+            image_host: (this.props.imageHost || '')
+        }
+    }
 
-	initData() {
-		if (this.props.match){
-			// standalone page
-			let param ={
-				id: this.props.match.params.Id
-			};
-            getRequest(param).then((data) => {
-				this.setState({item: data});
-			});
-		} else {
+    initData() {
+        if (this.props.match) {
+            // standalone page
+            getRequest({
+                id: this.props.match.params.Id
+            }).then((data) => {
+                this.setState({
+                    id: data.id,
+                    item: data.result[0],
+                    image_host: data.image_host,
+                    standalone: true
+                });
+            });
+        } else {
             //modal page, load from ViewModal.js > const Modal
-			let param = {
-				id: this.props.modalId
-            };
-            getRequest(param).then((data) => {
-				this.setState({item: data});
-			});
-		}
-	}
+            getRequest({
+                id: this.props.item.id
+            }).then((data) => {
+                this.setState({
+                    id: data.id,
+                    item: data.result[0],
+                    image_host: data.image_host,
+                    standalone: false
+                });
+            });
+        }
+    }
 
-	componentWillMount(){
-		this.initData();
-	}
+    componentDidMount() {
+        this.initData();
+    }
 
-	render() {
-		return (
-			<div className="bgGrey">
-			<div className="container">
-			<ItemDetails data={this.state.item} />
+    render() {
+        if (this.state.standalone === true) {
+            return (
+				<div className="container standalone mgTop60">
+					<div className="itemWrap">
+						<div className="itemBg table full">
+							<div className="itemLeft">
+								<div className="squareInfo">
+									<div className="bgWhite">
+										<span className="colorPri">from</span> USA
+									</div>
+									<div className="bgWhite">
+										<span className="colorPri">11</span> Requested
+									</div>
+									<div className="bgWhite">
+										<span className="colorPri">2</span> Pushed
+									</div>
+									<div className="bgWhite">
+										<i className="iconfont icon-facebook1"></i> Share
+									</div>
+									<div className="bgWhite">
+										<i className="iconfont icon-twitter"></i> Share
+									</div>
+								</div>
+							</div>
+							<RequestDetails item={this.state.item} image_host={this.state.image_host}/>
+						</div>
+					</div>
+                    <RequestRelated />
+				</div>
+            )
+        }
+        if (this.state.standalone === false) {
+            return (
+				<div className="container itemFull">
+					<div className="itemWrap">
+						<RequestDetails item={this.state.item} image_host={this.state.image_host}/>
+					</div>
+				</div>
+            )
+        }
+        return null
+    }
+}
+
+class RequestRelated extends React.Component {
+    render() {
+        return (
+			<div className="content productList mgTop60">
+				<h3>Related Product</h3>
+				<div className="colWrap mgTop30">
+					<div className="colMd4 col">
+						<a href="/products/19">
+							<div className="bgWhite relative">
+								<div className="imgWrap">
+									<img
+										src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
+										alt="should be here"/>
+								</div>
+								<div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
+									<div className="mgBottom">14.5</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div className="colMd4 col">
+						<a href="/products/19">
+							<div className="bgWhite relative">
+								<div className="imgWrap">
+									<img
+										src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
+										alt="should be here"/>
+								</div>
+								<div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
+									<div className="mgBottom">14.5</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div className="colMd4 col">
+						<a href="/products/19">
+							<div className="bgWhite relative">
+								<div className="imgWrap">
+									<img
+										src="https://s3-ap-southeast-1.amazonaws.com/jetspree/requests/19/kettle-chips-mature-cheddar-and-red-onion.png"
+										alt="should be here"/>
+								</div>
+								<div className="productInfo"><h4>Kettle Chips Mature Cheddar &amp; Red Onion</h4>
+									<div className="mgBottom">14.5</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
 			</div>
-			</div>
-			)
-	}
+        )
+    }
 }
 
 export default RequestView;

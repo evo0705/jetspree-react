@@ -1,12 +1,12 @@
 import React from "react";
-import {getAuthUser} from "../../data/account";
-import Token from "../../helper/Token";
-import {Products} from "../../routes/products/List";
+//import {getAuthUser} from "../../data/account";
+//import Token from "../../helper/Token";
+//import {Products} from "../../routes/products/List";
 import {Link} from "react-router-dom";
 import {getRequests} from "../../data/requests";
-import RaisedButton from "material-ui/RaisedButton";
+//import RaisedButton from "material-ui/RaisedButton";
 import "./Profile.css"
-import moment from 'moment'
+//import moment from 'moment'
 
 class UserRequests extends React.Component {
     constructor(props) {
@@ -35,8 +35,6 @@ class UserRequests extends React.Component {
         }
         return false;
     }
-
-
 
     render() {
         if (this.state.items.length > 0) {

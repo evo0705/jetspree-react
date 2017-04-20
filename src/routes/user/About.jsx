@@ -1,8 +1,7 @@
 import React from "react";
 import {getAuthUser} from "../../data/account";
-import Token from "../../helper/Token";
-import {Products} from "../../routes/products/List";
-import {Route, Link} from "react-router-dom";
+//import {Products} from "../../routes/products/List";
+//import {Route, Link} from "react-router-dom";
 import "./Profile.css"
 
 
@@ -10,7 +9,7 @@ class UserAbout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: Token.getToken(),
+            token:this.props.token,
             userName: '',
             userEmail: '',
             userId: '',
