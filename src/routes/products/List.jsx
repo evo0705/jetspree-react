@@ -64,7 +64,7 @@ export class Products extends React.Component {
     render() {
         if (this.state.items.length > 0) {
             let itemsNodes = this.state.items.map((obj, i) => {
-                if (i < 6) {
+
                     return (
                         <div className="colMd6 col" key={obj.id}>
                             <Link to={{
@@ -81,11 +81,29 @@ export class Products extends React.Component {
                                         <div className="mgBottom colorSec">{obj.price}</div>
                                         <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
                                     </div>
+                                    <div className="requestBy">
+
+                                            <div className="inlineBlock">
+                                            <div className="avatar inlineBlock vaMiddle">
+                                                <img src="http://images.kdramastars.com/data/images/full/166525/jin-se-yeon.jpg?w=320&h=&l=50&t=40" />
+                                            </div>
+                                            <div className="avatar inlineBlock vaMiddle">
+                                                <img src="https://68.media.tumblr.com/a7e3ca3a883c7cea6dc549438008167f/tumblr_ole0a73C7x1w4ty6ho4_400.png" />
+                                            </div>
+                                            <div className="avatar inlineBlock vaMiddle">
+                                                <img src="http://www.sritown.com/korean/star/oh-yeon-seo/oh-yeon-seo-05.jpg" />
+                                            </div>
+                                            </div>
+                                            <div className="inlineBlock vaMiddle">
+                                                5 Requested
+                                            </div>
+
+                                    </div>
                                 </div>
                             </Link>
                         </div>
                     )
-                } return null
+
             });
 
             return (

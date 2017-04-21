@@ -1,4 +1,5 @@
-
+#searchBar{ position: relative;}
+.btnPost { position: absolute; right:7px;top:7px;text-shadow: none;letter-spacing: normal}
 #banner {    height: 100%;
     position: relative;}
 .banner {  color: #fff;/*padding-top: 80px; padding-bottom: 80px;*/
@@ -28,25 +29,30 @@
 
 .itemsList .imgWrap { width: 165px; }
 
+
 .recentList .colMd6{width: 33.3%}
+.recentList .col .imgWrap{background: #fff;    box-shadow: 0px 7px 18px -4px rgba(0, 0, 0, 0.1);}
 .popularList .colMd6{width: 33.3%}
 
 .sectionBanner{overflow: hidden;}
 
-.LandingPage h3, .sectionBanner h2{font-size: 1.6em;margin-top: 0;}
+.LandingPage h3, .sectionBanner h2{font-size: 1.6em;margin-top: 0;    font-weight: 600; color: #222222;}
 .LandingPage h3{margin-bottom: 5px;}
 .bannerAction{ width: 500px;}
 .bannerAction p{margin-bottom: 20px;}
 
-.sideBanner {    max-width: 500px; padding-left: 20px;max-height: 230px;}
-.buyerBanner{padding-top: 0;margin-top: -30px;}
-.travelBanner .bgBanner {top: auto;    bottom: -125px;}
+.sideBanner { max-width: 627px; padding-left: 20px;max-height: 230px;}
+.buyerBanner{padding-top: 0;    margin-bottom: 10px;margin-top: 30px;}
+.paypal{ color: #0070ba;}
+.__react_component_tooltip { max-width: 300px; font-size: 0.8em!important; line-height: 140%; font-family: sans-serif;}
+.travelBanner .bgBanner {top: auto;    bottom: -5px;}
 .LandingPage .abBottomRight button{display: none!Important}
 
-.completedBy {padding: 10px;}
+.completedBy {word-break: break-all;}
+.requestBy{border: 1px solid #d9d9d9; border-top:0;padding: 7px 10px;}
+.requestBy .avatar{margin-right: 7px;}
+.completedBy,.requestBy {font-size: 0.9em;}
 
-#searchBar{ position: relative;}
-.btnPost { position: absolute; right:7px;top:7px;text-shadow: none;letter-spacing: normal}
 
 
 
