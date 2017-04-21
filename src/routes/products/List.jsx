@@ -99,7 +99,7 @@ export class Products extends React.Component {
                     title="Message"
                     open={this.state.error}
                     onRequestClose={this.handleClose}
-                    errorMessage={this.state.messageError[0].message}
+                    errorMessage={this.state.messageError}
                 />
             )
         }
