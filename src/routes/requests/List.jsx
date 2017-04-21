@@ -6,6 +6,11 @@ import RequestView from "./View.jsx";
 import Dialog from "material-ui/Dialog";
 import "../requests/List.css";
 import DialogBox from "../../components/DialogBox";
+import FlagIconFactory from 'react-flag-icon-css'
+
+import Slider from "react-slick";
+
+const FlagIcon = FlagIconFactory(React, { useCssModules: false })
 
 class RequestsLayout extends React.Component {
     render() {
@@ -141,11 +146,19 @@ export class CompletedRequests extends React.Component {
     };
 
     render() {
+        var settings = {
+            dots: false,
+            infinite: false,
+            speed: 500,
+            slidesToShow: 5,
+            slidesToScroll: 1
+        };
+
         if (this.state.items.length > 0) {
             let itemsNodes = this.state.items.map((obj, i) => {
-                if (i < 6) {
+                if (i < 10) {
                     return (
-                        <div className="colMd6 col" key={obj.id}>
+                        <div className="col colFrame" key={obj.id}>
                             <Link to={{
                                 pathname: `/requests/${obj.id}`,
                                 state: {modal: true, item: obj, image_host: this.state.imageHost}
@@ -155,18 +168,20 @@ export class CompletedRequests extends React.Component {
                                         <img
                                             src={this.state.imageHost + obj.image_path}
                                             alt="should be here"/>
+                                        <FlagIcon code="gb" size="2x" />
                                     </div>
                                     <div className="productInfo">
-                                        <h4>{obj.name}</h4>
-                                        <div className="mgBottom colorSec">{obj.price}</div>
+
+                                     {/*   <h4>{obj.name}</h4>
+                                        <div className="mgBottom colorSec">{obj.price}</div>*/}
                                     </div>
                                     <div className="completedBy">
                                         <div className="table full">
                                         <div className="avatar">
-                                            <img src="https://a0.muscache.com/im/pictures/90aef051-f5b7-471a-b4f2-fbb3f5e5fb89.jpg?aki_policy=profile_x_medium" />
+                                            <img src="http://images.kdramastars.com/data/images/full/166525/jin-se-yeon.jpg?w=320&h=&l=50&t=40" />
                                         </div>
                                         <div className="tableCell vaMiddle">
-                                        <span>Yuho</span> delivered Nindento Swtich to hub
+                                        <span>Yuho</span> delivered Nindento Swtich
                                         </div>
                                         </div>
                                     </div>
@@ -179,7 +194,9 @@ export class CompletedRequests extends React.Component {
 
             return (
                 <div>
+                    <Slider {...settings}>
                     {itemsNodes}
+                    </Slider>
                 </div>
             )
         } else if (this.state.error) {

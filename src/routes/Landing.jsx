@@ -1,28 +1,31 @@
 import React from "react";
-import logo from "../logo.svg";
+//import logo from "../logo.svg";
 import Select from "react-select";
 import {Link} from "react-router-dom";
 import {getRequests} from "../data/requests.js";
-import {loadRecommendations, loadTrips} from "../data/traveller.js";
+//import {loadRecommendations, loadTrips} from "../data/traveller.js";
 import {FormattedDate} from "react-intl";
 import ReactImageFallback from "react-image-fallback";
 import "./Landing.css";
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 import Dialog from "material-ui/Dialog";
-import How1 from "../../public/imgs/how1.png";
-import How2 from "../../public/imgs/how2.png";
-import How3 from "../../public/imgs/how3.png";
-import How4 from "../../public/imgs/how4.png";
-import banner from "../../public/imgs/banner7.jpg";
-import backpacker from "../../public/imgs/backpacker.jpg"
+//import How1 from "../../public/imgs/how1.png";
+//import How2 from "../../public/imgs/how2.png";
+//import How3 from "../../public/imgs/how3.png";
+//import How4 from "../../public/imgs/how4.png";
+//import banner from "../../public/imgs/banner7.jpg";
+import travellerBanner from "../../public/imgs/suitcase.jpg"
 import happywomen from "../../public/imgs/happywomen.jpg"
 import Autosuggest from "react-autosuggest";
 import AutosuggestHighlightMatch from "autosuggest-highlight/match";
 import AutosuggestHighlightParse from "autosuggest-highlight/parse";
 import {Products} from "./products/List";
 import {CompletedRequests} from "./requests/List"
-import history from "../helper/History";
+//import history from "../helper/History";
+import ReactTooltip from 'react-tooltip'
+
+
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -154,7 +157,7 @@ class SearchBar extends React.Component {
                     renderSuggestion={renderSuggestion}
                     inputProps={inputProps}/>
                 <RaisedButton className={`btnPost transition ${transition}`} primary={true} label="Post Request"
-                              containerElement={<Link to={{pathname: '/request', state: {name: this.state.value}}}/>}/>
+                              containerElement={<Link to={{pathname: '/post-request', state: {name: this.state.value}}}/>}/>
                 {toolTip}
             </div>
         );
@@ -250,7 +253,7 @@ class Landing extends React.Component {
                      </div>*/}
 
                     <div className="container pd40">
-                        <div className="table full">
+                        <div>
                             {/*<aside className="leftSide">
                              <h3>Recent Trips<span className="colorGrey small">See what they're going to buy</span>
                              </h3>
@@ -258,12 +261,12 @@ class Landing extends React.Component {
                              <Trips />
                              </ul>
                              </aside>*/}
-                            <div className="tableCell full vatop">
-                                <div className="floatWrap mgBottom30">
+                            <div>
+                                <div className="floatWrap mgBottom10">
                                     <h3 className="pullLeft">Recently Completed</h3>
                                     <div className="pullRight mgTop10"><span>View All</span></div>
                                 </div>
-                                <div className="content colWrap productList recentList">
+                                <div className="content colWrap recentList">
                                     <CompletedRequests />
                                     {/* <label>Name:</label><input type="text" value={this.state.name}
                                      onChange={this.inputChange}/><br />
@@ -288,9 +291,12 @@ class Landing extends React.Component {
                             <div className="tableCell vaMiddle">
                                 <h2>Request with Confidence</h2>
                                 <p>100% refund if your request is not fulﬁlled. No question asked.</p>
-                                <p className="mgTop20">
-                                <i className="iconfont icon-paypal"></i> Power by Paypal
-                                </p>
+                                <div className="mgTop20">
+                                    <i className="iconfont icon-paypal"></i> Power by <span data-tip data-for='paypaltt' className="paypal inlineBlock">Paypal</span>
+                                    <ReactTooltip id="paypaltt" place="right" type="info" effect="solid">
+                                        <span>PayPal is a worldwide online payments system that supports online money transfers and serves as an electronic alternative to traditional paper methods like checks and money orders.</span>
+                                    </ReactTooltip>
+                                </div>
                             </div>
                             <div className="pullRight sideBanner">
                                 <img src={happywomen} />
@@ -302,7 +308,7 @@ class Landing extends React.Component {
                 <div className="bgWhite">
                     <div className="container pd40">
                         <div className="contentWrap">
-                            <div className="floatWrap mgBottom30">
+                            <div className="floatWrap mgBottom10">
                                 <h3 className="pullLeft">Popular Items</h3>
                                 <div className="pullRight mgTop10"><span>View All</span></div>
                             </div>
@@ -316,8 +322,8 @@ class Landing extends React.Component {
                 <div className="relative sectionBanner pdWrap">
                     <div className="container">
                         <div className="travelBanner">
-                            <img className="bgBanner" src={backpacker}/>
-                            <div className="pullRight bannerAction">
+                            <img className="bgBanner" src={travellerBanner}/>
+                            <div className="pullLeft bannerAction">
                                 <h2>Traveling soon? Earn money while on your trip!</h2>
                                 <p>Just grab the requested items and send them to us at the airport.<br />It’s that simple.</p>
                                 <FlatButton label="Where are you going to?" className="btnSec btnBig bgSec"/>
