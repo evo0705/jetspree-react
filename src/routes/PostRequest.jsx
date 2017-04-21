@@ -390,7 +390,6 @@ class postRequest extends React.Component {
                                 errorStyle={styles.errorStyle}
                                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                                 required/>
-    
                             <FormsyText
                                 value=""
                                 name="tips"

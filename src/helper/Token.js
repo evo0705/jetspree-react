@@ -1,10 +1,10 @@
-import Utils from "./Utils";
+/*import Utils from "./Utils";
 
 class Token {
     static getToken(data) {
         var token;
         if (token !== "") {
-            var token = Utils.getCookie("token");
+            token = Utils.getCookie("token");
             return token;
         } else {
             return token;
@@ -13,4 +13,4 @@ class Token {
     }
 
 }
-export default Token;
+export default Token;*/

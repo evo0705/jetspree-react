@@ -40,15 +40,10 @@ export class Products extends React.Component {
         };
     }
 
-    componentDidMount() {
-        this.initData();
-    }
-
     initData() {
         let paramItems = {
             pagesize: 20
         };
-
         getRequests(paramItems).then((data) => {
             this.setState({items: data.result, imageHost: data.image_host});
         }).catch((error) => {
@@ -58,6 +53,10 @@ export class Products extends React.Component {
         });
     }
 
+    componentDidMount() {
+        this.initData();
+    }
+
     handleClose = () => {
         this.setState({error: false})
     };
@@ -65,31 +64,33 @@ export class Products extends React.Component {
     render() {
         if (this.state.items.length > 0) {
             let itemsNodes = this.state.items.map((obj, i) => {
-                return (
-                    <div className="colMd6 col" key={obj.id}>
-                        <Link to={{
-                            pathname: `/products/${obj.id}`,
-                            state: {modal: true, item: obj, image_host: this.state.imageHost}
-                        }}>
-                            <div className="bgWhite relative">
-                                <div className="imgWrap">
-                                    <img
-                                        src={this.state.imageHost + obj.image_path}
-                                        alt="should be here"/>
+                if (i < 6) {
+                    return (
+                        <div className="colMd6 col" key={obj.id}>
+                            <Link to={{
+                                pathname: `/products/${obj.id}`,
+                                state: {modal: true, item: obj, image_host: this.state.imageHost}
+                            }}>
+                                <div className="bgWhite relative">
+                                    <div className="imgWrap">
+                                        <img
+                                            src={this.state.imageHost + obj.image_path}
+                                            alt="should be here"/>
+                                    </div>
+                                    <div className="productInfo"><h4>{obj.name}</h4>
+                                        <div className="mgBottom colorSec">{obj.price}</div>
+                                        <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
+                                    </div>
                                 </div>
-                                <div className="productInfo"><h4>{obj.name}</h4>
-                                    <div className="mgBottom">{obj.price}</div>
-                                    <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                )
+                            </Link>
+                        </div>
+                    )
+                } return null
             });
 
             return (
                 <div>
-                {itemsNodes}
+                    {itemsNodes}
                 </div>
             )
         } else if (this.state.error) {
@@ -113,7 +114,7 @@ const styles = {
     },
     dialogBody: {
         minHeight: 400,
-        background: "#eee",
+        background: "#fff",
         paddingTop: 0,
         paddingLeft: 0,
         paddingRight: 0,
@@ -123,13 +124,11 @@ const styles = {
     },
     dialogTitle: {
         fontSize: 18,
-        padding: "10px 20px",
-        background: "#eee"
+        padding: "10px 20px"
     }
 };
 
 const Modal = ({match, history}) => {
-
     if (match.isExact) {
         var modalOpen = true
     }
@@ -150,12 +149,10 @@ const Modal = ({match, history}) => {
             {/*<button type='button' onClick={back}>Close</button>*/}
 
         </Dialog>
-
     )
 };
 
 class ProductsList extends React.Component {
-
     // We can pass a location to <Switch/> that will tell it to
     // ignore the router's current location and use the location
     // prop instead.
@@ -191,7 +188,7 @@ class ProductsList extends React.Component {
                 </Switch>
                 {isModal ?
                     <div className="modalView"><Route path='/products/:id' component={Modal}/>
-                    </div> : null}
+                    </div> : <Route exact path='/products/:Id' component={ProductView}/>}
             </div>
         )
     }
