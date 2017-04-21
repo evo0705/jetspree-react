@@ -23,6 +23,7 @@ import Login, {GetUserInfo, LoginNavbar} from "./routes/Login.jsx";
 import Trip from "./routes/PostTrip";
 import PostRequest from "./routes/PostRequest";
 import Profile from "./routes/user/Profile.jsx";
+import Traveller from "./routes/Traveller";
 
 import history from "./helper/History";
 import SnackBar from "./components/SnackBar";
@@ -79,6 +80,7 @@ class App extends Component {
                             <div className="overflowFixBeta">
                                 <div className="container">
                                     <img src={logo} className="App-logo" alt="logo"/>
+
                                     <FlatButton label="Home" containerElement={<Link to="/"/>}/>
                                     <FlatButton label="Countries" containerElement={<Link to="/countries"/>}/>
                                     <FlatButton label="Requests" containerElement={<Link to="/post-request"/>}/>
@@ -109,7 +111,8 @@ class App extends Component {
 
                         <SnackBar open={this.state.snackBar.open} message={this.state.snackBar.message}
                                   close={this.closeSnackBar}/>
-                        <Route path="/trip" component={Trip}/>
+                        <Route path="/trip" component={Trip} />
+                        <Route path="/traveller" component={Traveller} />
 
                         <Footer />
                     </div>

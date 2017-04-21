@@ -11,6 +11,8 @@ import SnackBar from "../components/SnackBar";
 import {DropdownMenu} from "react-bootstrap-dropdown-menu";
 //import MenuItem from 'material-ui/MenuItem';
 import Loading from '../components/ProgressBar'
+import ProgressButton from 'react-progress-button'
+import "../../node_modules/react-progress-button/react-progress-button.css"
 
 const styles = {
     textfield: {
@@ -32,7 +34,8 @@ class Login extends React.Component {
             message: '',
             snackBar: {open: false, message: ''},
             redirectToHome: false,
-            loading: false
+            loading: false,
+            buttonState: ''
         };
         this.submit = this.submit.bind(this);
         this.showSnackBar = this.showSnackBar.bind(this);
@@ -59,26 +62,21 @@ class Login extends React.Component {
     }
 
     submit(param) {
-        
-        this.setState({
-            loading: true
-        });
-        
+		this.setState({buttonState: 'loading'});
         let updateToken = this.props.updateToken;
         let showSnackBar = this.props.showSnackBar;
         postLogin(param).then((response) => {
+			//this.setState({buttonState: 'success'})
             if (response.data.success === false) {
                 // TODO:display errors to user
+				this.setState({buttonState: 'error'});
                 this.showSnackBar(response.data.message);
             } else if (response.data.token) {
-                this.setState({
-                    redirectToHome: true,
-	                loading: false
-                });
+				this.setState({buttonState: 'success',redirectToHome: true})
                 showSnackBar('You\'ve logged in successfully.');
                 updateToken(response.data.token);
             } else {
-                // unknown error
+				// this.setState({buttonState: 'error'});
             }
 
         }, (error) => {
@@ -92,11 +90,9 @@ class Login extends React.Component {
 
     render() {
         
-        if (this.state.loading === true) {
-            return (
-                <Loading />
-            )
-        }
+        // if (this.state.loading === true) {
+        //     return <Loading />
+        // }
         
 		if (this.state.redirectToHome) {
             return (
@@ -124,8 +120,20 @@ class Login extends React.Component {
                     </ul>
                     <div className="floatWrap">
                         <div className="pullRight">
-                            <FlatButton type="submit" label="Login" disabled={!this.state.canSubmit} className="bgPri"/>
+                            
+                            {/*<FlatButton type="submit" label="Login" disabled={!this.state.canSubmit} className="bgPri"/>*/}
                             {/*<FlatButton onTouchTap={this.handleTouchTap} label="Snackbar" />*/}
+                            
+                            {this.state.canSubmit ? (
+                                <ProgressButton state={this.state.buttonState}>
+                                    Submit
+                                </ProgressButton>
+                            ) : (
+                                <ProgressButton state='disabled'>
+                                    Submit
+                                </ProgressButton>
+                            )}
+                            
                         </div>
                         <div className="pullRight" style={{marginRight: '10px'}}>
                             <FlatButton type="button" label="Facebook" className="bgPri" onClick={this.loadfacebook}/>

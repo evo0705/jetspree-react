@@ -36,6 +36,39 @@ class DropDown extends React.Component {
 				</div>
 			)
 		}
+		else if(this.props.cities) {
+			var displayCities = this.props.cities.map((options, i) => {
+				return <MenuItem key={i} value={options.name} primaryText={options.name} />
+			});
+			
+			return (
+				<div>
+					<FormsySelect
+						name={this.props.name}
+						floatingLabelText={this.props.floatingLabelText}
+						onChange={this.props.onCityChange}
+					>
+						{displayCities}
+					</FormsySelect>
+				</div>
+			)
+		}
+		else if(this.props.state) {
+			var displayState = this.props.state.map((options, i) => {
+				return <MenuItem key={i} value={options.name} primaryText={options.name} />
+			});
+			
+			return (
+				<div>
+					<FormsySelect
+						name={this.props.name}
+						floatingLabelText={this.props.floatingLabelText}
+					>
+						{displayState}
+					</FormsySelect>
+				</div>
+			)
+		}
 		else {
 			return null
 		}
