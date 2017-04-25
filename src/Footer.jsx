@@ -8,7 +8,7 @@ const style = {
 }
 
 const Footer = () =>
-    <div className="footer bgWhite pd30">
+    <div className="footer pd30">
         <div className="container">
             <div className="colWrap">
                 <div className="col colMd3">
