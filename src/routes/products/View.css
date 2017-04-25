@@ -4,12 +4,10 @@
          -o-animation: fadein 1s; 
             animation: fadein 1s;}
 */
-.squareInfo { /*position: absolute; top: -51px; right: 6px;*/ font-size: 10px; text-align: center }
+.squareInfo { font-size: 10px; text-align: center }
 .squareInfo span { display: block; font-size: 14px; }
-.squareInfo .bgWhite {padding: 10px; border: 1px solid #d9d9d9; margin-bottom: 12px;cursor:pointer;}
-
+.squareInfo .bgWhite { border: 1px solid #d9d9d9; margin-bottom: 12px;cursor:pointer;}
 .squareInfo .bgWhite:hover{
-
     border: 1px solid #00bcd4;
     /*
 background: #00bcd4;
@@ -21,13 +19,14 @@ background: #00bcd4;
    border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;*/
 }
+.squareInfo .bgWhite a{padding: 10px;display: block;color: #000}
 .squareInfo .bgWhite:hover span{/*color: #fff*/}
 
 
 
 
 
-.squareInfo i{font-size: 16px;display: block}
+.squareInfo i{font-size: 16px;display: block;color: #000;}
 .standalone .itemBg { /*padding-left: 36%;*/ background: #fff; }
 .standalone .itemImgWrap {
     width: 33%;

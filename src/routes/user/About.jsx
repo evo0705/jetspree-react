@@ -30,10 +30,7 @@ class UserAbout extends React.Component {
 
     render() {
         return (
-            <div className="infoWrap">
-                <h1>{this.state.userName}</h1>
-                <p>Hey! Welcome to my space.</p>
-            </div>
+           <h1>{this.state.userName}</h1>
         )
     }
 }

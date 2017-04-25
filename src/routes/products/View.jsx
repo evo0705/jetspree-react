@@ -4,7 +4,6 @@ import {getRequest} from "../../data/requests.js";
 import ReactImageFallback from "react-image-fallback";
 import Placeholder from "../../../public/imgs/greyImg.gif";
 import RaisedButton from "material-ui/RaisedButton";
-import "../requests/View.css";
 import "./View.css";
 
 export class ProductDetails extends React.Component {
@@ -98,19 +97,19 @@ class ProductView extends React.Component {
                             <div className="itemLeft">
                                 <div className="squareInfo">
                                     <div className="bgWhite">
-                                        <span className="colorPri">from</span> USA
+                                        <a><span className="colorPri">from</span> USA</a>
                                     </div>
                                     <div className="bgWhite">
-                                        <span className="colorPri">11</span> Requested
+                                        <a><span className="colorPri">11</span> Requested</a>
                                     </div>
                                     <div className="bgWhite">
-                                        <span className="colorPri">2</span> Pushed
+                                        <a><span className="colorPri">2</span> Pushed</a>
                                     </div>
                                     <div className="bgWhite">
-                                        <i className="iconfont icon-facebook1"></i> Share
+                                        <a><i className="iconfont icon-facebook1"></i> Share</a>
                                     </div>
                                     <div className="bgWhite">
-                                        <i className="iconfont icon-twitter"></i> Share
+                                        <a><i className="iconfont icon-twitter"></i> Share</a>
                                     </div>
                                 </div>
                             </div>

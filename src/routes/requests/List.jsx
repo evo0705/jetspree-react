@@ -163,7 +163,7 @@ export class CompletedRequests extends React.Component {
                                 pathname: `/requests/${obj.id}`,
                                 state: {modal: true, item: obj, image_host: this.state.imageHost}
                             }}>
-                                <div className="bgWhite relative">
+                                <div className="relative">
                                     <div className="imgWrap">
                                         <img
                                             src={this.state.imageHost + obj.image_path}

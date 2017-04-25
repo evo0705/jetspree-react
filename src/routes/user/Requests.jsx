@@ -56,8 +56,10 @@ class UserRequests extends React.Component {
             return (
 
             <div id="userRequests">
-                <h3 className="userRequestTitle">{this.state.userName}'s requested</h3>
+                <h2 className="userRequestTitle">My Requests</h2>
+                <div className="productList">
                     {itemsNodes}
+                </div>
                 </div>
             )
         }

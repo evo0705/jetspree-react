@@ -229,7 +229,7 @@ class Landing extends React.Component {
                     </div>
                 </div>
 
-                <div className="bgWhite">
+                <div className="bgWhiteX">
                     {/*<div className="howItWork taCenter">
                      <div className="container">
                      <h2>How Jetspree Work?</h2>
@@ -305,7 +305,7 @@ class Landing extends React.Component {
                     </div>
                 </div>
 
-                <div className="bgWhite">
+                <div className="bgWhiteX">
                     <div className="container pd40">
                         <div className="contentWrap">
                             <div className="floatWrap mgBottom10">

@@ -14,9 +14,9 @@ class ProductsLayout extends React.Component {
                 <div className="overflowFixBeta">
                     <div className="container">
                         <div className="table">
-                            <div className="leftSide">
+                            {/*<div className="leftSide">
                                 Category here
-                            </div>
+                            </div>*/}
                             <div className="contentWrap tableCell full vatop">
                                 <div className="content colWrap productList">
                                     <Products />
@@ -66,7 +66,7 @@ export class Products extends React.Component {
             let itemsNodes = this.state.items.map((obj, i) => {
 
                     return (
-                        <div className="colMd6 col" key={obj.id}>
+                        <div className="colMd4 col" key={obj.id}>
                             <Link to={{
                                 pathname: `/products/${obj.id}`,
                                 state: {modal: true, item: obj, image_host: this.state.imageHost}

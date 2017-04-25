@@ -41,8 +41,8 @@ class UserTrips extends React.Component {
                 const travelDate = moment(obj.travel_date).format("DD MMM YYYY");
                 const returnDate = moment(obj.return_date).format("DD MMM YYYY");
                 return (
-                    <div className="table full" key={obj.id}>
-                        <div className="contentWrap tableCell full vatop">
+                    <div className="colMd6 col" key={obj.id}>
+                        <div className="contentWrap">
                             <div className="mgBottom10 border">
                                 <Link to={{pathname: `/trips/${obj.id}`, state: {modal: true}}}>
                                     <div className="bgWhite relative">
@@ -77,7 +77,6 @@ class UserTrips extends React.Component {
                                 </Link>
                             </div>
                         </div>
-
                     </div>
                 )
             });
@@ -213,21 +212,23 @@ class UserTrips extends React.Component {
             if (passTrip.length > 0) {
                 passTripRender =
                     <div>
-                        <h3>Past Trip(s)</h3>
+                        <h2>Past Trip(s)</h2>
+                        <div className="colWrap">
                         {passTrip}
+                        </div>
                     </div>;
             }
             if (onTrip.length > 0) {
                 onTripRender =
                     <div>
-                        <h3>Current Trip</h3>
+                        <h2>Current Trip</h2>
                         {onTrip}
                     </div>
             }
             if (activeTrip.length > 0) {
                 activeTripRender =
                     <div>
-                        <h3>On Going trip(s)</h3>
+                        <h2>On Going trip(s)</h2>
 
                         {activeTrip}
                     </div>

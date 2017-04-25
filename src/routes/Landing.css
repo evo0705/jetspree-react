@@ -8,7 +8,7 @@
 }
 .bannerimg { /*position: absolute;*/ z-index: -1; width: 100%; height: 100%;    max-height: 600px; overflow: hidden;}
 .bannerimg img{ /*position: absolute; bottom: 0px; */width: 100%;    display: block;}
-.banner h1 { margin: 0 auto; /*max-width: 446px; font-weight: normal; margin-bottom: 40px;*/ letter-spacing: 0; line-height: 140%; }
+.banner h1 { margin: 0 auto; /*max-width: 446px; font-weight: normal; margin-bottom: 40px;*/ letter-spacing: 0; line-height: 140%; font-size: 2.4em}
 .phoneShadow { width: 149px; height: 304px; position: absolute; top: 22px; z-index: 1; left: 100px; border-radius: 21px; box-shadow: 8px 13px 38px rgba(0, 0, 0, 0.23); }
 .banner-text {  text-align: center;  /*letter-spacing: 1px;   max-width: 790px;*/}
 .banner-text p { margin-bottom: 40px; color: #fff; line-height: 160%;/*text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);*/}
@@ -36,7 +36,7 @@
 
 .sectionBanner{overflow: hidden;}
 
-.LandingPage h3, .sectionBanner h2{font-size: 1.6em;margin-top: 0;    font-weight: 600; color: #222222;}
+.LandingPage h3, .sectionBanner h2{font-size: 1.6em;margin-top: 0; color: #222222;}
 .LandingPage h3{margin-bottom: 5px;}
 .bannerAction{ width: 500px;}
 .bannerAction p{margin-bottom: 20px;}
