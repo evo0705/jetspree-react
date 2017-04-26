@@ -14,9 +14,9 @@ class ProductsLayout extends React.Component {
                 <div className="overflowFixBeta">
                     <div className="container">
                         <div className="table">
-                            <div className="leftSide">
+                            {/*<div className="leftSide">
                                 Category here
-                            </div>
+                            </div>*/}
                             <div className="contentWrap tableCell full vatop">
                                 <div className="content colWrap productList">
                                     <Products />
@@ -64,9 +64,9 @@ export class Products extends React.Component {
     render() {
         if (this.state.items.length > 0) {
             let itemsNodes = this.state.items.map((obj, i) => {
-                if (i < 6) {
+
                     return (
-                        <div className="colMd6 col" key={obj.id}>
+                        <div className="colMd4 col" key={obj.id}>
                             <Link to={{
                                 pathname: `/products/${obj.id}`,
                                 state: {modal: true, item: obj, image_host: this.state.imageHost}
@@ -81,11 +81,29 @@ export class Products extends React.Component {
                                         <div className="mgBottom colorSec">{obj.price}</div>
                                         <RaisedButton label="Buy" primary={true} className="pullRight abBottomRight"/>
                                     </div>
+                                    <div className="requestBy">
+
+                                            <div className="inlineBlock">
+                                            <div className="avatar inlineBlock vaMiddle">
+                                                <img src="http://images.kdramastars.com/data/images/full/166525/jin-se-yeon.jpg?w=320&h=&l=50&t=40" />
+                                            </div>
+                                            <div className="avatar inlineBlock vaMiddle">
+                                                <img src="https://68.media.tumblr.com/a7e3ca3a883c7cea6dc549438008167f/tumblr_ole0a73C7x1w4ty6ho4_400.png" />
+                                            </div>
+                                            <div className="avatar inlineBlock vaMiddle">
+                                                <img src="http://www.sritown.com/korean/star/oh-yeon-seo/oh-yeon-seo-05.jpg" />
+                                            </div>
+                                            </div>
+                                            <div className="inlineBlock vaMiddle">
+                                                5 Requested
+                                            </div>
+
+                                    </div>
                                 </div>
                             </Link>
                         </div>
                     )
-                } return null
+
             });
 
             return (
